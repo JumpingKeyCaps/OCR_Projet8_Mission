@@ -51,14 +51,23 @@ dependencies {
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
-
-    //kotlinx-coroutine
-    implementation(libs.kotlinx.coroutines.core)
-
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.fragment)
     kapt(libs.hilt.android.compiler)
+
+    //kotlinx-coroutine
+    implementation(libs.kotlinx.coroutines.core)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
+
+
+
+
 
     //test
     testImplementation(libs.junit)
