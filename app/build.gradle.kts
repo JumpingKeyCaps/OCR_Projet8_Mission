@@ -71,8 +71,12 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 
-    //Retrofit
-
+    //Retrofit + OkHttp + Gson
+    implementation (libs.retrofit)
+    implementation (libs.okhttp)
+    implementation (libs.moshi)
+    implementation (libs.moshi.kotlin)
+    implementation (libs.converter.moshi)
 
 
 
