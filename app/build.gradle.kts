@@ -52,7 +52,8 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
 
-    //Coroutine
+    //kotlinx-coroutine
+    implementation(libs.kotlinx.coroutines.core)
 
     //Hilt
     implementation(libs.hilt.android)
