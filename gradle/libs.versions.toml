@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.1"
+fragmentKtx = "1.7.1"
 hiltAndroid = "2.49"
 hiltNavigationFragment = "1.2.0"
 kotlin = "2.0.0"
@@ -14,7 +15,9 @@ constraintlayout = "2.1.4"
 hilt = "2.48"
 
 [libraries]
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationFragment" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
