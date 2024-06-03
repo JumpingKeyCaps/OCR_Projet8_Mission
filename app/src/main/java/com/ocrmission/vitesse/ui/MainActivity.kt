@@ -10,11 +10,17 @@ import com.ocrmission.vitesse.databinding.ActivityMainBinding
 import com.ocrmission.vitesse.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main activity of the application.
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    /**
+     * Activity life cycle - Called when the activity is first created.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
