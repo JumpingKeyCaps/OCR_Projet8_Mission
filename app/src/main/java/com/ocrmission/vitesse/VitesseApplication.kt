@@ -4,7 +4,7 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 /**
- * Application Class to use with Hilt
+ * Application Class - used to triggers Dagger component generation like Hilt.
  */
 @HiltAndroidApp
 class VitesseApplication: Application() {
