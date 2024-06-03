@@ -44,25 +44,30 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
+
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //Material design
+    implementation(libs.material)
+
+    //Ktx
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
 
-    //lifecycle
+    //Viewpager 2
+    implementation (libs.androidx.viewpager2)
+
+    //Lifecycle
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.lifecycle.runtime.ktx)
-
 
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.fragment)
     kapt(libs.hilt.android.compiler)
-
 
     //kotlinx-coroutine
     implementation(libs.kotlinx.coroutines.core)
@@ -79,9 +84,7 @@ dependencies {
     implementation (libs.moshi.kotlin)
     implementation (libs.converter.moshi)
 
-
-
-    //test
+    //tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
