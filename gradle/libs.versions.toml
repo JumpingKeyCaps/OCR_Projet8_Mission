@@ -19,7 +19,7 @@ hilt = "2.48"
 moshi = "1.15.0"
 okhttp = "4.9.3"
 retrofit = "2.9.0"
-roomRuntime = " 2.6.1"
+roomRuntime = "2.6.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
