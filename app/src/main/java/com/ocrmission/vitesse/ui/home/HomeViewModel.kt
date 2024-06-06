@@ -9,12 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * The home view model.
  */
 @HiltViewModel
-class HomeViewModel(): ViewModel() {
+class HomeViewModel @Inject constructor() : ViewModel() {
 
     private val _candidates = MutableStateFlow<List<Candidate>>(emptyList())
     val candidates: StateFlow<List<Candidate>> = _candidates.asStateFlow()
