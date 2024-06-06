@@ -11,5 +11,5 @@ import com.ocrmission.vitesse.data.room.entity.CandidateDto
 
 @Database(entities = [CandidateDto::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun candidateDao(): CandidateDtoDao
+    abstract fun candidateDtoDao(): CandidateDtoDao
 }
