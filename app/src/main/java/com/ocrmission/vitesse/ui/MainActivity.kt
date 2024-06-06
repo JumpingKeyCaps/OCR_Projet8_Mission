@@ -23,16 +23,20 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         //get the view
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //load fragment home
+        //load fragment home by default
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, HomeFragment()).commit()
 
-        // Set up the system bars
+
+
+        //enable edge to edge (navigation feature)
+        enableEdgeToEdge()
+        // Set up the system bars for the edge to edge feature
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
