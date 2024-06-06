@@ -14,7 +14,8 @@ data class Candidate(
     var birthday: LocalDateTime,
     var salary: Long,
     var note: String,
-    var photoUrl: String
+    var photoUri: String,
+    var isFavorite: Boolean
 
 ) {
 
