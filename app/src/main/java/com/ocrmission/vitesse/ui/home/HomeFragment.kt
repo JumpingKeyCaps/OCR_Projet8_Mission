@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,8 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    //TODO: Declare the view model here
-    //private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     /**
      * Fragment LifeCycle - called when the fragment is create.
@@ -41,9 +41,8 @@ class HomeFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
-
-        }
+        setupObservers()
+        viewModel.fetchCandidates()
     }
 
     /**
@@ -56,6 +55,20 @@ class HomeFragment : Fragment() {
         setupTabLayout()
 
     }
+
+
+    /**
+     * Setup the observers.
+     */
+    private fun setupObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.candidates.collect { candidates ->
+               // Adapter.updateData(candidates)
+            }
+        }
+    }
+
+
 
 
     /**
