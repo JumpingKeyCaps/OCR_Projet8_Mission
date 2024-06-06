@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import com.ocrmission.vitesse.R
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Fragment to display the list of favorites candidates.
+ */
 @AndroidEntryPoint
 class FavoritesListFragment : Fragment() {
 
