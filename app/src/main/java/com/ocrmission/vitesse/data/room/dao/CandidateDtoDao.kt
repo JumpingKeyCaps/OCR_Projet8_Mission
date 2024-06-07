@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
 import kotlinx.coroutines.flow.Flow
 
@@ -37,6 +38,15 @@ interface CandidateDtoDao {
      */
     @Query("SELECT * FROM candidates")
     fun getAllCandidates(): Flow<List<CandidateDto>>
+
+
+    /**
+     * Method to UPDATE a Candidate.
+     * @param candidate the candidate dto with updated information.
+     * @return the number of rows affected (should be 1 for a successful update)
+     */
+    @Update
+    suspend fun updateCandidate(candidate: CandidateDto): Int
 
 
 }
