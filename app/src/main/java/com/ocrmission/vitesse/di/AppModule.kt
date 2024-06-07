@@ -2,6 +2,7 @@ package com.ocrmission.vitesse.di
 
 import android.content.Context
 import androidx.room.Room
+import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.room.AppDatabase
 import com.ocrmission.vitesse.data.room.dao.CandidateDtoDao
 import dagger.Module
@@ -33,9 +34,15 @@ class AppModule {
     }
 
     @Provides
-    fun provideCandidatDao(appDatabase: AppDatabase): CandidateDtoDao {
+    fun provideCandidateDao(appDatabase: AppDatabase): CandidateDtoDao {
         return appDatabase.candidateDtoDao()
     }
 
+
+    @Provides
+    @Singleton
+    fun provideCandidateRepository(candidateDtoDao: CandidateDtoDao): CandidateRepository{
+        return CandidateRepository(candidateDtoDao)
+    }
 
 }
