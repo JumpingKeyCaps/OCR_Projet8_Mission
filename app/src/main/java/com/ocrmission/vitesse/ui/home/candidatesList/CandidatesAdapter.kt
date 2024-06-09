@@ -35,19 +35,19 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
             val candidate = candidates[position]
             holder.tvFirstName.text = candidate.firstname
             holder.tvLastName.text = candidate.lastname
-            holder.tvNote.text = candidate.note
-        // Get the picture with Glide
-        val photoUri = candidate.photoUri
-        if (photoUri.isNotEmpty()) {
-            Glide.with(holder.itemView.context)
-                .load(photoUri)
-                .transform(CircleCrop())
-                .error(R.drawable.default_avatar) // Set a default avatar if loading fails
-                .into(holder.ivAvatar) // Load the image into the ImageView
-        } else {
-            // Handle the case where there is no photo URI
-            holder.ivAvatar.setImageResource(R.drawable.default_avatar) // Set a default avatar
-        }
+
+
+            if(candidate.note.length>80){
+                val truncatedNote = candidate.note.substring(0, 80) + "..."
+                holder.tvNote.text = truncatedNote
+            }else{
+                holder.tvNote.text = candidate.note
+            }
+
+
+
+            //todo load via glide the picture of user
+            //   via candidate.photoUrl
     }
 
     /**
@@ -84,6 +84,16 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
             tvLastName = itemView.findViewById(R.id.candidate_last_names)
             tvNote = itemView.findViewById(R.id.candidate_note)
             ivAvatar = itemView.findViewById(R.id.candidate_photo)
+
+            // Set click listener on the entire item view
+            itemView.setOnClickListener {
+                // Handle click event here
+                val candidate = candidates[bindingAdapterPosition]
+
+                //todo  remove later by the call to details fragment
+                Toast.makeText(itemView.context, "Candidate clicked: ${candidate.firstname} ${candidate.lastname}", Toast.LENGTH_SHORT).show()
+
+            }
 
 
         }
