@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.domain.Candidate
 
@@ -38,17 +40,18 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
             holder.tvLastName.text = candidate.lastname
 
 
-            if(candidate.note.length>80){
-                val truncatedNote = candidate.note.substring(0, 80) + "..."
-                holder.tvNote.text = truncatedNote
-            }else{
-                holder.tvNote.text = candidate.note
-            }
-
-
-
-            //todo load via glide the picture of user
-            //   via candidate.photoUrl
+        // Get the picture with Glide
+        val photoUri = candidate.photoUri
+        if (photoUri.isNotEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(photoUri)
+                .transform(CircleCrop())
+                .error(R.drawable.default_avatar) // Set a default avatar if loading fails
+                .into(holder.ivAvatar) // Load the image into the ImageView
+        } else {
+            // Handle the case where there is no photo URI
+            holder.ivAvatar.setImageResource(R.drawable.default_avatar) // Set a default avatar
+        }
     }
 
     /**
