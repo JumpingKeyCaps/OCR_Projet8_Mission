@@ -6,8 +6,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.home.candidatesList.CandidatesListFragment">
 
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/candidates_loading_progressIndicator"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/candidates_emptyList_textview"
+        android:visibility="gone"
+        style="@style/TextAppearance.Material3.TitleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aucun Candidat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/candidates_recyclerview"
+        android:visibility="visible"
+        android:alpha="0.0"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
