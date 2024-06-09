@@ -20,6 +20,9 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
     RecyclerView.Adapter<CandidatesAdapter.CandidateViewHolder>() {
     /**
      * Create a new view holder for the candidate item
+     * @param parent The parent view group
+     * @param viewType The view type
+     * @return A new view holder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CandidateViewHolder{
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_candidate, parent, false)
@@ -28,14 +31,14 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
 
     /**
      * Bind the candidate data to the view holder
+     * @param holder The view holder
+     * @param position The position of the candidate in the list
      */
     override fun onBindViewHolder(holder: CandidateViewHolder, position: Int) {
             val candidate = candidates[position]
             holder.tvFirstName.text = candidate.firstname
             holder.tvLastName.text = candidate.lastname
             holder.tvNote.text = candidate.note
-
-
         // Get the picture with Glide
         val photoUri = candidate.photoUri
         if (photoUri.isNotEmpty()) {
@@ -58,6 +61,7 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
 
     /**
      * Update the list of candidates and notify the adapter
+     * @param newCandidates The new list of candidates
      */
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCandidates: List<Candidate>) {
@@ -68,6 +72,8 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
 
     /**
      * ViewHolder class for the candidate item
+     * @param itemView The view of the candidate item
+     * @return A new view holder
      */
     //ViewHolder
     inner class CandidateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
