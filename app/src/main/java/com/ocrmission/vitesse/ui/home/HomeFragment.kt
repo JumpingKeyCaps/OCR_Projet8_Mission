@@ -1,6 +1,9 @@
 package com.ocrmission.vitesse.ui.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,8 +44,7 @@ class HomeFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
-        viewModel.fetchCandidates()
+
     }
 
     /**
@@ -53,22 +55,10 @@ class HomeFragment : Fragment() {
         setupViewPager()
         //init TabLayout
         setupTabLayout()
+        //init SearchBar
+        setupSearchBar()
 
     }
-
-
-    /**
-     * Setup the observers.
-     */
-    private fun setupObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.candidates.collect { candidates ->
-               // Adapter.updateData(candidates)
-            }
-        }
-    }
-
-
 
 
     /**
@@ -109,6 +99,31 @@ class HomeFragment : Fragment() {
     }
 
 
+    /**
+     * initialize the searchbar
+     *
+     */
+    private fun setupSearchBar(){
+        binding.searchInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Code à exécuter pendant que le texte est modifié
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Code à exécuter après que le texte a été modifié
+                val searchQuery = s.toString()
+                Log.d("HomeFragment", "Search query: $searchQuery")
+                // Utilisez searchQuery pour effectuer une recherche, mettre à jour l'interface utilisateur, etc.
+                viewModel.updateFilter(searchQuery)
+            }
+        })
+
+
+    }
 
 }
