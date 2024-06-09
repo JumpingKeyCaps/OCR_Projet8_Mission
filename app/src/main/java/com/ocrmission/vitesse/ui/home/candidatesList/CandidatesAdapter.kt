@@ -38,7 +38,7 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
             val candidate = candidates[position]
             holder.tvFirstName.text = candidate.firstname
             holder.tvLastName.text = candidate.lastname
-
+            holder.tvNote.text = candidate.note
 
         // Get the picture with Glide
         val photoUri = candidate.photoUri
