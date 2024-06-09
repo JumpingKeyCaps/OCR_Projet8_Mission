@@ -2,29 +2,26 @@ package com.ocrmission.vitesse.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.home.filter.FilterForCandidatesFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 /**
  * The home view model.
  */
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val sharedFilterCandidates: FilterForCandidatesFlow
+) : ViewModel() {
 
-    private val _candidates = MutableStateFlow<List<Candidate>>(emptyList())
-    val candidates: StateFlow<List<Candidate>> = _candidates.asStateFlow()
-
-    fun fetchCandidates() {
+    /**
+     * Method to update the list filter.
+     */
+    fun updateFilter(filter: String) {
         viewModelScope.launch(Dispatchers.IO) {
-
+            sharedFilterCandidates.updateFilter(filter)
         }
     }
-
 
 }
