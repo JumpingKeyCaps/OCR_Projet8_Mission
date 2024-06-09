@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.domain.Candidate
@@ -90,7 +91,7 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
                 // Handle click event here
                 val candidate = candidates[bindingAdapterPosition]
 
-                //todo  remove later by the call to details fragment
+                //todo  remove later by the call to details fragment (HERE JUSTE TO VISUAL DEBUG)
                 Toast.makeText(itemView.context, "Candidate clicked: ${candidate.firstname} ${candidate.lastname}", Toast.LENGTH_SHORT).show()
 
             }
