@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrmission.vitesse.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ocrmission.vitesse.databinding.FragmentFavoritesListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * Fragment to display the list of favorites candidates.
@@ -14,21 +18,94 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoritesListFragment : Fragment() {
 
+    private var _binding: FragmentFavoritesListBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: FavoritesListViewModel by viewModels()
+    private val favoritesAdapter = FavoritesAdapter(emptyList())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
+    private var isFirstCollect: Boolean = true
 
-        }
-    }
 
+    /**
+     * Called when the fragment is first created.
+     * @param inflater The layout inflater
+     * @param container The view group container
+     * @param savedInstanceState The saved instance state bundle.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites_list, container, false)
+        _binding = FragmentFavoritesListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    /**
+     * Called after the view is created.
+     * @param view The view
+     * @param savedInstanceState The saved instance state bundle
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //set layout manager to the recyclerview
+        binding.favoritesRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        //set the adapter to the recyclerview
+        binding.favoritesRecyclerview.adapter = favoritesAdapter
+        // setup the observer
+        setupObservers()
+
+    }
+
+    /**
+     * Setup the observer
+     */
+    private fun setupObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.favCandidates.collect { favorites ->
+                favoritesAdapter.updateData(favorites)
+                //check if the list is empty, and update the UI accordingly
+                emptyFavoriteListState(favorites.isEmpty())
+                //flag to keep the loading progress on the 1st collect call, because Synch/Async, 1st call is alway an empty list (finish before the db build)).
+                isFirstCollect = false
+            }
+        }
+    }
+
+    /**
+     * Method to hide the loading progress indicator.
+     */
+    fun hideLoadingProgressIndicator(){
+        if(binding.favoritesLoadingProgressIndicator.visibility == View.VISIBLE){
+            binding.favoritesLoadingProgressIndicator.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Method to update the UI state on empty favorites list.
+     * @param isEmpty True if the list is empty, false otherwise
+     */
+    private fun emptyFavoriteListState(isEmpty: Boolean){
+        if(isEmpty){
+            if(!isFirstCollect){
+                hideLoadingProgressIndicator()
+                //hide recyclerview and show empty message
+                binding.favoritesEmptyListTextview.visibility = View.VISIBLE
+                binding.favoritesRecyclerview.alpha = 0f
+            }
+
+        }else{
+            //hide the loading progress indicator if visible
+            hideLoadingProgressIndicator()
+            //hide message and show recyclerview
+            binding.favoritesEmptyListTextview.visibility = View.GONE
+            binding.favoritesRecyclerview.animate().alpha(1f).duration = 200
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
