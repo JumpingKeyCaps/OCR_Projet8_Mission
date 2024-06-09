@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.domain.Candidate
@@ -75,6 +76,18 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
             tvLastName = itemView.findViewById(R.id.candidate_last_names)
             tvNote = itemView.findViewById(R.id.candidate_note)
             ivAvatar = itemView.findViewById(R.id.candidate_photo)
+
+            // Set click listener on the entire item view
+            itemView.setOnClickListener {
+                // Handle click event here
+                val candidate = candidates[bindingAdapterPosition]
+
+                //todo  remove later
+                Toast.makeText(itemView.context, "Candidate clicked: ${candidate.firstname} ${candidate.lastname}", Toast.LENGTH_SHORT).show()
+
+            }
+
+
         }
     }
 
