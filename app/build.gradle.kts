@@ -84,6 +84,12 @@ dependencies {
     implementation (libs.moshi.kotlin)
     implementation (libs.converter.moshi)
 
+    //Glide
+    implementation (libs.glide)
+    kapt ("com.github.bumptech.glide:compiler:4.15.1")
+
+
+
     //tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
