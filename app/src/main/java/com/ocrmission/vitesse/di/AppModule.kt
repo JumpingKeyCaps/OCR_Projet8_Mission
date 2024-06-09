@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.room.AppDatabase
+import com.ocrmission.vitesse.data.room.DatabasePrepopulateCallback
 import com.ocrmission.vitesse.data.room.dao.CandidateDtoDao
+import com.ocrmission.vitesse.ui.home.filter.FilterForCandidatesFlow
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,8 +32,15 @@ class AppModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context, coroutineScope: CoroutineScope): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "VitesseDB").build()
+        val callback = provideDatabasePrepopulateCallback(coroutineScope)
+        return Room.databaseBuilder(context, AppDatabase::class.java, "VitesseDB").addCallback(callback).build()
     }
+
+    @Provides
+    fun provideDatabasePrepopulateCallback(coroutineScope: CoroutineScope): DatabasePrepopulateCallback {
+        return DatabasePrepopulateCallback(coroutineScope)
+    }
+
 
     @Provides
     fun provideCandidateDao(appDatabase: AppDatabase): CandidateDtoDao {
@@ -43,6 +52,11 @@ class AppModule {
     @Singleton
     fun provideCandidateRepository(candidateDtoDao: CandidateDtoDao): CandidateRepository{
         return CandidateRepository(candidateDtoDao)
+    }
+
+    @Provides
+    fun provideFilterCandidateFlow(): FilterForCandidatesFlow {
+        return FilterForCandidatesFlow
     }
 
 }
