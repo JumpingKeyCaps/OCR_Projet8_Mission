@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentFavoritesListBinding
+import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -16,12 +18,12 @@ import kotlinx.coroutines.launch
  * Fragment to display the list of favorites candidates.
  */
 @AndroidEntryPoint
-class FavoritesListFragment : Fragment() {
+class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
 
     private var _binding: FragmentFavoritesListBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FavoritesListViewModel by viewModels()
-    private val favoritesAdapter = FavoritesAdapter(emptyList())
+    private val favoritesAdapter = FavoritesAdapter(emptyList(),this)
 
     private var isFirstCollect: Boolean = true
 
@@ -103,9 +105,28 @@ class FavoritesListFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Method to handle candidate click events and navigate to candidate Profile
+     */
+    override fun onFavoriteClicked(favorite: Candidate) {
+        // Navigate to details fragment using NavigationUtils object
+        parentFragment?.let { NavigationUtils.navigateToDetailsCandidateFragment(it, favorite) }
+
+    }
+
+    /**
+     * Called before fragment is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+}
+/**
+ * Interface for handling favorite items click events.
+ */
+interface OnItemFavoriteClickListener {
+    fun onFavoriteClicked(favorite: Candidate)
 }

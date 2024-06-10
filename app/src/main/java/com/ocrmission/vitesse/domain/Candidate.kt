@@ -1,6 +1,7 @@
 package com.ocrmission.vitesse.domain
 
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
+import java.io.Serializable
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -20,7 +21,7 @@ data class Candidate(
     var photoUri: String,
     var isFavorite: Boolean
 
-) {
+) : Serializable {
     /**
      *  function to convert Candidate object to CandidateDto object
      *  @return CandidateDto object

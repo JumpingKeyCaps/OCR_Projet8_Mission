@@ -16,7 +16,7 @@ import com.ocrmission.vitesse.domain.Candidate
 /**
  * Adapter for the favorites list
  */
-class FavoritesAdapter(private var favorites: List<Candidate>):
+class FavoritesAdapter(private var favorites: List<Candidate>,private val onItemClickListener: OnItemFavoriteClickListener):
     RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
     /**
      * Create a new view holder for the favorites item
@@ -94,8 +94,10 @@ class FavoritesAdapter(private var favorites: List<Candidate>):
                 // Handle click event here
                 val candidate = favorites[bindingAdapterPosition]
 
-                //todo  remove later by the call to details fragment (HERE JUSTE TO VISUAL DEBUG)
-                Toast.makeText(itemView.context, "favorite clicked: ${candidate.firstname} ${candidate.lastname}", Toast.LENGTH_SHORT).show()
+                //nav to details fragment with this candidate
+                onItemClickListener.onFavoriteClicked(candidate)
+
+
 
             }
 
