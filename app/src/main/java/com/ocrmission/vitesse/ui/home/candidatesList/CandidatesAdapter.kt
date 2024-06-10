@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -16,7 +15,7 @@ import com.ocrmission.vitesse.domain.Candidate
 /**
  * Adapter for the candidate list
  */
-class CandidatesAdapter(private var candidates: List<Candidate>):
+class CandidatesAdapter(private var candidates: List<Candidate>,private val onItemClickListener: OnItemCandidateClickListener):
     RecyclerView.Adapter<CandidatesAdapter.CandidateViewHolder>() {
     /**
      * Create a new view holder for the candidate item
@@ -94,8 +93,12 @@ class CandidatesAdapter(private var candidates: List<Candidate>):
                 // Handle click event here
                 val candidate = candidates[bindingAdapterPosition]
 
-                //todo  remove later by the call to details fragment (HERE JUSTE TO VISUAL DEBUG)
-                Toast.makeText(itemView.context, "Candidate clicked: ${candidate.firstname} ${candidate.lastname}", Toast.LENGTH_SHORT).show()
+
+                //nav to details fragment with this candidate
+                onItemClickListener.onCandidateClicked(candidate)
+
+
+
 
             }
 
