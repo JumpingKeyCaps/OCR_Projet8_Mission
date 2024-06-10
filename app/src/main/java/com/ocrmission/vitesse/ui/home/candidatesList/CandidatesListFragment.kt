@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentCandidatListBinding
+import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -16,12 +18,12 @@ import kotlinx.coroutines.launch
  * The fragment for the list of candidates.
  */
 @AndroidEntryPoint
-class CandidatesListFragment : Fragment() {
+class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
     private var _binding: FragmentCandidatListBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CandidatesListViewModel by viewModels()
-    private val candidatesAdapter = CandidatesAdapter(emptyList())
+    private val candidatesAdapter = CandidatesAdapter(emptyList(),this)
 
     private var isFirstCollect: Boolean = true
 
@@ -84,7 +86,7 @@ class CandidatesListFragment : Fragment() {
     /**
      * Method to hide the loading progress indicator.
      */
-    fun hideLoadingProgressIndicator(){
+    private fun hideLoadingProgressIndicator(){
         if(binding.candidatesLoadingProgressIndicator.visibility == View.VISIBLE){
             binding.candidatesLoadingProgressIndicator.visibility = View.GONE
         }
@@ -122,4 +124,19 @@ class CandidatesListFragment : Fragment() {
 
 
 
+    /**
+     * Method to handle candidate click events and navigate to candidate Profile
+     */
+    override fun onCandidateClicked(candidate: Candidate) {
+        // Navigate to details fragment using NavigationUtils object
+        parentFragment?.let { NavigationUtils.navigateToDetailsCandidateFragment(it, candidate) }
+    }
+
+}
+
+/**
+ * Interface for handling candidate items click events.
+ */
+interface OnItemCandidateClickListener {
+    fun onCandidateClicked(candidate: Candidate)
 }
