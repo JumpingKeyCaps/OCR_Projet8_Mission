@@ -6,13 +6,287 @@
     android:layout_height="match_parent"
     tools:context=".ui.addCandidate.AddCandidateFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD CANDIDATE FRAGMENT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:visibility="visible"
+            android:id="@+id/toolbar"
+            android:elevation="2dp"
+            style="@style/Widget.Material3.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:title="Ajouter un candidat"
+            app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.1"
+            android:background="#000000"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:visibility="visible"
+        android:id="@+id/AddCandidate_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Photos -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/PictureCardview"
+                android:layout_width="match_parent"
+                android:layout_height="195dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    android:contentDescription="TODO"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/default_picture_banniere"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!-- first name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstname_edit_text_layout"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"
+                android:hint="Prenom"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/PictureCardview"
+                app:layout_constraintStart_toStartOf="@+id/PictureCardview"
+                app:layout_constraintTop_toBottomOf="@+id/PictureCardview"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPersonName"
+                    android:id="@+id/firstname_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- last name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastname_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:hint="Nom"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/firstname_edit_text_layout"
+                app:layout_constraintStart_toStartOf="@+id/firstname_edit_text_layout"
+                app:layout_constraintTop_toBottomOf="@+id/firstname_edit_text_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastname_edittext"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- icon name section -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/people"
+                app:layout_constraintEnd_toStartOf="@+id/firstname_edit_text_layout"
+                app:layout_constraintTop_toTopOf="@+id/firstname_edit_text_layout"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+
+            <!-- phone -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:hint="Telephone"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/lastname_edit_text_layout"
+                app:layout_constraintStart_toStartOf="@+id/lastname_edit_text_layout"
+                app:layout_constraintTop_toBottomOf="@+id/lastname_edit_text_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_edittext"
+                    android:inputType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- icon phone section -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/phone"
+                app:layout_constraintEnd_toStartOf="@+id/phone_edit_text_layout"
+                app:layout_constraintTop_toTopOf="@+id/phone_edit_text_layout"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+
+            <!-- mail -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mail_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:hint="Email"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/phone_edit_text_layout"
+                app:layout_constraintStart_toStartOf="@+id/phone_edit_text_layout"
+                app:layout_constraintTop_toBottomOf="@+id/phone_edit_text_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mail_edittext"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- icon mail section -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/mail"
+                app:layout_constraintEnd_toStartOf="@+id/mail_edit_text_layout"
+                app:layout_constraintTop_toTopOf="@+id/mail_edit_text_layout"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+            <!-- salary-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/salary_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:hint="Pretentions salariales"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/mail_edit_text_layout"
+                app:layout_constraintStart_toStartOf="@+id/mail_edit_text_layout"
+                app:layout_constraintTop_toBottomOf="@+id/mail_edit_text_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/salary_edittext"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- icon salary section -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/attach_money_"
+                app:layout_constraintEnd_toStartOf="@+id/salary_edit_text_layout"
+                app:layout_constraintTop_toTopOf="@+id/salary_edit_text_layout"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+            <!--Note -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/note_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="175dp"
+                android:layout_marginTop="32dp"
+                android:hint="Note"
+                app:layout_constraintEnd_toEndOf="@+id/salary_edit_text_layout"
+                app:layout_constraintStart_toStartOf="@+id/salary_edit_text_layout"
+                app:layout_constraintTop_toBottomOf="@+id/salary_edit_text_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/note_edittext"
+                    android:inputType="textMultiLine"
+                    android:gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- icon note section -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/edit"
+                app:layout_constraintEnd_toStartOf="@+id/note_edit_text_layout"
+                app:layout_constraintTop_toTopOf="@+id/note_edit_text_layout"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+            <!-- save button  -->
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="25dp"
+                android:text="Sauvegarder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/note_edit_text_layout" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
