@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,7 +27,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+
+    //todo OLD WAY --------------------
+    //todo: ------------------------------------------
     private val viewModel: HomeViewModel by viewModels()
+
+    //todo SHARED VIEWMODEL --------------------
+    //todo: ------------------------------------------
+       private val sharedViewModel: SharedHomeViewModel by activityViewModels()
+
+    //todo: ------------------------------------------
+
+
 
     /**
      * Fragment LifeCycle - called when the fragment is create.
@@ -62,7 +74,6 @@ class HomeFragment : Fragment() {
         setupFAB()
 
     }
-
 
     /**
      * Initialize the view pager.
@@ -102,6 +113,12 @@ class HomeFragment : Fragment() {
     }
 
 
+
+
+
+
+
+
     /**
      * initialize the searchbar
      *
@@ -133,7 +150,18 @@ class HomeFragment : Fragment() {
                 val searchQuery = s.toString()
                 Log.d("HomeFragment", "Search query: $searchQuery")
                 // Utilisez searchQuery pour effectuer une recherche, mettre à jour l'interface utilisateur, etc.
-                viewModel.updateFilter(searchQuery)
+
+                //todo OLD WAY --------------------
+            /**
+               viewModel.updateFilter(searchQuery)
+            **/
+
+                //todo SHARED VIEWMODEL --------------------
+                //todo: ------------------------------------------
+
+                sharedViewModel.updateFilter(searchQuery)
+
+                //todo: ------------------------------------------
             }
         })
 
@@ -175,9 +203,6 @@ class HomeFragment : Fragment() {
             navigateToDetailFragment()
         }
     }
-
-
-
 
     /**
      * Navigate to the Create fragment, to create a new candidate.
