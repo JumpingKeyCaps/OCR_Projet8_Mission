@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt)
+    id("kotlin-parcelize")
 
     kotlin("kapt")
 
@@ -89,6 +90,9 @@ dependencies {
     kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
 
+    //Navigation component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     //tests
     testImplementation(libs.junit)
