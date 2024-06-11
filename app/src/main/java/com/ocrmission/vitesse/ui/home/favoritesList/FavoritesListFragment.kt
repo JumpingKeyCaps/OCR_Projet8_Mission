@@ -29,14 +29,7 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
 
     private var isFirstCollect: Boolean = true
 
-    //todo OLD WAY --------------------
-    private val viewModel: FavoritesListViewModel by viewModels()
-
-    //todo SHARED VIEWMODEL --------------------
-    //todo: ------------------------------------------
     private val sharedViewModel: SharedHomeViewModel by activityViewModels()
-
-    //todo: ------------------------------------------
 
     /**
      * Called when the fragment is first created.
@@ -73,31 +66,16 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
      * Setup the observer
      */
     private fun setupObservers() {
+
         viewLifecycleOwner.lifecycleScope.launch {
 
-            //todo OLD WAY --------------------
-            /**
-             *
-            viewModel.favCandidates.collect { favorites ->
+            sharedViewModel.favCandidates.collect { favorites ->
                 favoritesAdapter.updateData(favorites)
-                //check if the list is empty, and update the UI accordingly
                 emptyFavoriteListState(favorites.isEmpty())
-                //flag to keep the loading progress on the 1st collect call, because Synch/Async, 1st call is alway an empty list (finish before the db build)).
                 isFirstCollect = false
             }
-
-            **/
-            //todo SHARED VIEWMODEL --------------------
-            viewLifecycleOwner.lifecycleScope.launch {
-
-                sharedViewModel.favCandidates.collect { favorites ->
-                    favoritesAdapter.updateData(favorites)
-                    emptyFavoriteListState(favorites.isEmpty())
-                    isFirstCollect = false
-                }
-            }
-
         }
+
     }
 
     /**
