@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ocrmission.vitesse.R
@@ -180,7 +181,11 @@ class HomeFragment : Fragment() {
      * Navigate to the Create fragment, to create a new candidate.
      */
     private fun navigateToDetailFragment() {
-        NavigationUtils.navigateToAddCandidateFragment(this)
+        //todo OLD SCHOOL NAVIGATION
+      //  NavigationUtils.navigateToAddCandidateFragment(this)
+
+        //NEW SCHOOL NAVIGATION
+        findNavController().navigate(R.id.action_navigation_homeFragment_to_addCandidateFragment)
     }
 
 
