@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentCandidatListBinding
@@ -29,14 +28,9 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
     private var isFirstCollect: Boolean = true
 
-    //todo OLD WAY --------------------
-    private val viewModel: CandidatesListViewModel by viewModels()
 
-    //todo SHARED VIEWMODEL --------------------
-    //todo: ------------------------------------------
     private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
-    //todo: ------------------------------------------
 
 
 
@@ -80,37 +74,12 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
 
-            //todo OLD WAY --------------------
-            /**
-
-            viewModel.candidates.collect { candidates ->
-                //update the list of the adapter
-                candidatesAdapter.updateData(candidates)
-
-                //check if the list is empty, and update the UI accordingly
-               emptyCandidateListState(candidates.isEmpty())
-
-                //test the loading icon
-                //emptyCandidateListState(true)
-
-                //flag to keep the loading progress on the 1st collect call, because Synch/Async, 1st call is alway an empty list (finish before the db build)).
-                isFirstCollect = false
-            }
-            **/
-        }
-
-        //todo SHARED VIEWMODEL --------------------
-        viewLifecycleOwner.lifecycleScope.launch {
-
             sharedViewModel.candidates.collect { candidates ->
                 candidatesAdapter.updateData(candidates)
                 emptyCandidateListState(candidates.isEmpty())
                 isFirstCollect = false
             }
         }
-
-
-
     }
 
 
