@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentFavoritesListBinding
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.home.SharedHomeViewModel
 import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,11 +24,12 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
 
     private var _binding: FragmentFavoritesListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: FavoritesListViewModel by viewModels()
+
     private val favoritesAdapter = FavoritesAdapter(emptyList(),this)
 
     private var isFirstCollect: Boolean = true
 
+    private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
     /**
      * Called when the fragment is first created.
@@ -63,21 +66,22 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
      * Setup the observer
      */
     private fun setupObservers() {
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.favCandidates.collect { favorites ->
+
+            sharedViewModel.favCandidates.collect { favorites ->
                 favoritesAdapter.updateData(favorites)
-                //check if the list is empty, and update the UI accordingly
                 emptyFavoriteListState(favorites.isEmpty())
-                //flag to keep the loading progress on the 1st collect call, because Synch/Async, 1st call is alway an empty list (finish before the db build)).
                 isFirstCollect = false
             }
         }
+
     }
 
     /**
      * Method to hide the loading progress indicator.
      */
-    fun hideLoadingProgressIndicator(){
+    private fun hideLoadingProgressIndicator(){
         if(binding.favoritesLoadingProgressIndicator.visibility == View.VISIBLE){
             binding.favoritesLoadingProgressIndicator.visibility = View.GONE
         }

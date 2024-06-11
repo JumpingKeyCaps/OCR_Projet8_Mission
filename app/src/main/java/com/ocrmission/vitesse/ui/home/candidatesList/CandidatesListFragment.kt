@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentCandidatListBinding
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.home.SharedHomeViewModel
 import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,10 +23,17 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
     private var _binding: FragmentCandidatListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CandidatesListViewModel by viewModels()
+
     private val candidatesAdapter = CandidatesAdapter(emptyList(),this)
 
     private var isFirstCollect: Boolean = true
+
+
+    private val sharedViewModel: SharedHomeViewModel by activityViewModels()
+
+
+
+
 
     /**
      * Called when the fragment is first created.
@@ -66,22 +74,16 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
 
-            viewModel.candidates.collect { candidates ->
-                //update the list of the adapter
+            sharedViewModel.candidates.collect { candidates ->
                 candidatesAdapter.updateData(candidates)
-
-                //check if the list is empty, and update the UI accordingly
-               emptyCandidateListState(candidates.isEmpty())
-
-                //test the loading icon
-                //emptyCandidateListState(true)
-
-                //flag to keep the loading progress on the 1st collect call, because Synch/Async, 1st call is alway an empty list (finish before the db build)).
+                emptyCandidateListState(candidates.isEmpty())
                 isFirstCollect = false
             }
         }
-
     }
+
+
+
 
     /**
      * Method to hide the loading progress indicator.

@@ -6,7 +6,6 @@ import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.room.AppDatabase
 import com.ocrmission.vitesse.data.room.DatabasePrepopulateCallback
 import com.ocrmission.vitesse.data.room.dao.CandidateDtoDao
-import com.ocrmission.vitesse.ui.home.filter.FilterForCandidatesFlow
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,9 +53,6 @@ class AppModule {
         return CandidateRepository(candidateDtoDao)
     }
 
-    @Provides
-    fun provideFilterCandidateFlow(): FilterForCandidatesFlow {
-        return FilterForCandidatesFlow
-    }
+
 
 }

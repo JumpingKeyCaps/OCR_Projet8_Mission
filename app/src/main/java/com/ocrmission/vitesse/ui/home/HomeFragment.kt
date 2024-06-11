@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ocrmission.vitesse.R
@@ -26,7 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+    private val sharedViewModel: SharedHomeViewModel by activityViewModels()
+
 
     /**
      * Fragment LifeCycle - called when the fragment is create.
@@ -62,7 +62,6 @@ class HomeFragment : Fragment() {
         setupFAB()
 
     }
-
 
     /**
      * Initialize the view pager.
@@ -102,6 +101,12 @@ class HomeFragment : Fragment() {
     }
 
 
+
+
+
+
+
+
     /**
      * initialize the searchbar
      *
@@ -126,14 +131,9 @@ class HomeFragment : Fragment() {
                 }else{
                     binding.searchIcon.setImageResource(R.drawable.erase_search_b)
                 }
-
-
-
                 // Code à exécuter après que le texte a été modifié
                 val searchQuery = s.toString()
-                Log.d("HomeFragment", "Search query: $searchQuery")
-                // Utilisez searchQuery pour effectuer une recherche, mettre à jour l'interface utilisateur, etc.
-                viewModel.updateFilter(searchQuery)
+                sharedViewModel.updateFilter(searchQuery)
             }
         })
 
@@ -175,9 +175,6 @@ class HomeFragment : Fragment() {
             navigateToDetailFragment()
         }
     }
-
-
-
 
     /**
      * Navigate to the Create fragment, to create a new candidate.
