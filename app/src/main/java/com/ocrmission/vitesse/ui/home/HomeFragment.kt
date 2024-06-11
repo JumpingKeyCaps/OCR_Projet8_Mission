@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ocrmission.vitesse.R
@@ -27,17 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-
-    //todo OLD WAY --------------------
-    //todo: ------------------------------------------
-    private val viewModel: HomeViewModel by viewModels()
-
-    //todo SHARED VIEWMODEL --------------------
-    //todo: ------------------------------------------
-       private val sharedViewModel: SharedHomeViewModel by activityViewModels()
-
-    //todo: ------------------------------------------
-
+    private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
 
     /**
@@ -143,25 +131,9 @@ class HomeFragment : Fragment() {
                 }else{
                     binding.searchIcon.setImageResource(R.drawable.erase_search_b)
                 }
-
-
-
                 // Code à exécuter après que le texte a été modifié
                 val searchQuery = s.toString()
-                Log.d("HomeFragment", "Search query: $searchQuery")
-                // Utilisez searchQuery pour effectuer une recherche, mettre à jour l'interface utilisateur, etc.
-
-                //todo OLD WAY --------------------
-            /**
-               viewModel.updateFilter(searchQuery)
-            **/
-
-                //todo SHARED VIEWMODEL --------------------
-                //todo: ------------------------------------------
-
                 sharedViewModel.updateFilter(searchQuery)
-
-                //todo: ------------------------------------------
             }
         })
 
