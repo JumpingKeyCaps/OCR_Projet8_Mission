@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vitesse_navigation"
+    app:startDestination="@id/home_fragment">
+
+    <!-- Home screen -->
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.ocrmission.vitesse.ui.home.HomeFragment"
+        android:label="Home Screen"
+        tools:layout="@layout/fragment_home">
+        <!-- home to add candidate -->
+        <action
+            android:id="@+id/action_navigation_homeFragment_to_addCandidateFragment"
+            app:destination="@id/addCandidate_fragment" />
+        <!-- home to details candidate -->
+        <action
+            android:id="@+id/action_navigation_homeFragment_to_detailsCandidateFragment"
+            app:destination="@id/addCandidate_fragment" />
+    </fragment>
+
+    <!-- New candidate screen -->
+    <fragment
+        android:id="@+id/addCandidate_fragment"
+        android:name="com.ocrmission.vitesse.ui.addCandidate.AddCandidateFragment"
+        android:label="Create Candidate screen"
+        tools:layout="@layout/fragment_addcandidate">
+        <!-- add candidate to home -->
+        <action
+            android:id="@+id/action_navigation_addCandidateFragment_to_homeFragment"
+            app:destination="@id/home_fragment" />
+    </fragment>
+
+    <!-- Candidate details screen -->
+    <fragment
+        android:id="@+id/detailsCandidate_fragment"
+        android:name="com.ocrmission.vitesse.ui.detailsCandidate.DetailsCandidateFragment"
+        android:label="Candidate details screen"
+        tools:layout="@layout/fragment_details_candidate">
+        <!-- details candidate to home -->
+        <action
+            android:id="@+id/action_navigation_detailsCandidateFragment_to_homeFragment"
+            app:destination="@id/home_fragment" />
+    </fragment>
+
+
+</navigation>
