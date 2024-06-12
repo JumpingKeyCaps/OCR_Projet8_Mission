@@ -28,18 +28,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //todo NEW WAY --------------
-
-
+        //init the navigation
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
-
-
-
-        //todo OLD SCHOOL -----
-
-    //    supportFragmentManager.beginTransaction()
-    //        .replace(R.id.fragmentContainerView, HomeFragment()).commit()
 
 
 
