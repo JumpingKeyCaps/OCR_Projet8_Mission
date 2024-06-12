@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentFavoritesListBinding
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.home.HomeFragmentDirections
 import com.ocrmission.vitesse.ui.home.SharedHomeViewModel
-import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -111,11 +111,14 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
 
 
     /**
-     * Method to handle candidate click events and navigate to candidate Profile
+     * Method to handle candidate click events and navigate to details candidate screen
+     * @param favorite The favorite candidate to transmit
      */
     override fun onFavoriteClicked(favorite: Candidate) {
-        // Navigate to details fragment using NavigationUtils object
-        parentFragment?.let { NavigationUtils.navigateToDetailsCandidateFragment(it, favorite) }
+
+        //Use the NavController to navigate to the details candidate profile
+        val action = HomeFragmentDirections.actionNavigationHomeFragmentToDetailsCandidateFragment(favorite.id)
+        Navigation.findNavController(requireParentFragment().requireView()).navigate(action)
 
     }
 
