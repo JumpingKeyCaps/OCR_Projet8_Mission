@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocrmission.vitesse.databinding.FragmentCandidatListBinding
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.home.HomeFragmentDirections
 import com.ocrmission.vitesse.ui.home.SharedHomeViewModel
-import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -127,11 +128,15 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
 
     /**
-     * Method to handle candidate click events and navigate to candidate Profile
+     * Method to handle candidate click events and navigate to details candidate screen
+     * @param candidate The candidate item to transmit to the details candidate fragment
      */
     override fun onCandidateClicked(candidate: Candidate) {
-        // Navigate to details fragment using NavigationUtils object
-        parentFragment?.let { NavigationUtils.navigateToDetailsCandidateFragment(it, candidate) }
+        //Use the NavController to navigate to the details candidate profile
+        val action = HomeFragmentDirections.actionNavigationHomeFragmentToDetailsCandidateFragment(candidate.id)
+        findNavController(requireParentFragment().requireView()).navigate(action)
+
+
     }
 
 }
