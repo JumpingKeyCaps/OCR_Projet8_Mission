@@ -18,7 +18,13 @@
         <!-- home to details candidate -->
         <action
             android:id="@+id/action_navigation_homeFragment_to_detailsCandidateFragment"
-            app:destination="@id/addCandidate_fragment" />
+            app:destination="@id/detailsCandidate_fragment" >
+            <argument
+                android:name="CandidateId"
+                app:argType="long"
+                app:nullable="false" />
+        </action>
+
     </fragment>
 
     <!-- New candidate screen -->
@@ -43,6 +49,12 @@
         <action
             android:id="@+id/action_navigation_detailsCandidateFragment_to_homeFragment"
             app:destination="@id/home_fragment" />
+        <!--Argument to transmit -->
+        <argument
+            android:name="CandidateId"
+            app:argType="long"
+            app:nullable="false" />
+
     </fragment>
 
 
