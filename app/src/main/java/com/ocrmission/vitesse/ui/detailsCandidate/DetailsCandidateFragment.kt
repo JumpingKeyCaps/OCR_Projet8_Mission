@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.ocrmission.vitesse.databinding.FragmentDetailsCandidateBinding
 import com.ocrmission.vitesse.domain.Candidate
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,28 +20,23 @@ class DetailsCandidateFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsCandidateBinding
     private var candidate: Candidate? = null
+    private val args: DetailsCandidateFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentDetailsCandidateBinding.inflate(inflater,container,false)
-        //get the candidate object in bundle
-        val serializable = arguments?.getSerializable("candidate")
-        if (serializable != null){
-            candidate = serializable as Candidate
-        }
-            return binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //todo  remove later ---------------------------------------
-        if (candidate != null){
-            Toast.makeText(context, "Candidate : ${candidate!!.firstname} ${candidate!!.lastname}", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(context, "Candidate is null, Create Mode !", Toast.LENGTH_SHORT).show()
-        }
+
+        //retrieve the candidate id from the arguments
+        val candidateId = args.CandidateId
+
+        Toast.makeText(context, "Candidate ID : $candidateId", Toast.LENGTH_SHORT).show()
 
 
     }

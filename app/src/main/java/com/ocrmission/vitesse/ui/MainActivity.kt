@@ -5,10 +5,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.Navigation.findNavController
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.databinding.ActivityMainBinding
-import com.ocrmission.vitesse.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.fragment.NavHostFragment
 
 /**
  * Main activity of the application.
@@ -17,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     /**
      * Activity life cycle - Called when the activity is first created.
      */
@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //load fragment home by default
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, HomeFragment()).commit()
+        //init the navigation
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
 
 
 
@@ -43,4 +43,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(findViewById(R.id.fragmentContainerView))
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+
 }
+
+

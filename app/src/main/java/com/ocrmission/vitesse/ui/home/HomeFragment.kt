@@ -10,13 +10,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.databinding.FragmentHomeBinding
 import com.ocrmission.vitesse.ui.home.candidatesList.CandidatesListFragment
 import com.ocrmission.vitesse.ui.home.favoritesList.FavoritesListFragment
-import com.ocrmission.vitesse.ui.utils.NavigationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -180,7 +180,8 @@ class HomeFragment : Fragment() {
      * Navigate to the Create fragment, to create a new candidate.
      */
     private fun navigateToDetailFragment() {
-        NavigationUtils.navigateToAddCandidateFragment(this)
+        //Use the navController to navigate to the Create fragment.
+        findNavController().navigate(HomeFragmentDirections.actionNavigationHomeFragmentToAddCandidateFragment())
     }
 
 
