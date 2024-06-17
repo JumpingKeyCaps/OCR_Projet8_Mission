@@ -13,4 +13,8 @@
     <color name="search_bar_background_day">#ECE6F0</color>
     <color name="search_bar_background_night">#202020</color>
 
+    <color name="valid_text_color">#4DB57C</color>
+    <color name="error_text_color">#FF0000</color>
+
+
 </resources>
