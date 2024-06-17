@@ -1,6 +1,8 @@
 package com.ocrmission.vitesse.domain
 
+import android.os.Parcelable
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.time.Instant
 import java.time.LocalDateTime
@@ -9,19 +11,20 @@ import java.time.ZoneId
 /**
  *  class to create Object Candidate who modeling the candidate data.
  */
+@Parcelize
 data class Candidate(
-    @JvmField var id: Long,
+    @JvmField var id: Long = 0,
     var firstname: String,
     var lastname: String,
     var email: String,
     var phone: String,
-    var birthday: LocalDateTime,
+    var birthday: LocalDateTime?,
     var salary: Int,
     var note: String,
-    var photoUri: String,
+    var photoUri: String = "",
     var isFavorite: Boolean
 
-) : Serializable {
+) : Parcelable {
     /**
      *  function to convert Candidate object to CandidateDto object
      *  @return CandidateDto object
@@ -32,7 +35,7 @@ data class Candidate(
             lastname = this.lastname,
             email = this.email,
             phone = this.phone,
-            birthday = (this.birthday.atZone(ZoneId.systemDefault()).toInstant()).toEpochMilli(),
+            birthday = (this.birthday?.atZone(ZoneId.systemDefault())?.toInstant())?.toEpochMilli()?:0,
             salary = this.salary,
             note = this.note,
             photoUri = this.photoUri,
