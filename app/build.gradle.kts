@@ -88,6 +88,9 @@ dependencies {
     implementation (libs.glide)
     kapt ("com.github.bumptech.glide:compiler:4.15.1")
 
+    //Glide Transformation
+    implementation(libs.glide.transformations)
+
 
     //Navigation component
     implementation(libs.androidx.navigation.fragment.ktx)
