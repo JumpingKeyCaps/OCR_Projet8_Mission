@@ -66,7 +66,7 @@ class FavoritesAdapter(private var favorites: List<Candidate>,private val onItem
      */
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newFavorites: List<Candidate>) {
-        this.favorites = newFavorites
+        this.favorites = newFavorites.reversed()
         notifyDataSetChanged()
     }
 

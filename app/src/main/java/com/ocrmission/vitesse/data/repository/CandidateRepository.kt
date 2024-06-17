@@ -8,14 +8,14 @@ import javax.inject.Inject
 /**
  * Repository for Candidate data
  */
-class CandidateRepository @Inject constructor(private val CandidateDao: CandidateDtoDao) {
+class CandidateRepository @Inject constructor(private val candidateDao: CandidateDtoDao) {
 
     /**
      * Method to get all candidates.
      * @return a flow of a list of CandidateDto.
      */
     fun getAllCandidates(): Flow<List<CandidateDto>>{
-        return CandidateDao.getAllCandidates()
+        return candidateDao.getAllCandidates()
     }
 
     /**
@@ -23,7 +23,7 @@ class CandidateRepository @Inject constructor(private val CandidateDao: Candidat
      * @param candidate the candidate dto to be added.
      */
     suspend fun addCandidate(candidate: CandidateDto){
-        CandidateDao.insertCandidate(candidate)
+        candidateDao.insertCandidate(candidate)
 
     }
 
@@ -32,7 +32,7 @@ class CandidateRepository @Inject constructor(private val CandidateDao: Candidat
      * @param candidate the candidate dto to be deleted.
      */
     suspend fun deleteCandidate(candidate: CandidateDto){
-        CandidateDao.deleteCandidate(candidate)
+        candidateDao.deleteCandidate(candidate)
     }
 
     /**
@@ -41,7 +41,7 @@ class CandidateRepository @Inject constructor(private val CandidateDao: Candidat
      * @return 1 if successful, 0 otherwise.
      */
     suspend fun updateCandidate(candidate: CandidateDto): Int {
-        return CandidateDao.updateCandidate(candidate)
+        return candidateDao.updateCandidate(candidate)
     }
 
 
