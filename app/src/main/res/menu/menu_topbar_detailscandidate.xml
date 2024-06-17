@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/favmenu"
+        android:title=""
+        android:contentDescription="favoritecandidate"
+        android:icon="@drawable/baseline_star_outline_24"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/editmenu"
+        android:title=""
+        android:contentDescription="editcandidate"
+        android:icon="@drawable/baseline_mode_edit_outline_24"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/deletemenu"
+        android:title=""
+        android:contentDescription="deletecandidate"
+        android:icon="@drawable/baseline_delete_24"
+        app:showAsAction="always" />
+
+</menu>
