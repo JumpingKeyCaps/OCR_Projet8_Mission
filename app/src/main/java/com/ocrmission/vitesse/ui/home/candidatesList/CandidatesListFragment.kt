@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.ocrmission.vitesse.databinding.FragmentCandidatListBinding
 import com.ocrmission.vitesse.domain.Candidate
 import com.ocrmission.vitesse.ui.home.HomeFragmentDirections
@@ -60,7 +61,7 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         //set layout manager to the recyclerview
-        binding.candidatesRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.candidatesRecyclerview.layoutManager = LinearLayoutManager(requireContext(),VERTICAL,false)
         //set the adapter to the recyclerview
         binding.candidatesRecyclerview.adapter = candidatesAdapter
 

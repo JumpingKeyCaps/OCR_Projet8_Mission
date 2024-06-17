@@ -65,7 +65,8 @@ class CandidatesAdapter(private var candidates: List<Candidate>,private val onIt
      */
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCandidates: List<Candidate>) {
-        this.candidates = newCandidates
+        //Reverse the list to show last candidate added first.
+        this.candidates = newCandidates.reversed()
 
         notifyDataSetChanged()
     }

@@ -4,4 +4,48 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_AllCandidat_text">Tous</string>
     <string name="tab_FavCandidat_text">Favoris</string>
+
+
+
+
+
+
+
+
+    <!--Error message empty text input-->
+    <string name="error_empty_textInput_base_text">est obligatoire.</string>
+
+    <string name="error_empty_textInput_firstname_text">Le prenom</string>
+    <string name="error_empty_textInput_lastname_text">Le nom</string>
+    <string name="error_empty_textInput_phone_text">Le telephone</string>
+    <string name="error_empty_textInput_email_text">L\'adresse mail</string>
+    <string name="error_empty_textInput_salary_text">Le salaire</string>
+
+
+    <!--Error message forbbiden char in text input-->
+    <string name="error_forbidden_char_textInput_firstname_text">Le prenom ne peut contenir que des lettres, un espace ou un hyphen (-).</string>
+    <string name="error_forbidden_char_textInput_lastname_text">Le nom ne peut contenir que des lettres, des espaces, des hyphens et des apostrophes.</string>
+    <string name="error_forbidden_char_textInput_email_text">L\'e-mail peut contenir des lettres, des chiffres, des points et un @</string>
+    <string name="error_forbidden_char_textInput_phone_text">Le telephone ne peut contenir que des chiffres</string>
+    <string name="error_forbidden_char_textInput_salary_text">Le salaire ne peut etre que un nombre.</string>
+
+    <!--Error message mail format invalide-->
+    <string name="error_invalid_format_email_text">Format invalide</string>
+
+
+    <string name="error_invalid_phonelenght">Le numero de telephone semble trop court.</string>
+
+    <!--Error message adding candidat-->
+    <string name="error_missing_textInput_firstname_text">Sauvegarde Impossible!\nLe prenom est un champ obligatoire.</string>
+    <string name="error_missing_textInput_lastname_text">Sauvegarde Impossible! \nLe nom est un champ obligatoire.</string>
+    <string name="error_missing_textInput_email_text">Sauvegarde Impossible! \nL\'adresse e-mail un champ obligatoire.</string>
+    <string name="error_missing_textInput_phone_text">Sauvegarde Impossible! \nLe numero de telephone est obligatoire.</string>
+    <string name="error_missing_textInput_birthdate_text">Sauvegarde Impossible! \nla date de naissance est obligatoire.</string>
+    <string name="error_missing_textInput_Generic_text">"Oops! Impossible de sauvegarder le candidat, veuillez essayer de nouveau. "</string>
+
+
+    <string name="birthday_picker_title">Selectionner une date de naissance</string>
+    <string name="birthday_picker_future_date_error">Les dates dans le futur ne sont pas autoriser.</string>
+
+
 </resources>
