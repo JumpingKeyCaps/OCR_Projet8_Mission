@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         //Setup the UI
-        SetupUI()
+        setupUI()
         return binding.root
     }
 
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
     /**
      * Initialize the UI.
      */
-    private fun SetupUI(){
+    private fun setupUI(){
         //init ViewPager
         setupViewPager()
         //init TabLayout
