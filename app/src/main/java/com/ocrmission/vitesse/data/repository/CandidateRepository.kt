@@ -19,6 +19,16 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
     }
 
     /**
+     * Method to get all candidates.
+     * @param candidateId the id of the candidate to be retrieved.
+     * @return a flow of a list of CandidateDto.
+     */
+    fun getCandidateById(candidateId: Long): Flow<CandidateDto?>{
+        return candidateDao.getCandidatesById(candidateId)
+    }
+
+
+    /**
      * Method to add a candidate.
      * @param candidate the candidate dto to be added.
      */
@@ -34,6 +44,16 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
     suspend fun deleteCandidate(candidate: CandidateDto){
         candidateDao.deleteCandidate(candidate)
     }
+    /**
+     * Method to delete a candidate by id.
+     * @param candidateId the id of the candidate to be deleted.
+     * @return 1 if successful, 0 otherwise.
+     */
+    suspend fun deleteCandidateById(candidateId: Long): Int{
+        return candidateDao.deleteCandidateById(candidateId)
+    }
+
+
 
     /**
      * Method to update a candidate profile.
@@ -44,5 +64,14 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
         return candidateDao.updateCandidate(candidate)
     }
 
+    /**
+     * Method to update the favorite state of a candidate.
+     * @param candidateId the id of the candidate to be updated.
+     * @param newFavoriteState the new favorite state of the candidate.
+     * @return 1 if successful, 0 otherwise.
+     */
+    suspend fun updateFavoriteState(candidateId: Long, newFavoriteState: Boolean): Int {
+        return candidateDao.updateFavoriteState(candidateId, newFavoriteState)
+    }
 
 }
