@@ -31,6 +31,15 @@ interface CandidateDtoDao {
     @Delete
     suspend fun deleteCandidate(candidate: CandidateDto)
 
+    /**
+     * Method to DELETE a Candidate by ID.
+     * @param candidateId the id of the candidate to delete.
+     * @return the number of rows affected (should be 1 for a successful delete)
+     */
+    @Query("DELETE FROM candidates WHERE id = :candidateId")
+    suspend fun deleteCandidateById(candidateId: Long):Int
+
+
 
     /**
      * Method to GET all candidates
@@ -38,6 +47,14 @@ interface CandidateDtoDao {
      */
     @Query("SELECT * FROM candidates")
     fun getAllCandidates(): Flow<List<CandidateDto>>
+
+    /**
+     * Method to GET a candidate by is ID
+     * @param candidateId the id of the candidate to get
+     * @return a Flow of the CandidateDto
+     */
+    @Query("SELECT * FROM candidates WHERE id = :candidateId")
+    fun getCandidatesById(candidateId: Long): Flow<CandidateDto?>
 
 
     /**
@@ -47,6 +64,16 @@ interface CandidateDtoDao {
      */
     @Update
     suspend fun updateCandidate(candidate: CandidateDto): Int
+
+
+    /**
+     * Method to UPDATE the favorite state of a Candidate.
+     * @param candidateId the id of the candidate to update
+     * @param newFavoriteState the new favorite state of the candidate
+     * @return the number of rows affected (should be 1 for a successful update)
+     */
+    @Query("UPDATE candidates SET isFavorite = :newFavoriteState WHERE id = :candidateId")
+    suspend fun updateFavoriteState(candidateId: Long, newFavoriteState: Boolean): Int
 
 
 }
