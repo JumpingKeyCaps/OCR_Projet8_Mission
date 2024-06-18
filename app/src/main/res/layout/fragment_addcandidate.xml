@@ -29,7 +29,12 @@
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="Ajouter un candidat"
             app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
-
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            app:dividerInsetEnd="0dp"
+            app:dividerInsetStart="0dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -50,10 +55,9 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/candidate_imageView_background"
                 android:layout_width="match_parent"
-                android:layout_height="205dp"
+                android:layout_height="338dp"
                 android:contentDescription="TODO"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_pic_biggrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,169 +66,309 @@
                 android:id="@+id/candidate_mini_imageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginTop="32dp"
                 android:background="#ffffff"
                 android:contentDescription="TODO"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_pic_b"
-                app:layout_constraintBottom_toTopOf="@+id/firstname_edit_text_layout"
-                app:layout_constraintEnd_toEndOf="@+id/candidate_imageView_background"
-                app:layout_constraintStart_toStartOf="@+id/candidate_imageView_background"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                app:strokeColor="@color/white"
-                app:strokeWidth="4dp" />
-
-
-            <!-- first name -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/firstname_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="95dp"
-                android:layout_marginEnd="24dp"
-                android:hint="Prenom"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:hintTextColor="@color/primary"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/candidate_imageView_background">
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstname_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- last name -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lastname_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <!-- Name section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/name_cardview"
+                style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Nom"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:hintTextColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="@+id/firstname_edit_text_layout"
-                app:layout_constraintStart_toStartOf="@+id/firstname_edit_text_layout"
-                app:layout_constraintTop_toBottomOf="@+id/firstname_edit_text_layout">
+                android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginTop="26dp"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/candidate_mini_imageView">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lastname_edittext"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
+                    android:layout_marginBottom="4dp">
+                    <!-- icon name section -->
+                    <ImageView
+                        android:id="@+id/name_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/people"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/name_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/name_card_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/name_icon"
+                        app:layout_constraintStart_toEndOf="@id/name_icon"
+                        app:layout_constraintTop_toTopOf="@+id/name_icon" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- icon name section -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/people"
-                app:layout_constraintEnd_toStartOf="@+id/firstname_edit_text_layout"
-                app:layout_constraintTop_toTopOf="@+id/firstname_edit_text_layout"
-                app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/name_textview_title" />
+                    <!-- first name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/firstname_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:hint="Prenom"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/firstname_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- last name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lastname_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:hint="Nom"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/firstname_edit_text_layout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastname_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 
 
             <!-- phone -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/phone_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Telephone"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:hintTextColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="@+id/lastname_edit_text_layout"
-                app:layout_constraintStart_toStartOf="@+id/lastname_edit_text_layout"
-                app:layout_constraintTop_toBottomOf="@+id/lastname_edit_text_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_edittext"
+                android:layout_marginTop="26dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/name_cardview"
+                app:layout_constraintStart_toStartOf="@id/name_cardview"
+                app:layout_constraintTop_toBottomOf="@id/name_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:layout_marginBottom="4dp">
+                    <!-- icon phone section -->
+                    <ImageView
+                        android:id="@+id/phone_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/phone_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/phone_card_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/phone_icon"
+                        app:layout_constraintStart_toEndOf="@id/phone_icon"
+                        app:layout_constraintTop_toTopOf="@+id/phone_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/phone_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!--input phone -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phone_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Telephone"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/divider_phone"
+                        app:layout_constraintStart_toStartOf="@+id/divider_phone"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_phone">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phone_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- icon phone section -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/phone"
-                app:layout_constraintEnd_toStartOf="@+id/phone_edit_text_layout"
-                app:layout_constraintTop_toTopOf="@+id/phone_edit_text_layout"
-                app:tint="@color/material_on_background_emphasis_high_type" />
 
 
             <!-- mail -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mail_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mail_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Email"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:hintTextColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="@+id/phone_edit_text_layout"
-                app:layout_constraintStart_toStartOf="@+id/phone_edit_text_layout"
-                app:layout_constraintTop_toBottomOf="@+id/phone_edit_text_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mail_edittext"
+                android:layout_marginTop="26dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/phone_cardview"
+                app:layout_constraintStart_toStartOf="@id/phone_cardview"
+                app:layout_constraintTop_toBottomOf="@id/phone_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:layout_marginBottom="4dp">
+                    <!-- icon mail section -->
+                    <ImageView
+                        android:id="@+id/mail_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/mail"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/mail_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/mail_card_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/mail_icon"
+                        app:layout_constraintStart_toEndOf="@id/mail_icon"
+                        app:layout_constraintTop_toTopOf="@+id/mail_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/mail_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!--input mail -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/mail_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Email"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/divider_mail"
+                        app:layout_constraintStart_toStartOf="@+id/divider_mail"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_mail">
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- icon mail section -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/mail"
-                app:layout_constraintEnd_toStartOf="@+id/mail_edit_text_layout"
-                app:layout_constraintTop_toTopOf="@+id/mail_edit_text_layout"
-                app:tint="@color/material_on_background_emphasis_high_type" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/mail_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 
 
             <!-- Birthday-->
@@ -232,31 +376,45 @@
                 android:id="@+id/birthday_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="26dp"
                 style="?attr/materialCardViewElevatedStyle"
                 android:clickable="true"
                 android:focusable="true"
                 android:checkable="true"
-                app:layout_constraintEnd_toEndOf="@+id/mail_edit_text_layout"
-                app:layout_constraintStart_toStartOf="@+id/mail_edit_text_layout"
-                app:layout_constraintTop_toBottomOf="@+id/mail_edit_text_layout">
+                app:layout_constraintEnd_toEndOf="@id/mail_cardview"
+                app:layout_constraintStart_toStartOf="@id/mail_cardview"
+                app:layout_constraintTop_toBottomOf="@id/mail_cardview">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <!-- -->
+
+                    <!-- icon salary section -->
+                    <ImageView
+                        android:id="@+id/birthday_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cake"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
                     <TextView
                         android:id="@+id/birthday_textview_title"
-                        style="@style/TextAppearance.Material3.BodyMedium"
+                        style="@style/TextAppearance.Material3.TitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="2dp"
                         android:text="@string/birthday_picker_title"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-
+                        app:layout_constraintBottom_toBottomOf="@+id/birthday_icon"
+                        app:layout_constraintStart_toEndOf="@id/birthday_icon"
+                        app:layout_constraintTop_toTopOf="@+id/birthday_icon" />
+                    <!--divider -->
                     <com.google.android.material.divider.MaterialDivider
                         android:id="@+id/divider_birthday"
                         android:layout_width="match_parent"
@@ -267,7 +425,7 @@
                         app:layout_constraintTop_toBottomOf="@id/birthday_textview_title"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
-
+                    <!-- input-->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/birthday_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -295,14 +453,11 @@
                             android:inputType="date" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
             <!-- icon birthday section -->
             <ImageView
+                android:visibility="invisible"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -316,109 +471,195 @@
                 app:tint="@color/material_on_background_emphasis_high_type" />
 
 
-
-            <!-- salary-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/salary_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <!-- Salary -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/salary_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Pretentions salariales"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:hintTextColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="@+id/birthday_cardview"
-                app:layout_constraintStart_toStartOf="@+id/birthday_cardview"
-                app:layout_constraintTop_toBottomOf="@+id/birthday_cardview">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/salary_edittext"
+                android:layout_marginTop="26dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/birthday_cardview"
+                app:layout_constraintStart_toStartOf="@id/birthday_cardview"
+                app:layout_constraintTop_toBottomOf="@id/birthday_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:layout_marginBottom="4dp">
+                    <!-- icon salary section -->
+                    <ImageView
+                        android:id="@+id/salary_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/attach_money_"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/salary_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/salary_card_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/salary_icon"
+                        app:layout_constraintStart_toEndOf="@id/salary_icon"
+                        app:layout_constraintTop_toTopOf="@+id/salary_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/salary_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!-- input-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/salary_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/salary_hint"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/divider_salary"
+                        app:layout_constraintStart_toStartOf="@+id/divider_salary"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_salary">
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- icon salary section -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/attach_money_"
-                app:layout_constraintEnd_toStartOf="@+id/salary_edit_text_layout"
-                app:layout_constraintTop_toTopOf="@+id/salary_edit_text_layout"
-                app:tint="@color/material_on_background_emphasis_high_type" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/salary_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
 
-            <!--Note -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/note_edit_text_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!--Notes -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/notes_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Notes"
-                android:minHeight="175dp"
-                app:boxStrokeColor="@color/primary"
-                app:endIconDrawable="@drawable/baseline_check_24"
-                app:endIconMode="custom"
-                app:endIconTint="@color/valid_text_color"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:helperText="Taille limite"
-                app:counterEnabled="true"
-                app:counterMaxLength="350"
-                app:hintTextColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="@+id/salary_edit_text_layout"
-                app:layout_constraintStart_toStartOf="@+id/salary_edit_text_layout"
-                app:layout_constraintTop_toBottomOf="@+id/salary_edit_text_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/note_edittext"
+                android:layout_marginTop="26dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/salary_cardview"
+                app:layout_constraintStart_toStartOf="@id/salary_cardview"
+                app:layout_constraintTop_toBottomOf="@id/salary_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="175dp"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="10dp">
+                    <!-- icon note section -->
+                    <ImageView
+                        android:id="@+id/notes_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/notes_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/notes_card_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/notes_icon"
+                        app:layout_constraintStart_toEndOf="@id/notes_icon"
+                        app:layout_constraintTop_toTopOf="@+id/notes_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/notes_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
-                    />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/note_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Notes"
+                        android:minHeight="175dp"
+                        app:boxStrokeColor="@color/primary"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:helperText="Taille limite"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="350"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_notes">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/note_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="175dp"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- icon note section -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/edit"
-                app:layout_constraintEnd_toStartOf="@+id/note_edit_text_layout"
-                app:layout_constraintTop_toTopOf="@+id/note_edit_text_layout"
-                app:tint="@color/material_on_background_emphasis_high_type" />
 
             <!-- save button  -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/candidate_save_button"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="45dp"
-                android:layout_marginEnd="26dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="35dp"
                 android:text="Sauvegarder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/note_edit_text_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/notes_cardview" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
