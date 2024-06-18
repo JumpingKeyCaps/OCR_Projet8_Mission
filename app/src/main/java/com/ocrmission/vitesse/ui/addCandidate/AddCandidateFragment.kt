@@ -128,22 +128,16 @@ class AddCandidateFragment : Fragment() {
     private fun setupTextWatchers() {
 
         binding.firstnameEdittext.addTextChangedListener { checkInputField(it.toString(), binding.firstnameEditTextLayout,1)}
-        binding.firstnameEditTextLayout.isEndIconVisible = false // hide the end icon
 
         binding.lastnameEdittext.addTextChangedListener {  checkInputField(it.toString(), binding.lastnameEditTextLayout,2)}
-        binding.lastnameEditTextLayout.isEndIconVisible = false // hide the end icon
 
         binding.mailEdittext.addTextChangedListener { checkInputField(it.toString(), binding.mailEditTextLayout,3)  }
-        binding.mailEditTextLayout.isEndIconVisible = false // hide the end icon
 
         binding.phoneEdittext.addTextChangedListener { checkInputField(it.toString(), binding.phoneEditTextLayout,4)  }
-        binding.phoneEditTextLayout.isEndIconVisible = false // hide the end icon
 
         binding.salaryEdittext.addTextChangedListener { checkInputField(it.toString(), binding.salaryEditTextLayout,5)  }
-        binding.salaryEditTextLayout.isEndIconVisible = false // hide the end icon
 
         binding.noteEdittext.addTextChangedListener { checkInputField(it.toString(), binding.noteEditTextLayout,6)  }
-        binding.noteEditTextLayout.isEndIconVisible = false // hide the end icon
 
     }
 
@@ -240,9 +234,11 @@ class AddCandidateFragment : Fragment() {
     private fun showError(message: String, textInputLayout: TextInputLayout) {
         textInputLayout.error = message
         textInputLayout.isErrorEnabled = true
-        textInputLayout.isEndIconVisible = false
         textInputLayout.hintTextColor = ColorStateList.valueOf(resources.getColor(R.color.error_text_color, null))
         textInputLayout.boxStrokeColor = resources.getColor(R.color.error_text_color, null)
+
+        //mark the cardview as not checked
+        setCardViewChecked(textInputLayout,false)
     }
 
     /**
@@ -251,11 +247,33 @@ class AddCandidateFragment : Fragment() {
      */
     private fun showSuccess(textInputLayout: TextInputLayout) {
         textInputLayout.error = null
-        textInputLayout.isEndIconVisible = true
         textInputLayout.hintTextColor = ColorStateList.valueOf(resources.getColor(R.color.valid_text_color, null))
         textInputLayout.boxStrokeColor = resources.getColor(R.color.valid_text_color, null)
+
+        //mark the cardview as checked
+        setCardViewChecked(textInputLayout,true)
     }
 
+    /**
+     * Method to set the checked state of the cardview
+     * @param textInputLayout the input layout to update his cardview
+     * @param isChecked the checked state
+     *
+     */
+    private fun setCardViewChecked(textInputLayout: TextInputLayout, isChecked: Boolean){
+        when(textInputLayout){
+            binding.salaryEditTextLayout-> {binding.salaryCardview.isChecked = isChecked}
+            binding.mailEditTextLayout-> {binding.mailCardview.isChecked = isChecked}
+            binding.phoneEditTextLayout-> {binding.phoneCardview.isChecked = isChecked}
+            binding.lastnameEditTextLayout-> {binding.nameCardview.isChecked = isChecked}
+            binding.noteEditTextLayout -> {binding.notesCardview.isChecked = isChecked}
+            else -> { }
+        }
+    }
+
+
+
+    //ERROR MESSAGE STUFF ---------------------------------------------------------------------
 
     /**
      * Method to get the error message for empty text input
