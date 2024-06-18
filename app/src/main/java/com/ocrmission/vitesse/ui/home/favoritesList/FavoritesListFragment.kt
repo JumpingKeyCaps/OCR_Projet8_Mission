@@ -27,7 +27,6 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
 
     private val favoritesAdapter = FavoritesAdapter(emptyList(),this)
 
-    private var isFirstCollect: Boolean = true
 
     private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
@@ -72,7 +71,6 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
             sharedViewModel.favCandidates.collect { favorites ->
                 favoritesAdapter.updateData(favorites)
                 emptyFavoriteListState(favorites.isEmpty())
-                isFirstCollect = false
             }
         }
 
@@ -93,12 +91,11 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
      */
     private fun emptyFavoriteListState(isEmpty: Boolean){
         if(isEmpty){
-            if(!isFirstCollect){
-                hideLoadingProgressIndicator()
-                //hide recyclerview and show empty message
-                binding.favoritesEmptyListTextview.visibility = View.VISIBLE
-                binding.favoritesRecyclerview.alpha = 0f
-            }
+
+            hideLoadingProgressIndicator()
+            //hide recyclerview and show empty message
+            binding.favoritesEmptyListTextview.visibility = View.VISIBLE
+            binding.favoritesRecyclerview.alpha = 0f
 
         }else{
             //hide the loading progress indicator if visible
