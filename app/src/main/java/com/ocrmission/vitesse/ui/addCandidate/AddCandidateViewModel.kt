@@ -119,6 +119,12 @@ class AddCandidateViewModel  @Inject constructor(
                     throw ForbidenCharException()
                 }
             }
+            //notes
+            6 -> {
+                if (!text.all { it.isLetterOrDigit() || it == '.' || it == ' ' || it == '\'' }) {
+                    throw ForbidenCharException()
+                }
+            }
             else -> { return false }
         }
         return true
