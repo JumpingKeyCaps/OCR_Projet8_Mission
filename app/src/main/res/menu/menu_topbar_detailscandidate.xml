@@ -4,20 +4,20 @@
     <item
         android:id="@+id/favmenu"
         android:title=""
-        android:contentDescription="favoritecandidate"
         android:icon="@drawable/baseline_star_outline_24"
+        android:contentDescription="@string/details_menu_favoris_contentdescription"
         app:showAsAction="always" />
     <item
         android:id="@+id/editmenu"
         android:title=""
         android:contentDescription="editcandidate"
-        android:icon="@drawable/baseline_mode_edit_outline_24"
+        android:icon="@drawable/outline_edit_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/deletemenu"
         android:title=""
         android:contentDescription="deletecandidate"
-        android:icon="@drawable/baseline_delete_24"
-        app:showAsAction="always" />
+        android:icon="@drawable/rounded_delete_24"
+        app:showAsAction="ifRoom" />
 
 </menu>
