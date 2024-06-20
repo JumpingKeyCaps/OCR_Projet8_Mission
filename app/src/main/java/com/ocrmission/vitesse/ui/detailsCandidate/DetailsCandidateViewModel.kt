@@ -1,10 +1,8 @@
 package com.ocrmission.vitesse.ui.detailsCandidate
 
 import android.util.Log
-import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -30,8 +25,8 @@ class DetailsCandidateViewModel @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
 
-    private val _candidate = MutableStateFlow<Candidate?>(null)
-    val candidate: StateFlow<Candidate?> = _candidate.asStateFlow()
+    private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
+    val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
 
 
     /**
@@ -51,13 +46,10 @@ class DetailsCandidateViewModel @Inject constructor(
 
     /**
      * Method to delete candidate from database
-     * @param candidate the candidate object to delete
      */
-    fun deleteCandidate(candidate: Candidate?) {
-        if (candidate != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                candidateRepository.deleteCandidate(candidate.toDtoWithId())
-            }
+    fun deleteCandidate() {
+        viewModelScope.launch(Dispatchers.IO) {
+            candidateRepository.deleteCandidate(_candidate.value.toDtoWithId())
         }
     }
 
@@ -66,26 +58,28 @@ class DetailsCandidateViewModel @Inject constructor(
 
     /**
      * Method to update candidate favorite state
-     * @param candidate  the candidate object to update
      * @param newFavoriteState the new favorite state
      * @return 1 if the update is successful, 0 if the update is failed
      */
-    fun updateFavoriteState(candidate: Candidate, newFavoriteState: Boolean) {
+    fun updateFavoriteState(newFavoriteState: Boolean) {
 
         Log.d("favorites", "updateFavoriteState: call db ...")
 
         viewModelScope.launch(Dispatchers.IO) {
-            candidate.isFavorite = newFavoriteState
+            candidate.value.isFavorite = newFavoriteState
 
-            val updateResult = candidateRepository.updateCandidate(candidate.toDtoWithId())
+            val updateResult = candidateRepository.updateCandidate(candidate.value.toDtoWithId())
 
             if (updateResult > 0) {
                 //update good, so update the candidate flow
-                _candidate.value?.isFavorite = newFavoriteState
+                _candidate.value.isFavorite = newFavoriteState
             }
         }
     }
 
+
+
+//JOBBING METHODS -----------------------------------------------------------
 
     /**
      * Method to convert birthday date in years
@@ -128,6 +122,8 @@ class DetailsCandidateViewModel @Inject constructor(
         val age = calculateAgeInYears(birthDate)
         return "$formattedBirthDate  ($age ${dynamicString})"
     }
+
+
 
 
 
