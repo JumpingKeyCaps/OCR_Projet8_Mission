@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/favmenu"
-        android:title=""
+        android:title="@string/details_toolbar_title_favorite"
         android:icon="@drawable/baseline_star_outline_24"
         android:contentDescription="@string/details_menu_favoris_contentdescription"
         app:showAsAction="always" />
     <item
         android:id="@+id/editmenu"
-        android:title=""
-        android:contentDescription="editcandidate"
+        android:title="@string/details_toolbar_title_edit"
+        android:contentDescription="@string/details_menu_edit_contentdescription"
         android:icon="@drawable/outline_edit_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/deletemenu"
-        android:title=""
-        android:contentDescription="deletecandidate"
+        android:title="@string/details_toolbar_title_delete"
+        android:contentDescription="@string/details_menu_delete_contentdescription"
         android:icon="@drawable/rounded_delete_24"
         app:showAsAction="ifRoom" />
 
