@@ -52,12 +52,23 @@
 
     <string name="salary_card_title">Saisir la prétentions salariales</string>
     <string name="salary_hint">Prétentions salariales</string>
+
     <string name="mail_card_title">"Saisir une adresse e-mail"</string>
     <string name="phone_card_title">Saisir un numero de telephone</string>
     <string name="name_card_title">Informations du nouveau candidat</string>
     <string name="notes_card_title">Ajouter plus informations</string>
-    <string name="details_menu_favoris_contentdescription">Favoris</string>
+
     <string name="year_word">ans</string>
     <string name="money_symbol">€</string>
+
+
+
+    <string name="details_toolbar_title_favorite">Favoris</string>
+    <string name="details_toolbar_title_edit">Modifier</string>
+    <string name="details_toolbar_title_delete">Supprimer</string>
+
+    <string name="details_menu_favoris_contentdescription">Ajouter en favorie</string>
+    <string name="details_menu_edit_contentdescription">Editer le candidat</string>
+    <string name="details_menu_delete_contentdescription">Supprimer le candidat</string>
 
 </resources>

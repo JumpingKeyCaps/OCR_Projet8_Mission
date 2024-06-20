@@ -4,20 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.databinding.FragmentDetailsCandidateBinding
@@ -33,7 +32,6 @@ import kotlinx.coroutines.launch
 class DetailsCandidateFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsCandidateBinding
-    private var candidate: Candidate? = null
     private val args: DetailsCandidateFragmentArgs by navArgs()
     private val detailsCandidateViewModel: DetailsCandidateViewModel by viewModels()
 
@@ -55,12 +53,11 @@ class DetailsCandidateFragment : Fragment() {
         retrieveCandidateID()
         //observe the candidate flow from the viewmodel
         setupObservers()
-        //setup toolbar
-        setupToolBar()
-
-        //setup contact buttons
+        //setup the contact buttons
         setupContactButtons()
-    }
+        //setup the toolbar
+        setupToolBar()
+       }
 
 
 //SETUP STUFF --------------------------------------------------------------------------
@@ -78,11 +75,7 @@ class DetailsCandidateFragment : Fragment() {
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             detailsCandidateViewModel.candidate.collect {
-                candidate = it
-                if (candidate != null){
-                    updateUI(candidate!!)
-                    Log.d("favorites", "collect update")
-                }
+                updateUI(it)
             }
         }
     }
@@ -90,17 +83,14 @@ class DetailsCandidateFragment : Fragment() {
 
 
     /**
-     * Method to setup the top bar
+     * Method to setup the top bar of the screen
      */
     private fun setupToolBar(){
-
-
 
         //set all listener on the toolbar buttons
         binding.detailsToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
 
         binding.detailsToolbar.setOnMenuItemClickListener {
             when(it.itemId){
@@ -123,8 +113,6 @@ class DetailsCandidateFragment : Fragment() {
                 else -> false
             }
         }
-
-
     }
 
 
@@ -137,17 +125,17 @@ class DetailsCandidateFragment : Fragment() {
     private fun updateUI(candidate: Candidate) {
         //set the title of toolbar with the candidate name
         binding.detailsToolbar.title = "${candidate.firstname} ${candidate.lastname}"
-        updateCandidatePicture()
-        updateCandidateFavoriteState()
-        updateCandidateDetails()
+        updateCandidatePicture(candidate)
+        updateCandidateFavoriteState(candidate)
+        updateCandidateDetails(candidate)
     }
 
 
     /**
      * Method to update the candidate picture
      */
-    private fun updateCandidatePicture(){
-        val uri = Uri.parse(candidate?.photoUri)
+    private fun updateCandidatePicture(candidate: Candidate){
+        val uri = Uri.parse(candidate.photoUri)
         Glide.with(requireContext()).load(uri).error(R.drawable.placeholder_pic_a).into(binding.detailsPhotoImageView)
     }
 
@@ -155,19 +143,19 @@ class DetailsCandidateFragment : Fragment() {
     /**
      * Method to update the candidate details
      */
-    private fun updateCandidateDetails(){
+    private fun updateCandidateDetails(candidate: Candidate){
         //birthday details
         binding.birthdayDateTextView.text = detailsCandidateViewModel.birthdayDetailsStringBuilder(
-            candidate?.birthday,
+            candidate.birthday,
             getString(R.string.year_word)
         )
 
         //salary details
-        val salaryText = "${candidate?.salary} ${getString(R.string.money_symbol)}"
+        val salaryText = "${candidate.salary} ${getString(R.string.money_symbol)}"
         binding.salaryTextView.text = salaryText
 
         //notes details
-        binding.notesTextView.text = candidate?.note
+        binding.notesTextView.text = candidate.note
     }
 
 
@@ -178,9 +166,9 @@ class DetailsCandidateFragment : Fragment() {
     /**
      * Method to update the candidate favorite state (toolbar)
      */
-    private fun updateCandidateFavoriteState(){
-        val isFavorite = candidate?.isFavorite // Get the current favorite status (true or false)
-        if (isFavorite == true) {
+    private fun updateCandidateFavoriteState(candidate: Candidate){
+        val isFavorite = candidate.isFavorite // Get the current favorite status (true or false)
+        if (isFavorite) {
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_24)
         } else {
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_outline_24)
@@ -192,23 +180,21 @@ class DetailsCandidateFragment : Fragment() {
      * Method to toggle the candidate favorite state
      */
     private fun toggleFavoriteState() {
-        if (candidate?.isFavorite == true) {
+        if (detailsCandidateViewModel.candidate.value.isFavorite) {
             //candidate is already a favorite, remove it !
-            Log.d("favorites", "toggleFavoriteState: remove favorite state")
 
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
                 "Removed from favorites !", Snackbar.LENGTH_SHORT).show()
 
-            detailsCandidateViewModel.updateFavoriteState(candidate!!,false)
+            detailsCandidateViewModel.updateFavoriteState(false)
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_outline_24)
         }else{
             //candidate is not a favorite, add it !
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
                 "Added to favorites !", Snackbar.LENGTH_SHORT).show()
 
-            detailsCandidateViewModel.updateFavoriteState(candidate!!,true)
+            detailsCandidateViewModel.updateFavoriteState(true)
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_24)
-            Log.d("favorites", "toggleFavoriteState: add favorite state")
         }
     }
 
@@ -223,7 +209,7 @@ class DetailsCandidateFragment : Fragment() {
      * Method to delete the candidate with confirmation dialog
      */
     private fun showDeleteConfirmationDialog() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Suppression")
         builder.setMessage("Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.")
         builder.setNegativeButton("Annuler") { dialog, _ ->
@@ -231,30 +217,18 @@ class DetailsCandidateFragment : Fragment() {
         }
         builder.setPositiveButton("Confirmer") { dialog, _ ->
             // Implement delete logic and navigate to home screen here
-
-              detailsCandidateViewModel.deleteCandidate(candidate) // Call function to delete candidate
-
-
+            detailsCandidateViewModel.deleteCandidate() // Call function to delete candidate
             dialog.dismiss() // Dismiss dialog on positive button click
             findNavController().navigateUp() // Call function to navigate to home screen
-
-
-
-
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
                 "Candidat supprimer !", Snackbar.LENGTH_SHORT).show()
-
-
         }
         val dialog = builder.create()
         dialog.show()
     }
 
 
-
-
 //CONTACTS STUFF --------------------------------------------------------------------------
-
 
 
     /**
@@ -274,13 +248,13 @@ class DetailsCandidateFragment : Fragment() {
                     v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(150).start()
                     when(v.id){
                         binding.smsButton.id -> {
-                            sendSMStoCandidate(candidate?.phone!!)
+                            sendSMStoCandidate(detailsCandidateViewModel.candidate.value.phone)
                         }
                         binding.mailButton.id -> {
-                            sendEmailToCandidate(candidate?.email!!)
+                            sendEmailToCandidate(detailsCandidateViewModel.candidate.value.email)
                         }
                         binding.callButton.id -> {
-                            callCandidate(candidate?.phone!!)
+                            callCandidate(detailsCandidateViewModel.candidate.value.phone)
                         }
                     }
                     return@OnTouchListener true}
