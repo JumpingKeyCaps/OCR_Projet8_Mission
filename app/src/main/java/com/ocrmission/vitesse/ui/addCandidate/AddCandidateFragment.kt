@@ -69,7 +69,7 @@ class AddCandidateFragment : Fragment() {
 
 
 
-    //SETUP STUFF ---------------------------------------------------------------------
+//SETUP STUFF ---------------------------------------------------------------------
 
 
     /**
@@ -126,19 +126,12 @@ class AddCandidateFragment : Fragment() {
      * Method to setup all text watchers on input fields
      */
     private fun setupTextWatchers() {
-
         binding.firstnameEdittext.addTextChangedListener { checkInputField(it.toString(), binding.firstnameEditTextLayout,1)}
-
         binding.lastnameEdittext.addTextChangedListener {  checkInputField(it.toString(), binding.lastnameEditTextLayout,2)}
-
         binding.mailEdittext.addTextChangedListener { checkInputField(it.toString(), binding.mailEditTextLayout,3)  }
-
         binding.phoneEdittext.addTextChangedListener { checkInputField(it.toString(), binding.phoneEditTextLayout,4)  }
-
         binding.salaryEdittext.addTextChangedListener { checkInputField(it.toString(), binding.salaryEditTextLayout,5)  }
-
         binding.noteEdittext.addTextChangedListener { checkInputField(it.toString(), binding.noteEditTextLayout,6)  }
-
     }
 
     /**
@@ -147,8 +140,6 @@ class AddCandidateFragment : Fragment() {
     private fun setupTopBar(){
         binding.addCandidateToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
-           //findNavController().popBackStack()
-           //requireActivity().onBackPressed()
         }
     }
 
@@ -192,10 +183,8 @@ class AddCandidateFragment : Fragment() {
 
 
 
+//INPUT VALIDATION STUFF ---------------------------------------------------------------------
 
-
-
-    //INPUT VALIDATION STUFF ---------------------------------------------------------------------
     /**
      * Method to check if the input is valid via the viewmodel.
      * @param text the input text
@@ -204,9 +193,9 @@ class AddCandidateFragment : Fragment() {
      */
     private fun checkInputField(text: String, textInputLayout: TextInputLayout,filterType: Int){
         try {
-            if(addCandidateViewModel.validateInput(text,filterType)){
-                showSuccess(textInputLayout)
-            }
+            //check if the input is valid
+            if(addCandidateViewModel.validateInput(text,filterType)) showSuccess(textInputLayout)
+
         }catch (e: Exception){
             when(e){
                 is EmptyTextException -> {
@@ -273,7 +262,7 @@ class AddCandidateFragment : Fragment() {
 
 
 
-    //ERROR MESSAGE STUFF ---------------------------------------------------------------------
+//ERROR MESSAGE STUFF ---------------------------------------------------------------------
 
     /**
      * Method to get the error message for empty text input
@@ -309,7 +298,7 @@ class AddCandidateFragment : Fragment() {
     }
 
 
-    //SAVE CANDIDATE -----------------------------------------
+//SAVE CANDIDATE -----------------------------------------
     /**
      * Method to save the new candidate
      */
