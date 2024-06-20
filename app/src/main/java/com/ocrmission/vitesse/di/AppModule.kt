@@ -31,8 +31,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context, coroutineScope: CoroutineScope): AppDatabase {
-        val callback = provideDatabasePrepopulateCallback(coroutineScope)
-        return Room.databaseBuilder(context, AppDatabase::class.java, "VitesseDB").addCallback(callback).build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "VitesseDB").build()
     }
 
     @Provides

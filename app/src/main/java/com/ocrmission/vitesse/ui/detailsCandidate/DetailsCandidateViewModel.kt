@@ -56,22 +56,12 @@ class DetailsCandidateViewModel @Inject constructor(
     fun deleteCandidate(candidate: Candidate?) {
         if (candidate != null) {
             viewModelScope.launch(Dispatchers.IO) {
-                candidateRepository.deleteCandidate(candidate.toDto())
+                candidateRepository.deleteCandidate(candidate.toDtoWithId())
             }
         }
     }
 
-    /**
-     * Method to delete candidate by Id from database
-     * @param candidateId the candidate id to delete
-     */
-    fun deleteCandidateById(candidateId: Long?) {
-        if (candidateId != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                candidateRepository.deleteCandidateById(candidateId)
-            }
-        }
-    }
+
 
 
     /**
@@ -87,9 +77,8 @@ class DetailsCandidateViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             candidate.isFavorite = newFavoriteState
 
-         //   val result = candidateRepository.updateCandidate(candidate.toDto())
+            val updateResult = candidateRepository.updateCandidate(candidate.toDtoWithId())
 
-            val updateResult  = candidateRepository.updateFavoriteState(candidate.id, newFavoriteState)
             if (updateResult > 0) {
                 //update good, so update the candidate flow
                 _candidate.value?.isFavorite = newFavoriteState

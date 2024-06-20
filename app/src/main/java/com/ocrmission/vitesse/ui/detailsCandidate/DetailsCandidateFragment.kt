@@ -37,6 +37,9 @@ class DetailsCandidateFragment : Fragment() {
     private val args: DetailsCandidateFragmentArgs by navArgs()
     private val detailsCandidateViewModel: DetailsCandidateViewModel by viewModels()
 
+
+//LIFECYCLE STUFF --------------------------------------------------------------------------
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +62,8 @@ class DetailsCandidateFragment : Fragment() {
         setupContactButtons()
     }
 
+
+//SETUP STUFF --------------------------------------------------------------------------
     /**
      * Retrieve the candidate id from the navigation arguments
      */
@@ -81,6 +86,49 @@ class DetailsCandidateFragment : Fragment() {
             }
         }
     }
+
+
+
+    /**
+     * Method to setup the top bar
+     */
+    private fun setupToolBar(){
+
+
+
+        //set all listener on the toolbar buttons
+        binding.detailsToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+
+        binding.detailsToolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.favmenu -> {
+                    // Handle favorite click
+                    toggleFavoriteState()
+                    true
+                }
+                R.id.editmenu -> {
+                    // Handle edit click
+                    Toast.makeText(requireContext(), "Edit clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.deletemenu -> {
+                    // Handle delete click
+                    showDeleteConfirmationDialog()
+
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+    }
+
+
+//UPDATE STUFF --------------------------------------------------------------------------
 
     /**
      * Update the UI with the candidate data
@@ -125,13 +173,13 @@ class DetailsCandidateFragment : Fragment() {
 
 
 
+//FAVORITES STUFF --------------------------------------------------------------------------
+
     /**
      * Method to update the candidate favorite state (toolbar)
      */
     private fun updateCandidateFavoriteState(){
-
         val isFavorite = candidate?.isFavorite // Get the current favorite status (true or false)
-
         if (isFavorite == true) {
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_24)
         } else {
@@ -168,44 +216,8 @@ class DetailsCandidateFragment : Fragment() {
 
 
 
-    /**
-     * Method to setup the top bar
-     */
-    private fun setupToolBar(){
 
-
-
-        //set all listener on the toolbar buttons
-        binding.detailsToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-
-        binding.detailsToolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.favmenu -> {
-                    // Handle favorite click
-                    toggleFavoriteState()
-                    true
-                }
-                R.id.editmenu -> {
-                    // Handle edit click
-                    Toast.makeText(requireContext(), "Edit clicked", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.deletemenu -> {
-                    // Handle delete click
-                    showDeleteConfirmationDialog()
-
-                    true
-                }
-                else -> false
-            }
-        }
-
-
-    }
-
+//DELETE STUFF --------------------------------------------------------------------------
 
     /**
      * Method to delete the candidate with confirmation dialog
@@ -214,17 +226,20 @@ class DetailsCandidateFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Suppression")
         builder.setMessage("Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.")
-        builder.setNegativeButton("Annuler") { dialog, which ->
+        builder.setNegativeButton("Annuler") { dialog, _ ->
             dialog.dismiss() // Dismiss dialog on negative button click
         }
-        builder.setPositiveButton("Confirmer") { dialog, which ->
+        builder.setPositiveButton("Confirmer") { dialog, _ ->
             // Implement delete logic and navigate to home screen here
+
+              detailsCandidateViewModel.deleteCandidate(candidate) // Call function to delete candidate
+
 
             dialog.dismiss() // Dismiss dialog on positive button click
             findNavController().navigateUp() // Call function to navigate to home screen
 
-            detailsCandidateViewModel.deleteCandidateById(candidate?.id) // Call function to delete candidate
-            //  detailsCandidateViewModel.deleteCandidate(candidate) // Call function to delete candidate
+
+
 
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
                 "Candidat supprimer !", Snackbar.LENGTH_SHORT).show()
@@ -234,6 +249,12 @@ class DetailsCandidateFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
+
+
+
+//CONTACTS STUFF --------------------------------------------------------------------------
+
 
 
     /**

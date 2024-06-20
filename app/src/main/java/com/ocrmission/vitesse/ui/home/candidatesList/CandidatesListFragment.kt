@@ -28,13 +28,11 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
     private val candidatesAdapter = CandidatesAdapter(emptyList(),this)
 
-    private var isFirstCollect: Boolean = true
-
 
     private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
 
-
+//LIFE CYCLE --------------------------------------------------------------------------
 
 
     /**
@@ -71,6 +69,17 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
     }
 
     /**
+     * Called before fragment is destroyed.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+//SETUP OBSERVERS --------------------------------------------------------------------------
+
+    /**
      * Setup the observer
      */
     private fun setupObservers() {
@@ -79,12 +88,33 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
             sharedViewModel.candidates.collect { candidates ->
                 candidatesAdapter.updateData(candidates)
                 emptyCandidateListState(candidates.isEmpty())
-                isFirstCollect = false
             }
         }
     }
 
 
+
+
+
+//EMPTY LIST / LOADING --------------------------------------------------------------------------
+
+    /**
+     * Method to update the UI state on empty candidate list.
+     * @param isEmpty True if the list is empty, false otherwise
+     */
+    private fun emptyCandidateListState(isEmpty: Boolean){
+        //hide the loading progress indicator if visible
+        hideLoadingProgressIndicator()
+        if(isEmpty){
+            //hide recyclerview and show empty message
+            binding.candidatesEmptyListTextview.visibility = View.VISIBLE
+            binding.candidatesRecyclerview.alpha = 0f
+        }else{
+            //hide message and show recyclerview
+            binding.candidatesEmptyListTextview.visibility = View.GONE
+            binding.candidatesRecyclerview.animate().alpha(1f).duration = 200
+        }
+    }
 
 
     /**
@@ -96,37 +126,11 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
         }
     }
 
-    /**
-     * Method to update the UI state on empty candidate list.
-     * @param isEmpty True if the list is empty, false otherwise
-     */
-    private fun emptyCandidateListState(isEmpty: Boolean){
-        if(isEmpty){
-           if(!isFirstCollect){
-               hideLoadingProgressIndicator()
-               //hide recyclerview and show empty message
-               binding.candidatesEmptyListTextview.visibility = View.VISIBLE
-               binding.candidatesRecyclerview.alpha = 0f
-           }
-
-        }else{
-            //hide the loading progress indicator if visible
-            hideLoadingProgressIndicator()
-            //hide message and show recyclerview
-            binding.candidatesEmptyListTextview.visibility = View.GONE
-            binding.candidatesRecyclerview.animate().alpha(1f).duration = 200
-        }
-    }
-
-    /**
-     * Called before fragment is destroyed.
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
+
+
+//ITEMCLICK -----------------------------------------------------------------------------------
 
     /**
      * Method to handle candidate click events and navigate to details candidate screen
@@ -136,8 +140,6 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
         //Use the NavController to navigate to the details candidate profile
         val action = HomeFragmentDirections.actionNavigationHomeFragmentToDetailsCandidateFragment(candidate.id)
         findNavController(requireParentFragment().requireView()).navigate(action)
-
-
     }
 
 }

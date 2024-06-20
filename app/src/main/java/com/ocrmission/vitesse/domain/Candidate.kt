@@ -26,7 +26,7 @@ data class Candidate(
 
 ) : Parcelable {
     /**
-     *  function to convert Candidate object to CandidateDto object
+     *  function to convert Candidate object to CandidateDto object - used for insert operations on DB.
      *  @return CandidateDto object
      */
     fun toDto(): CandidateDto {
@@ -42,6 +42,27 @@ data class Candidate(
             isFavorite = this.isFavorite
         )
     }
+
+    /**
+     *  function to convert Candidate object to CandidateDto object with a specific id - used for update or delete operations on DB.
+     *  @return CandidateDto object with a specific id
+     */
+    fun toDtoWithId(): CandidateDto {
+        return CandidateDto(
+            id = this.id,
+            firstname = this.firstname,
+            lastname = this.lastname,
+            email = this.email,
+            phone = this.phone,
+            birthday = (this.birthday?.atZone(ZoneId.systemDefault())?.toInstant())?.toEpochMilli()?:0,
+            salary = this.salary,
+            note = this.note,
+            photoUri = this.photoUri,
+            isFavorite = this.isFavorite
+        )
+    }
+
+
 
     companion object {
         /**

@@ -38,13 +38,7 @@ class SharedHomeViewModel @Inject constructor(
 
 
     init {
-      //  fetchFilteredCandidates()
-      //  fetchFilteredFavoriteCandidates()
-
-        fetchCandidates(false)
-        fetchCandidates(true)
-
-
+        fetchFilteredCandidatesV3()
     }
 
     /**
@@ -56,14 +50,11 @@ class SharedHomeViewModel @Inject constructor(
     }
 
 
-
-
-
     /**
      * Fetches the list of candidates from the repository and apply the shared filter collected.
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    private fun fetchFilteredCandidates() {
+    private fun fetchFilteredCandidatesV3() {
         viewModelScope.launch(Dispatchers.IO) {
             filter.flatMapLatest { filter ->
                 candidateRepository.getAllCandidates().map { candidatesDtos ->
@@ -78,76 +69,16 @@ class SharedHomeViewModel @Inject constructor(
                 }
             }.collect { filteredList ->
                 _candidates.value = filteredList
+
+                //so we have our search filtered list of candidates
+                // we just nee to apply the favorite filter
+                val favoriteCandidates = filteredList.filter { candidate ->
+                    candidate.isFavorite
+                }
+                _favCandidates.value = favoriteCandidates
             }
         }
     }
-
-    /**
-     * Fetch the list of favorite candidates from the repository.
-     */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun fetchFilteredFavoriteCandidates() {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            filter.flatMapLatest { filter ->
-                candidateRepository.getAllCandidates().map { candidatesDtos ->
-                    candidatesDtos.map { Candidate.fromDto(it) }
-                        .filter { candidate ->
-                            val searchString = filter.lowercase() // Convert filter to lowercase for case-insensitive matching
-                            (candidate.isFavorite && (candidate.firstname.lowercase().startsWith(searchString) || candidate.lastname.lowercase().startsWith(searchString)
-                                    || (candidate.firstname.lowercase() + " " + candidate.lastname.lowercase()).startsWith(searchString)
-                                    || (candidate.lastname.lowercase() + " " + candidate.firstname.lowercase()).startsWith(searchString)
-                                    ))// filter by favorite
-                        }
-                }
-            }.collect { filteredList ->
-                _favCandidates.value = filteredList
-            }
-
-        }
-    }
-
-    /**
-     * Fetch the list of candidates OR favorite  from the repository with the filter.
-     * @param modeFavorite if true, fetch favorite candidates, otherwise fetch all candidates.
-     */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun fetchCandidates(modeFavorite: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            filter.flatMapLatest { filter ->
-                candidateRepository.getAllCandidates().map { candidatesDtos ->
-                    candidatesDtos.map { Candidate.fromDto(it) }
-                        .filter { candidate ->
-                            //favorite filter
-                            if(modeFavorite){
-                                val searchString = filter.lowercase() // Convert filter to lowercase for case-insensitive matching
-                                (candidate.isFavorite && (candidate.firstname.lowercase().startsWith(searchString) || candidate.lastname.lowercase().startsWith(searchString)
-                                        || (candidate.firstname.lowercase() + " " + candidate.lastname.lowercase()).startsWith(searchString)
-                                        || (candidate.lastname.lowercase() + " " + candidate.firstname.lowercase()).startsWith(searchString)
-                                        ))// filter by favorite
-                            }else{
-                                //classic filter
-                                val searchString = filter.lowercase()
-                                (candidate.firstname.lowercase().startsWith(searchString) || candidate.lastname.lowercase().startsWith(searchString)
-                                        || (candidate.firstname.lowercase() + " " + candidate.lastname.lowercase()).startsWith(searchString)
-                                        || (candidate.lastname.lowercase() + " " + candidate.firstname.lowercase()).startsWith(searchString)
-                                        )
-                            }
-                        }
-                }
-            }.collect { filteredList ->
-                if(modeFavorite){
-                    _favCandidates.value = filteredList
-                }else{
-                    _candidates.value = filteredList
-                }
-
-            }
-
-        }
-    }
-
 
 
 
