@@ -11,13 +11,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.databinding.FragmentDetailsCandidateBinding
@@ -223,7 +223,7 @@ class DetailsCandidateFragment : Fragment() {
      * Method to delete the candidate with confirmation dialog
      */
     private fun showDeleteConfirmationDialog() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Suppression")
         builder.setMessage("Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.")
         builder.setNegativeButton("Annuler") { dialog, _ ->
