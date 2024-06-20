@@ -1,5 +1,6 @@
 package com.ocrmission.vitesse.ui.addCandidate
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
@@ -37,98 +38,48 @@ class AddCandidateViewModel  @Inject constructor(
      * Method to validate the text inputs of the user.
      * @param text The text to validate.
      * @param typeInput The type of filter to apply ont the text to be valid.
+     *  (1 = firstname 2 = lastname 3 = mail 4 = phone 5 = salary 6 = notes)
      * @return True if the text is valid, false otherwise.
      */
-    fun validateInput(text: String,typeInput: Int): Boolean {
-        //Empty case
-        if(text.isEmpty()){
-            throw EmptyTextException()
-        }
+    fun validateInput(text: String, typeInput: Int): Boolean {
+        // Empty case
+        if (text.isEmpty()) throw EmptyTextException()
 
-        when(typeInput){
-            //firstname  --  Allow only letters and hyphens (no spaces or apostrophes)
+        when (typeInput) {
+            // First name
             1 -> {
-                if (!text.all { it.isLetter() || it == '-' || it == ' ' }) {
-                    throw ForbidenCharException()
-                }
+                val namePattern = Regex("^[a-zA-Z -]+$") // Allow only letters and hyphens
+                if (!namePattern.matches(text)) throw ForbidenCharException()
             }
-            //lastname --  Allow letters, spaces, hyphens, and apostrophes
+            // Last name
             2 -> {
-                if (!text.all { it.isLetter() || it.isWhitespace() || it == '-' || it == '\'' }) {
-                    throw ForbidenCharException()
-                }
+                val namePattern = Regex("^[a-zA-Z '-]+$") // Allow letters, hyphens, and spaces
+                if (!namePattern.matches(text)) throw ForbidenCharException()
             }
-            //mail -- Allow letters, numbers, dots, underscores, and "@" + mail format
+            // Email
             3 -> {
-                val atIndex = text.indexOf('@')
-                val dotIndex = text.lastIndexOf('.')
-                // Basic filtering (letters, numbers, dots, '@', underscore)
-                if (!text.all { it.isLetterOrDigit() || it == '.' || it == '@' || it == '_' }) {
-                    throw ForbidenCharException()
-                }
-
-                // Check for exactly one "@" symbol, and the last dot is after it, and not the last character
-                if (text.count { it == '@' } != 1 ||
-                    atIndex < 0 ||
-                    dotIndex < atIndex ||
-                    dotIndex == text.lastIndex) {
-                    throw EmailFormatException()
-                }
-
-                // Check for at least one dot after "@" and no underscore
-                val textAfterAt = text.substring(atIndex + 1)
-                if (!textAfterAt.contains('.') || textAfterAt.contains('_')) {
-                    throw EmailFormatException()
-                }
-
-                // Ensure email doesn't start with ., _, or @
-                if (text[0] == '.' || text[0] == '_' || text[0] == '@') {
-                    throw EmailFormatException()
-                }
-
-                // Forbidden mail Pattern
-                if (text.contains("__")
-                    || text.contains("..")
-                    || text.contains("._")
-                    || text.contains("_.")
-                    || text.contains("_@")
-                    || text.contains("@_")
-                    || text.contains(".@")
-                    || text.contains("@.")
-                    ) {
-                    throw ForbidenCharException()
-                }
-
+                if (!Patterns.EMAIL_ADDRESS.matcher(text).matches()) throw EmailFormatException()
             }
-            //phone  -- TODO BETTERVERSION (size)
+            // Phone (basic 10-digit format)
             4 -> {
-                // Check if the text contains only digits
-                if (!text.all { it.isDigit() }) {
-                    throw ForbidenCharException()
-                }
-
-                // Check for valid phone number length (minimum 7, maximum 15 digits)
-                if (text.length < 7) {
-                    throw PhoneLengthException()
-                }
-
+                val phonePattern = Regex("^[0-9]{10}$") // Allow only 10 digits
+                if (!phonePattern.matches(text)) throw PhoneLengthException()
             }
-            //salary
+            // Salary
             5 -> {
-                if (!text.all { it.isDigit() }) {
-                    throw ForbidenCharException()
-                }
+                val salaryPattern = Regex("^[0-9]+$") // Allow only digits
+                if (!salaryPattern.matches(text)) throw ForbidenCharException()
             }
-            //notes
+            // Notes
             6 -> {
-                if (!text.all { it.isLetterOrDigit() || it == '.' || it == ' ' || it == '\'' }) {
-                    throw ForbidenCharException()
-                }
+                val notePattern = Regex("^[a-zA-Z0-9 .'-]+$") // Allow letters, digits, periods, spaces, and apostrophes
+                if (!notePattern.matches(text)) throw ForbidenCharException()
             }
-            else -> { return false }
+            else -> return false
         }
         return true
     }
+
 
 
     /**
