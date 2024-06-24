@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.Utils.DataInputValidator
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmailFormatException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmptyTextException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.ForbidenCharException
@@ -34,51 +35,6 @@ class AddCandidateViewModel  @Inject constructor(
 ) : ViewModel() {
 
 
-    /**
-     * Method to validate the text inputs of the user.
-     * @param text The text to validate.
-     * @param typeInput The type of filter to apply ont the text to be valid.
-     *  (1 = firstname 2 = lastname 3 = mail 4 = phone 5 = salary 6 = notes)
-     * @return True if the text is valid, false otherwise.
-     */
-    fun validateInput(text: String, typeInput: Int): Boolean {
-        // Empty case
-        if (text.isEmpty()) throw EmptyTextException()
-
-        when (typeInput) {
-            // First name
-            1 -> {
-                val namePattern = Regex("^[a-zA-Z -]+$") // Allow only letters and hyphens
-                if (!namePattern.matches(text)) throw ForbidenCharException()
-            }
-            // Last name
-            2 -> {
-                val namePattern = Regex("^[a-zA-Z '-]+$") // Allow letters, hyphens, and spaces
-                if (!namePattern.matches(text)) throw ForbidenCharException()
-            }
-            // Email
-            3 -> {
-                if (!Patterns.EMAIL_ADDRESS.matcher(text).matches()) throw EmailFormatException()
-            }
-            // Phone (basic 10-digit format)
-            4 -> {
-                val phonePattern = Regex("^[0-9]{10}$") // Allow only 10 digits
-                if (!phonePattern.matches(text)) throw PhoneLengthException()
-            }
-            // Salary
-            5 -> {
-                val salaryPattern = Regex("^[0-9]+$") // Allow only digits
-                if (!salaryPattern.matches(text)) throw ForbidenCharException()
-            }
-            // Notes
-            6 -> {
-                val notePattern = Regex("^[a-zA-Z0-9 .'-]+$") // Allow letters, digits, periods, spaces, and apostrophes
-                if (!notePattern.matches(text)) throw ForbidenCharException()
-            }
-            else -> return false
-        }
-        return true
-    }
 
 
 
@@ -106,41 +62,28 @@ class AddCandidateViewModel  @Inject constructor(
     }
 
 
+
+    /**
+     * Method to validate the text inputs of the user.
+     * @param text The text to validate.
+     * @param typeInput The type of filter to apply ont the text to be valid.
+     *  (1 = firstname 2 = lastname 3 = mail 4 = phone 5 = salary 6 = notes)
+     * @return True if the text is valid, false otherwise.
+     */
+    fun validateInput(text: String, typeInput: Int): Boolean {
+        return DataInputValidator.validateInput(text, typeInput)
+    }
+
+
+
+
     /**
      * Method to convert a date string to a LocalDateTime object.
      * @param dateString The date string to convert.
      * @return The converted LocalDateTime object, or null if the conversion fails (bad format,empty,etc...).
      */
     fun birthdayDateConverter(dateString: String): LocalDateTime? {
-        // Parse the date string using SimpleDateFormat
-        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-         try {
-            val parsedDate = formatter.parse(dateString)
-             if (parsedDate != null) {
-                val calendar = Calendar.getInstance()
-                val currentDate = calendar.timeInMillis
-
-                // Check if parsed date is not in the future
-                 return if (parsedDate.time <= currentDate) {
-                     // Valid date, convert to LocalDateTime
-                     LocalDateTime.ofInstant(parsedDate.toInstant(), ZoneId.systemDefault())
-                 } else {
-                     // Future date, then return null to trigger missingBirthException in later addCandidate() call
-                     null
-                 }
-            } else {
-                // Handle invalid date format or the default "dd/MM/yyyy set in the edittext"
-                 return null
-            }
-        }catch (e: ParseException){ // parsing failed, it's not a valid date
-            return null
-        }
-
-
-        // Convert the parsed Date to LocalDateTime
-
-
+       return DataInputValidator.birthdayDateConverter(dateString)
     }
 
 }
