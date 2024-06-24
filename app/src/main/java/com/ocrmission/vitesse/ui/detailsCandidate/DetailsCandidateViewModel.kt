@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
+import com.ocrmission.vitesse.data.repository.CurrencyRepository
 import com.ocrmission.vitesse.domain.Candidate
 import com.ocrmission.vitesse.ui.Utils.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +21,17 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DetailsCandidateViewModel @Inject constructor(
-    private val candidateRepository: CandidateRepository
+    private val candidateRepository: CandidateRepository,
+    private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
     private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
     val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
+
+
+    private val _currencyRate = MutableStateFlow<Double>(0.0)
+    val currencyRate: StateFlow<Double> = _currencyRate.asStateFlow()
+
 
 
     /**
@@ -74,6 +81,22 @@ class DetailsCandidateViewModel @Inject constructor(
             }
         }
     }
+
+
+
+
+//CURRENCY CONVERTER METHODS -----------------------------------------------------------
+
+
+    fun getCurrencyRate(fromCurrency: String, toCurrency: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val rate = currencyRepository.getConversionRateFor(fromCurrency, toCurrency)
+
+            _currencyRate.value = rate
+        }
+    }
+
+
 
 
 
