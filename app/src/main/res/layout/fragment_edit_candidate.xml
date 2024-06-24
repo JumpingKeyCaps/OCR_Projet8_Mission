@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.editCandidate.EditCandidateFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/edit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:title="Modifier un candidat"
+            app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            app:layout_scrollEffect="compress"
+            app:navigationIcon="@drawable/baseline_arrow_back_24" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/editCandidate_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--Photos blurp background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/editcandidate_imageView_background"
+                android:layout_width="match_parent"
+                android:layout_height="338dp"
+                android:contentDescription="TODO"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!-- Candidate photo -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/editcandidate_mini_imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="32dp"
+                android:background="#ffffff"
+                android:contentDescription="TODO"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_pic_b"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
+
+
+            <!-- Name section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editname_cardview"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginTop="26dp"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editcandidate_mini_imageView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <!-- icon name section -->
+                    <ImageView
+                        android:id="@+id/editname_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/people"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editname_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier les informations du candidat"
+                        app:layout_constraintBottom_toBottomOf="@+id/editname_icon"
+                        app:layout_constraintStart_toEndOf="@id/editname_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editname_icon" />
+
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/editname_textview_title" />
+                    <!-- first name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editfirstname_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:hint="Prenom"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editfirstname_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:imeOptions="actionDone"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- last name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editlastname_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:hint="Nom"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editfirstname_edit_text_layout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editlastname_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:imeOptions="actionDone"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!-- phone -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editphone_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/editname_cardview"
+                app:layout_constraintStart_toStartOf="@id/editname_cardview"
+                app:layout_constraintTop_toBottomOf="@id/editname_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <!-- icon phone section -->
+                    <ImageView
+                        android:id="@+id/editphone_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editphone_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier le numero de telephone"
+                        app:layout_constraintBottom_toBottomOf="@+id/editphone_icon"
+                        app:layout_constraintStart_toEndOf="@id/editphone_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editphone_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/editphone_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!--input phone -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editphone_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Telephone"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/editdivider_phone"
+                        app:layout_constraintStart_toStartOf="@+id/editdivider_phone"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_phone">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editphone_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:imeOptions="actionDone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!-- mail -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editmail_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/editphone_cardview"
+                app:layout_constraintStart_toStartOf="@id/editphone_cardview"
+                app:layout_constraintTop_toBottomOf="@id/editphone_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <!-- icon mail section -->
+                    <ImageView
+                        android:id="@+id/editmail_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/mail"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editmail_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier l'adresse e-mail"
+                        app:layout_constraintBottom_toBottomOf="@+id/editmail_icon"
+                        app:layout_constraintStart_toEndOf="@id/editmail_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editmail_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/editmail_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!--input mail -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editmail_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Email"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/editdivider_mail"
+                        app:layout_constraintStart_toStartOf="@+id/editdivider_mail"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editmail_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:imeOptions="actionDone"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!-- Birthday-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editbirthday_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/editmail_cardview"
+                app:layout_constraintStart_toStartOf="@id/editmail_cardview"
+                app:layout_constraintTop_toBottomOf="@id/editmail_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- icon salary section -->
+                    <ImageView
+                        android:id="@+id/editbirthday_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cake"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editbirthday_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier la date de naissance"
+                        app:layout_constraintBottom_toBottomOf="@+id/editbirthday_icon"
+                        app:layout_constraintStart_toEndOf="@id/editbirthday_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editbirthday_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/editbirthday_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!-- input-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editbirthday_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Date"
+                        app:boxStrokeColor="@color/primary"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_birthday">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:text="jj/mm/aaaa"
+                            android:id="@+id/editbirthday_input_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <!-- icon birthday section -->
+            <ImageView
+                android:visibility="invisible"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="TODO"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/cake"
+                app:layout_constraintEnd_toStartOf="@+id/editbirthday_cardview"
+                app:layout_constraintTop_toTopOf="@+id/editbirthday_cardview"
+                app:tint="@color/material_on_background_emphasis_high_type" />
+
+
+            <!-- Salary -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editsalary_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/editbirthday_cardview"
+                app:layout_constraintStart_toStartOf="@id/editbirthday_cardview"
+                app:layout_constraintTop_toBottomOf="@id/editbirthday_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <!-- icon salary section -->
+                    <ImageView
+                        android:id="@+id/editsalary_icon"
+                        android:visibility="visible"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/attach_money_"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editsalary_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier la pretention salariale"
+                        app:layout_constraintBottom_toBottomOf="@+id/editsalary_icon"
+                        app:layout_constraintStart_toEndOf="@id/editsalary_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editsalary_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/editsalary_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                    <!-- input-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editsalary_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/salary_hint"
+                        app:boxStrokeColor="@color/primary"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="@+id/editdivider_salary"
+                        app:layout_constraintStart_toStartOf="@+id/editdivider_salary"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_salary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editsalary_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!--Notes -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editnotes_cardview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="?attr/materialCardViewElevatedStyle"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="@id/editsalary_cardview"
+                app:layout_constraintStart_toStartOf="@id/editsalary_cardview"
+                app:layout_constraintTop_toBottomOf="@id/editsalary_cardview">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+                    <!-- icon note section -->
+                    <ImageView
+                        android:id="@+id/editnotes_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="TODO"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/material_on_background_emphasis_high_type" />
+                    <!--title card -->
+                    <TextView
+                        android:id="@+id/editnotes_textview_title"
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="Modifier les informations suplementaires"
+                        app:layout_constraintBottom_toBottomOf="@+id/editnotes_icon"
+                        app:layout_constraintStart_toEndOf="@id/editnotes_icon"
+                        app:layout_constraintTop_toTopOf="@+id/editnotes_icon" />
+                    <!--divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/editdivider_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/editnotes_textview_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editnote_edit_text_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Notes"
+                        android:minHeight="175dp"
+                        app:boxStrokeColor="@color/primary"
+                        app:errorEnabled="true"
+                        app:helperTextEnabled="true"
+                        app:helperText="Taille limite"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="350"
+                        app:hintTextColor="@color/primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editdivider_notes">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editnote_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="175dp"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:imeOptions="actionDone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- save button  -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editcandidate_save_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="35dp"
+                android:text="Sauvegarder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editnotes_cardview" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

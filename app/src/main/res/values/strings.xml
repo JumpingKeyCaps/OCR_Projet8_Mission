@@ -6,12 +6,6 @@
     <string name="tab_FavCandidat_text">Favoris</string>
 
 
-
-
-
-
-
-
     <!--Error message empty text input-->
     <string name="error_empty_textInput_base_text">est obligatoire.</string>
 
@@ -48,8 +42,6 @@
     <string name="birthday_picker_future_date_error">Les dates dans le futur ne sont pas autoriser.</string>
 
 
-
-
     <string name="salary_card_title">Saisir la prétentions salariales</string>
     <string name="salary_hint">Prétentions salariales</string>
 
@@ -60,7 +52,6 @@
 
     <string name="year_word">ans</string>
     <string name="money_symbol">€</string>
-
 
 
     <string name="details_toolbar_title_favorite">Favoris</string>

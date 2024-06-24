@@ -5,16 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.ui.Utils.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.Period
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 /**
@@ -81,35 +79,7 @@ class DetailsCandidateViewModel @Inject constructor(
 
 //JOBBING METHODS -----------------------------------------------------------
 
-    /**
-     * Method to convert birthday date in years
-     * @param birthDate birthday date in LocalDateTime format
-     *@return the age in years
-     */
-    private fun calculateAgeInYears(birthDate: LocalDateTime?): Int {
-        if (birthDate == null) {
-            return 0
-        }else{
-            val today = LocalDate.now() // Get current date
-            val birthDateAsDate = birthDate.toLocalDate() // Extract date from LocalDateTime
-            val period = Period.between(birthDateAsDate, today) // calc the period between the two dates
-            return period.years
-        }
-    }
 
-    /**
-     * Method to format birthday date in dd/MM/yyyy format string
-     * @param date birthday date in LocalDateTime format
-     * @return the formatted birthday date string
-     */
-    private fun formatDateBirthday(date: LocalDateTime?): String {
-        if (date == null) {
-            return " "
-        }else{
-            val formattedBirthDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-            return formattedBirthDate
-        }
-    }
 
     /**
      * Method to format the birthday details
@@ -118,9 +88,7 @@ class DetailsCandidateViewModel @Inject constructor(
      * @return the formatted birthday details
      */
     fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?, dynamicString:String): String{
-        val formattedBirthDate = formatDateBirthday(birthDate)
-        val age = calculateAgeInYears(birthDate)
-        return "$formattedBirthDate  ($age ${dynamicString})"
+        return DataInputValidator.birthdayDetailsStringBuilder(birthDate, dynamicString)
     }
 
 

@@ -1,48 +1,57 @@
-package com.ocrmission.vitesse.ui.addCandidate
+package com.ocrmission.vitesse.ui.editCandidate
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
 import com.ocrmission.vitesse.ui.Utils.DataInputValidator
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmailFormatException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmptyTextException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.ForbidenCharException
+import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingEmailException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingFirstNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingLastNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingPhoneException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.PhoneLengthException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.Calendar
-import java.util.Locale
 import javax.inject.Inject
 
 /**
- * The ViewModel for the AddCandidate fragment.
+ * ViewModel for the fragment to edit a candidate.
  */
 @HiltViewModel
-class AddCandidateViewModel  @Inject constructor(
+class EditCandidateViewModel  @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
 
-
-
+    private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
+    val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
 
 
     /**
-     * Method to add a candidate in secure way to the database.
-     * @param candidate The candidate to add.
+     * Method to fetch candidate by his id
+     * @param candidateId id of the candidate
      */
-    fun addCandidate(candidate: Candidate) {
+    fun fetchingCandidateById(candidateId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            candidateRepository.getCandidateById(candidateId)
+                .collect{ candidateDto ->
+                    if(candidateDto != null ){
+                        _candidate.value = Candidate.fromDto(candidateDto)
+                    }
+                }
+        }
+    }
+
+
+    /**
+     * Method to update a candidate.
+     */
+    fun updateCandidate(candidate: Candidate) {
+
         if(candidate.firstname.isEmpty()){
             throw MissingFirstNameException()
         }else if(candidate.lastname.isEmpty()){
@@ -54,12 +63,19 @@ class AddCandidateViewModel  @Inject constructor(
         }else if(candidate.birthday == null){
             throw MissingBirthException()
         }else{
-            //all is ok to add a new candidate
             viewModelScope.launch(Dispatchers.IO) {
-                candidateRepository.addCandidate(candidate.toDto())
+
+                val resultUpdate = candidateRepository.updateCandidate(candidate.toDtoWithId())
+                if(resultUpdate != 1){
+                    throw Exception("Failed to update candidate")
+                }
             }
         }
+
+
     }
+
+
 
 
 
@@ -83,7 +99,20 @@ class AddCandidateViewModel  @Inject constructor(
      * @return The converted LocalDateTime object, or null if the conversion fails (bad format,empty,etc...).
      */
     fun birthdayDateConverter(dateString: String): LocalDateTime? {
-       return DataInputValidator.birthdayDateConverter(dateString)
+        return DataInputValidator.birthdayDateConverter(dateString)
     }
+
+
+    /**
+     * Method to format birthday date in dd/MM/yyyy format string
+     * @param date birthday date in LocalDateTime format
+     * @return the formatted birthday date string
+     */
+    fun formatDateBirthday(date: LocalDateTime?): String {
+      return DataInputValidator.formatDateBirthday(date)
+    }
+
+
+
 
 }

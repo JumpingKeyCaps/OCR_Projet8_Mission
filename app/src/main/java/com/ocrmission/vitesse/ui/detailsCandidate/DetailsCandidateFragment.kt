@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -101,7 +100,10 @@ class DetailsCandidateFragment : Fragment() {
                 }
                 R.id.editmenu -> {
                     // Handle edit click
-                    Toast.makeText(requireContext(), "Edit clicked", Toast.LENGTH_SHORT).show()
+                    //nav to edit screen and pass the CandidateID in argument.
+                    findNavController().navigate(
+                        DetailsCandidateFragmentDirections.actionNavigationDetailsCandidateFragmentToEditCandidateFragment(detailsCandidateViewModel.candidate.value.id))
+
                     true
                 }
                 R.id.deletemenu -> {
