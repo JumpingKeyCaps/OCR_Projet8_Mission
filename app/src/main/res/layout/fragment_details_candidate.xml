@@ -234,7 +234,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="46dp"
                         android:layout_marginBottom="26dp"
-                        android:text="soit $ 0000.0  "
+                        android:text="soit 0000.0  "
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/salary_textView"
                         app:layout_constraintTop_toBottomOf="@id/salary_textView" />
