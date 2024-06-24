@@ -208,7 +208,6 @@ class EditCandidateFragment : Fragment() {
                     showError(getString(R.string.birthday_picker_future_date_error), binding.editbirthdayInputLayout)
                 }else{
                     // Format date and set text to EditText
-                    binding.editbirthdayCardview.isChecked = true
                     showSuccess(binding.editbirthdayInputLayout)
                 }
 

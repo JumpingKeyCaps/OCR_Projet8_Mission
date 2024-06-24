@@ -50,6 +50,10 @@ class DetailsCandidateFragment : Fragment() {
 
         //retrieve the candidate id from the arguments
         retrieveCandidateID()
+
+        //retrieve the currency rate
+        retrieveCurrencyRate()
+
         //observe the candidate flow from the viewmodel
         setupObservers()
         //setup the contact buttons
@@ -68,6 +72,12 @@ class DetailsCandidateFragment : Fragment() {
         detailsCandidateViewModel.fetchingCandidateById(candidateId)
     }
 
+    private fun retrieveCurrencyRate(){
+        detailsCandidateViewModel.getCurrencyRate("eur","gbp")
+    }
+
+
+
     /**
      * Observe the candidate flow from the viewmodel
      */
@@ -77,6 +87,13 @@ class DetailsCandidateFragment : Fragment() {
                 updateUI(it)
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            detailsCandidateViewModel.currencyRate.collect{
+                updateCurrencyRateUI(it)
+            }
+        }
+
     }
 
 
@@ -133,6 +150,17 @@ class DetailsCandidateFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
+    private fun updateCurrencyRateUI(rate: Double) {
+
+        val salaryConvertion = Math.round(detailsCandidateViewModel.candidate.value.salary * rate)
+
+        binding.salaryConvertionTextView.text = "${getString(R.string.currency_rate_preword)}  ${getString(R.string.money_symbol_gbp)} $salaryConvertion"
+    }
+
+
+
+
     /**
      * Method to update the candidate picture
      */
@@ -155,6 +183,7 @@ class DetailsCandidateFragment : Fragment() {
         //salary details
         val salaryText = "${candidate.salary} ${getString(R.string.money_symbol)}"
         binding.salaryTextView.text = salaryText
+
 
         //notes details
         binding.notesTextView.text = candidate.note

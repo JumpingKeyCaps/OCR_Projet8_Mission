@@ -61,5 +61,7 @@
     <string name="details_menu_favoris_contentdescription">Ajouter en favorie</string>
     <string name="details_menu_edit_contentdescription">Editer le candidat</string>
     <string name="details_menu_delete_contentdescription">Supprimer le candidat</string>
+    <string name="money_symbol_gbp">£</string>
+    <string name="currency_rate_preword">"soit "</string>
 
 </resources>
