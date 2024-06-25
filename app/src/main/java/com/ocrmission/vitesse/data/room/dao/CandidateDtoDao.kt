@@ -8,7 +8,6 @@ import androidx.room.Update
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
 import kotlinx.coroutines.flow.Flow
 
-
 /**
  * Data Access Object (DAO) interface of the Candidate dto.
  *  regroup all CRUD actions for candidate table.
