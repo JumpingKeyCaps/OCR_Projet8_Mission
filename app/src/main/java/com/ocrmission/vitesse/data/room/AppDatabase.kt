@@ -6,9 +6,8 @@ import com.ocrmission.vitesse.data.room.dao.CandidateDtoDao
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
 
 /**
- * The Database of the App (Room)
+ * The local database of the Application (Room)
  */
-
 @Database(entities = [CandidateDto::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun candidateDtoDao(): CandidateDtoDao
