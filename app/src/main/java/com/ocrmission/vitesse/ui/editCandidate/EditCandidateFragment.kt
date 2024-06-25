@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
@@ -83,7 +81,7 @@ class EditCandidateFragment : Fragment() {
         //setup birthday picker
         setupBirthdayPicker()
 
-        //for fun design // TO REMOVE-----------
+        //for some UX design
         sectionCardsMinimizator()
         focusingAnimator()
         setupImeActionListener()
@@ -96,7 +94,6 @@ class EditCandidateFragment : Fragment() {
      */
     private fun retrieveCandidateID() {
         val candidateId = args.CandidateId
-        Toast.makeText(requireContext(), "Edit Candidate with id:  $candidateId", Toast.LENGTH_SHORT).show()
         editCandidateViewModel.fetchingCandidateById(candidateId)
     }
 
@@ -358,11 +355,10 @@ class EditCandidateFragment : Fragment() {
                 isFavorite = editCandidateViewModel.candidate.value.isFavorite
 
             ))
-            Snackbar.make(requireView(),"Candidate successfully edited !" , Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(),
+                getString(R.string.snack_message_edit_update) , Snackbar.LENGTH_SHORT).show()
             // Find the NavController and navigate back
             findNavController().navigateUp()
-
-
 
         }catch (e: Exception){
             val errorMsgToDisplay =
@@ -401,7 +397,7 @@ class EditCandidateFragment : Fragment() {
             ).into(binding.editcandidateImageViewBackground)
             Glide.with(this).load(uri).into(binding.editcandidateMiniImageView)
         } else {
-            Log.d("PhotoPicker", "No media selected")
+            //no media selected !
         }
     }
 
@@ -415,10 +411,9 @@ class EditCandidateFragment : Fragment() {
     }
 
 
-
 //EXPLORATION AND FUN -------------------------------------------------------------------
     /**
-     * Methode to have fun with focus change animation on section cards
+     * Methode to set animation on section cards focus change.
      */
     private fun focusingAnimator(){
         val focusListener = View.OnFocusChangeListener { v, hasFocus ->
@@ -431,11 +426,6 @@ class EditCandidateFragment : Fragment() {
                 R.id.editsalary_edittext -> { sectionCardSizer(binding.editsalaryCardview, !hasFocus) }
                 R.id.editnote_edittext -> { sectionCardSizer(binding.editnotesCardview, !hasFocus) }
             }
-
-
-
-
-
         }
         //setup focuslistener on all edittext
         binding.editphoneEdittext.onFocusChangeListener = focusListener
@@ -447,6 +437,12 @@ class EditCandidateFragment : Fragment() {
         binding.editnoteEdittext.onFocusChangeListener = focusListener
     }
 
+    /**
+     * Methode to change the size of section card with focus change.
+     * @param who the card to change the size
+     * @param minimized the new "target" size state of the card
+     * @param duration the animation duration
+     */
     private fun sectionCardSizer(who: MaterialCardView, minimized: Boolean, duration: Long = 300){
         if(minimized){
             who.animate().scaleX(0.90f).scaleY(0.90f).setDuration(duration).start()
@@ -455,6 +451,9 @@ class EditCandidateFragment : Fragment() {
         }
     }
 
+    /**
+     * Methode to minimize all section cards.
+     */
     private fun sectionCardsMinimizator(){
         sectionCardSizer(binding.editnameCardview, true, 0)
         sectionCardSizer(binding.editphoneCardview, true, 0)
@@ -464,6 +463,9 @@ class EditCandidateFragment : Fragment() {
         sectionCardSizer(binding.editnotesCardview, true, 0)
     }
 
+    /**
+     * Methode to setup the ime action button listener
+     */
     private fun setupImeActionListener(){
         val editorActionListener = object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
