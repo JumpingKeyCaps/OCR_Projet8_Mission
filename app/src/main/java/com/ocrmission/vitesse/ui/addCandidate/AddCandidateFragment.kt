@@ -3,7 +3,6 @@ package com.ocrmission.vitesse.ui.addCandidate
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -33,7 +32,6 @@ import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.PhoneLengthException
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -171,7 +169,7 @@ class AddCandidateFragment : Fragment() {
                 }
 
             }
-            //pop the datepicker dialog
+            //pop the date picker dialog
             datePicker.show(getParentFragmentManager(), "birthday_datePicker") // Use fragment manager for compatibility
         }
 
@@ -195,7 +193,6 @@ class AddCandidateFragment : Fragment() {
         try {
             //check if the input is valid
             if(addCandidateViewModel.validateInput(text,filterType)) showSuccess(textInputLayout)
-
         }catch (e: Exception){
             when(e){
                 is EmptyTextException -> {
@@ -225,7 +222,6 @@ class AddCandidateFragment : Fragment() {
         textInputLayout.isErrorEnabled = true
         textInputLayout.hintTextColor = ColorStateList.valueOf(resources.getColor(R.color.error_text_color, null))
         textInputLayout.boxStrokeColor = resources.getColor(R.color.error_text_color, null)
-
         //mark the cardview as not checked
         setCardViewChecked(textInputLayout,false)
     }
@@ -238,7 +234,6 @@ class AddCandidateFragment : Fragment() {
         textInputLayout.error = null
         textInputLayout.hintTextColor = ColorStateList.valueOf(resources.getColor(R.color.valid_text_color, null))
         textInputLayout.boxStrokeColor = resources.getColor(R.color.valid_text_color, null)
-
         //mark the cardview as checked
         setCardViewChecked(textInputLayout,true)
     }
@@ -247,7 +242,6 @@ class AddCandidateFragment : Fragment() {
      * Method to set the checked state of the cardview
      * @param textInputLayout the input layout to update his cardview
      * @param isChecked the checked state
-     *
      */
     private fun setCardViewChecked(textInputLayout: TextInputLayout, isChecked: Boolean){
         when(textInputLayout){
@@ -259,7 +253,6 @@ class AddCandidateFragment : Fragment() {
             else -> { }
         }
     }
-
 
 
 //ERROR MESSAGE STUFF ---------------------------------------------------------------------
@@ -324,7 +317,6 @@ class AddCandidateFragment : Fragment() {
             findNavController().navigateUp()
 
         }catch (e: Exception){
-            Log.d("saveCandidate", "saveCandidate: Exception : ${e.toString()}")
             //Error handling
             val errorMsgToDisplay =
             when(e){
@@ -367,7 +359,7 @@ class AddCandidateFragment : Fragment() {
             Glide.with(this).load(uri).apply(bitmapTransform(jp.wasabeef.glide.transformations.BlurTransformation(15,3))).into(binding.candidateImageViewBackground)
             Glide.with(this).load(uri).into(binding.candidateMiniImageView)
         } else {
-            Log.d("PhotoPicker", "No media selected")
+            //no media selected !
         }
     }
 
@@ -377,8 +369,6 @@ class AddCandidateFragment : Fragment() {
     private fun selectImage() {
         // Launch the photo picker and let the user choose only images.
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-
     }
-
 
 }
