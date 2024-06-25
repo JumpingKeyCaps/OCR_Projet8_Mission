@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Classic Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00ffffff</color>
 
+    <!-- Vitesse Colors Theme -->
     <color name="primary">#DF9780</color>
     <color name="primary_variant">#749FB8</color>
     <color name="on_primary">#FFFFFF</color>
@@ -10,11 +13,14 @@
     <color name="secondary_variant">#E8B952</color>
     <color name="on_secondary">#ffffff</color>
 
+    <!-- Search Bar -->
     <color name="search_bar_background_day">#ECE6F0</color>
     <color name="search_bar_background_night">#202020</color>
 
+    <!--Text fields input validator -->
     <color name="valid_text_color">#4DB57C</color>
     <color name="error_text_color">#FF0000</color>
+    <color name="item_candidate_notes_text_color">#49454F</color>
 
 
 </resources>

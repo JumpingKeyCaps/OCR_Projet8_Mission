@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
-
     <!-- AppBarLayout -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -32,61 +31,56 @@
             style="@style/ThemeOverlay.Material3.Search"
             android:background="@drawable/search_bar_background"
             android:padding="8dp">
-
             <EditText
                 android:id="@+id/search_input"
+                style="@style/TextAppearance.Material3.SearchBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
-                android:background="#00ffffff"
-                style="@style/TextAppearance.Material3.SearchBar"
-                android:textColorHint="#49454F"
-                android:textSize="16sp"
-                android:hint="Rechercher un candidat"
+                android:autofillHints=""
+                android:background="@color/transparent"
+                android:hint="@string/home_hint_searchbar"
                 android:imeOptions="actionSearch"
                 android:inputType="textPersonName|textNoSuggestions"
+                android:maxWidth="487dp"
+                android:textColorHint="#49454F"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/search_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck" />
             <ImageView
                 android:id="@+id/search_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/content_description_icon_searchbar"
                 android:src="@drawable/baseline_search_a"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Tab layout (Material Design)-->
+        <!-- Tab layout (Material Design) -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible">
-
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tous" />
-
+                android:text="@string/home_tab_all" />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Favoris" />
+                android:text="@string/home_tab_favorites" />
 
         </com.google.android.material.tabs.TabLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- View pager -->
-
-    <!-- Floating action button -->
+    <!-- ViewPager -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/home_view_pager"
         android:layout_width="0dp"
@@ -97,17 +91,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
+    <!-- Floating action button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="boutonfab"
+        android:contentDescription="@string/content_description_home_fab"
         android:src="@android:drawable/ic_input_add"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

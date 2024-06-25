@@ -1,4 +1,4 @@
-package com.ocrmission.vitesse.ui.Utils
+package com.ocrmission.vitesse.ui.utils
 
 import android.util.Patterns
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmailFormatException
@@ -16,7 +16,7 @@ import java.util.Calendar
 import java.util.Locale
 
 /**
- * Used to validate data input fields
+ *  Class Used to validate all data input fields of the user.
  */
 class DataInputValidator {
 
@@ -50,7 +50,7 @@ class DataInputValidator {
                 }
                 // Phone (basic 10-digit format)
                 4 -> {
-                    val phonePattern = Regex("^[0-9]{10}$") // Allow only 10 digits
+                    val phonePattern = Regex("^[0-9]{10}$") // Allow min 10 digits number
                     if (!phonePattern.matches(text)) throw PhoneLengthException()
                 }
                 // Salary
@@ -99,11 +99,6 @@ class DataInputValidator {
             }catch (e: ParseException){ // parsing failed, it's not a valid date
                 return null
             }
-
-
-
-
-
         }
 
 
@@ -150,8 +145,6 @@ class DataInputValidator {
                 return period.years
             }
         }
-
-
 
     }
 

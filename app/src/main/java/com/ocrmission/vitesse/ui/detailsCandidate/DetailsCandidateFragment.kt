@@ -47,13 +47,10 @@ class DetailsCandidateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //retrieve the candidate id from the arguments
         retrieveCandidateID()
-
         //retrieve the currency rate
         retrieveCurrencyRate()
-
         //observe the candidate flow from the viewmodel
         setupObservers()
         //setup the contact buttons
@@ -72,6 +69,9 @@ class DetailsCandidateFragment : Fragment() {
         detailsCandidateViewModel.fetchingCandidateById(candidateId)
     }
 
+    /**
+     * Retrieve the currency rate from the viewmodel
+     */
     private fun retrieveCurrencyRate(){
         detailsCandidateViewModel.getCurrencyRate("eur","gbp")
     }
@@ -82,20 +82,19 @@ class DetailsCandidateFragment : Fragment() {
      * Observe the candidate flow from the viewmodel
      */
     private fun setupObservers() {
+        //observe the candidate flow from the viewmodel
         viewLifecycleOwner.lifecycleScope.launch {
             detailsCandidateViewModel.candidate.collect {
                 updateUI(it)
             }
         }
-
+        //observe the currency rate flow from the viewmodel
         viewLifecycleOwner.lifecycleScope.launch {
             detailsCandidateViewModel.currencyRate.collect{
                 updateCurrencyRateUI(it)
             }
         }
-
     }
-
 
 
     /**
@@ -120,13 +119,11 @@ class DetailsCandidateFragment : Fragment() {
                     //nav to edit screen and pass the CandidateID in argument.
                     findNavController().navigate(
                         DetailsCandidateFragmentDirections.actionNavigationDetailsCandidateFragmentToEditCandidateFragment(detailsCandidateViewModel.candidate.value.id))
-
                     true
                 }
                 R.id.deletemenu -> {
                     // Handle delete click
                     showDeleteConfirmationDialog()
-
                     true
                 }
                 else -> false
@@ -150,11 +147,13 @@ class DetailsCandidateFragment : Fragment() {
     }
 
 
+    /**
+     * Update the currency rate UI with the rate
+     * @param rate the currency rate
+     */
     @SuppressLint("SetTextI18n")
     private fun updateCurrencyRateUI(rate: Double) {
-
         val salaryConvertion = Math.round(detailsCandidateViewModel.candidate.value.salary * rate)
-
         binding.salaryConvertionTextView.text = "${getString(R.string.currency_rate_preword)}  ${getString(R.string.money_symbol_gbp)} $salaryConvertion"
     }
 
@@ -163,6 +162,7 @@ class DetailsCandidateFragment : Fragment() {
 
     /**
      * Method to update the candidate picture
+     * @param candidate the candidate object
      */
     private fun updateCandidatePicture(candidate: Candidate){
         val uri = Uri.parse(candidate.photoUri)
@@ -172,6 +172,7 @@ class DetailsCandidateFragment : Fragment() {
 
     /**
      * Method to update the candidate details
+     * @param candidate the candidate object
      */
     private fun updateCandidateDetails(candidate: Candidate){
         //birthday details
@@ -179,12 +180,9 @@ class DetailsCandidateFragment : Fragment() {
             candidate.birthday,
             getString(R.string.year_word)
         )
-
         //salary details
         val salaryText = "${candidate.salary} ${getString(R.string.money_symbol)}"
         binding.salaryTextView.text = salaryText
-
-
         //notes details
         binding.notesTextView.text = candidate.note
     }
@@ -196,6 +194,7 @@ class DetailsCandidateFragment : Fragment() {
 
     /**
      * Method to update the candidate favorite state (toolbar)
+     * @param candidate the candidate object
      */
     private fun updateCandidateFavoriteState(candidate: Candidate){
         val isFavorite = candidate.isFavorite // Get the current favorite status (true or false)
@@ -215,14 +214,14 @@ class DetailsCandidateFragment : Fragment() {
             //candidate is already a favorite, remove it !
 
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                "Removed from favorites !", Snackbar.LENGTH_SHORT).show()
+                getString(R.string.snack_message_favorite_remove), Snackbar.LENGTH_SHORT).show()
 
             detailsCandidateViewModel.updateFavoriteState(false)
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_outline_24)
         }else{
             //candidate is not a favorite, add it !
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                "Added to favorites !", Snackbar.LENGTH_SHORT).show()
+                getString(R.string.snack_message_favorite_added), Snackbar.LENGTH_SHORT).show()
 
             detailsCandidateViewModel.updateFavoriteState(true)
             binding.detailsToolbar.menu.findItem(R.id.favmenu).icon =  ContextCompat.getDrawable(requireContext(), R.drawable.baseline_star_24)
@@ -241,18 +240,18 @@ class DetailsCandidateFragment : Fragment() {
      */
     private fun showDeleteConfirmationDialog() {
         val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setTitle("Suppression")
-        builder.setMessage("Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.")
-        builder.setNegativeButton("Annuler") { dialog, _ ->
+        builder.setTitle(getString(R.string.delete_candidate_dialog_title))
+        builder.setMessage(getString(R.string.delete_candidate_dialog_message))
+        builder.setNegativeButton(getString(R.string.delete_candidate_dialog_negative_button)) { dialog, _ ->
             dialog.dismiss() // Dismiss dialog on negative button click
         }
-        builder.setPositiveButton("Confirmer") { dialog, _ ->
+        builder.setPositiveButton(getString(R.string.delete_candidate_dialog_positive_button)) { dialog, _ ->
             // Implement delete logic and navigate to home screen here
             detailsCandidateViewModel.deleteCandidate() // Call function to delete candidate
             dialog.dismiss() // Dismiss dialog on positive button click
             findNavController().navigateUp() // Call function to navigate to home screen
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                "Candidat supprimer !", Snackbar.LENGTH_SHORT).show()
+                getString(R.string.snack_message_delete_candidate), Snackbar.LENGTH_SHORT).show()
         }
         val dialog = builder.create()
         dialog.show()
@@ -335,11 +334,7 @@ class DetailsCandidateFragment : Fragment() {
     private fun sendEmailToCandidate(candidateEmail: String){
         val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.data = Uri.parse("mailto:$candidateEmail")
-
         startActivity(emailIntent)
-
     }
-
-
 
 }

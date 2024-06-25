@@ -19,14 +19,13 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
     }
 
     /**
-     * Method to get all candidates.
+     * Method to get a candidate by his id.
      * @param candidateId the id of the candidate to be retrieved.
-     * @return a flow of a list of CandidateDto.
+     * @return a flow of the CandidateDto.
      */
     fun getCandidateById(candidateId: Long): Flow<CandidateDto?>{
         return candidateDao.getCandidatesById(candidateId)
     }
-
 
     /**
      * Method to add a candidate.
@@ -34,7 +33,6 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
      */
     suspend fun addCandidate(candidate: CandidateDto){
         candidateDao.insertCandidate(candidate)
-
     }
 
     /**
@@ -45,9 +43,6 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
         candidateDao.deleteCandidate(candidate)
     }
 
-
-
-
     /**
      * Method to update a candidate profile.
      * @param candidate the candidate dto with updated information.
@@ -56,7 +51,6 @@ class CandidateRepository @Inject constructor(private val candidateDao: Candidat
     suspend fun updateCandidate(candidate: CandidateDto): Int {
         return candidateDao.updateCandidate(candidate)
     }
-
 
 
 }

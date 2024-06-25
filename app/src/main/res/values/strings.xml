@@ -2,13 +2,29 @@
     <string name="app_name">Vitesse</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Home Fragment String resources -->
     <string name="tab_AllCandidat_text">Tous</string>
     <string name="tab_FavCandidat_text">Favoris</string>
+    <string name="home_hint_searchbar">Rechercher un candidat</string>
+    <string name="content_description_icon_searchbar">icone de la barre de recherche</string>
+    <string name="content_description_home_fab">Bouton pour ajouter un candidat</string>
+    <string name="home_tab_all">Tous</string>
+    <string name="home_tab_favorites">Favoris</string>
+
+    <!-- Candidates list fragment String resources-->
+    <string name="candidates_list_empty_text">Aucun Candidat</string>
+
+    <!-- favorites list fragment String resources-->
+    <string name="favorites_list_empty_text">Aucun Favories</string>
+
+    <!-- items candidates/ favorites -->
+    <string name="content_description_item_candidate_photo">Miniature de la photo du candidat.</string>
+
 
 
     <!--Error message empty text input-->
     <string name="error_empty_textInput_base_text">est obligatoire.</string>
-
     <string name="error_empty_textInput_firstname_text">Le prenom</string>
     <string name="error_empty_textInput_lastname_text">Le nom</string>
     <string name="error_empty_textInput_phone_text">Le telephone</string>
@@ -25,8 +41,6 @@
 
     <!--Error message mail format invalide-->
     <string name="error_invalid_format_email_text">Format invalide</string>
-
-
     <string name="error_invalid_phonelenght">Le numero de telephone semble trop court.</string>
 
     <!--Error message adding candidat-->
@@ -38,30 +52,102 @@
     <string name="error_missing_textInput_Generic_text">"Oops! Impossible de sauvegarder le candidat, veuillez essayer de nouveau. "</string>
 
 
+    <!-- Add Candidate Fragment String resources -->
     <string name="birthday_picker_title">Selectionner une date de naissance</string>
-    <string name="birthday_picker_future_date_error">Les dates dans le futur ne sont pas autoriser.</string>
-
-
     <string name="salary_card_title">Saisir la prétentions salariales</string>
-    <string name="salary_hint">Prétentions salariales</string>
-
     <string name="mail_card_title">"Saisir une adresse e-mail"</string>
     <string name="phone_card_title">Saisir un numero de telephone</string>
     <string name="name_card_title">Informations du nouveau candidat</string>
     <string name="notes_card_title">Ajouter plus informations</string>
+    <string name="birthday_picker_future_date_error">Les dates dans le futur ne sont pas autoriser.</string>
+    <string name="add_candidate_toolbar_title">Ajouter un candidat</string>
+    <string name="content_description_candidate_background_picture">Photo floutter du candidat</string>
+    <string name="content_description_candidate_mini_picture">Photo miniature du candidat</string>
+    <string name="content_description_icon_name">icone du nom et prenom</string>
+    <string name="content_description_icon_phone">icone du telephone</string>
+    <string name="content_description_icon_mail">icone de l\'e-mail</string>
+    <string name="content_description_icon_birthday">icone de l\'anniversaire</string>
+    <string name="content_description_icon_salary">icone du salaire</string>
+    <string name="content_description_icon_note">Icone de la note</string>
+    <string name="add_candidate_hint_firstname">Prenom</string>
+    <string name="add_candidate_hint_lastname">Nom</string>
+    <string name="add_candidate_hint_phone">Telephone</string>
+    <string name="add_candidate_hint_mail">Email</string>
+    <string name="add_candidate_hint_birthdate">Date</string>
+    <string name="add_candidate_hint_default_birthdate">jj/mm/aaaa</string>
+    <string name="add_candidate_hint_salary">Prétentions salariales</string>
+    <string name="add_candidate_hint_note">Notes</string>
+    <string name="add_candidate_note_helper_text">Taille limite</string>
+    <string name="add_candidate_button_save_title">Sauvegarder</string>
 
-    <string name="year_word">ans</string>
-    <string name="money_symbol">€</string>
 
 
+    <!-- Details Candidate Fragment String resources -->
     <string name="details_toolbar_title_favorite">Favoris</string>
     <string name="details_toolbar_title_edit">Modifier</string>
     <string name="details_toolbar_title_delete">Supprimer</string>
-
     <string name="details_menu_favoris_contentdescription">Ajouter en favorie</string>
     <string name="details_menu_edit_contentdescription">Editer le candidat</string>
     <string name="details_menu_delete_contentdescription">Supprimer le candidat</string>
     <string name="money_symbol_gbp">£</string>
     <string name="currency_rate_preword">"soit "</string>
+    <string name="year_word">ans</string>
+    <string name="money_symbol">€</string>
+    <string name="content_description_details_minipic">La miniature de la photo du candidat.</string>
+    <string name="content_description_details_callbutton">Le bouton pour appeler le candidat</string>
+    <string name="content_description_details_smsbutton">Le bouton pour envoyer un sms au candidat</string>
+    <string name="content_description_details_mailbutton">Le bouton pour envoyer un e-mail au candidat</string>
+    <string name="details_contact_button_call_title">Appel</string>
+    <string name="details_contact_button_sms_title">SMS</string>
+    <string name="details_contact_button_mail_title">E-mail</string>
+    <string name="details_section_birthdate_main_title">A propos</string>
+    <string name="details_section_birthdate_default">dd/mm/yyyy (xx ans)</string>
+    <string name="details_section_birthdate_title">Anniversaire</string>
+    <string name="details_section_salary_main_title">Pretentions salariales</string>
+    <string name="details_section_salary_default">0000 €</string>
+    <string name="details_section_salary_conversion_default">soit 0000.0</string>
+    <string name="details_section_notes_main_title">Notes</string>
+
+    <!-- Edit Candidate Fragment String resources -->
+    <string name="edit_candidate_toolbar_title">Modifier un candidat</string>
+    <string name="content_description_edit_background_picture">La photo du candidat</string>
+    <string name="content_description_edit_main_picture">La photo miniature du candidat</string>
+    <string name="content_description_edit_icon_name">L\'icone de la section du nom.</string>
+    <string name="edit_candidate_section_name_title">Modifier les informations du candidat</string>
+    <string name="edit_candidate_section_firstname_hint">Prenom</string>
+    <string name="edit_candidate_section_lastname_hint">Nom</string>
+    <string name="content_description_edit_icon_phone">L\'icone de la section telephone</string>
+    <string name="edit_candidate_section_phone_title">Modifier le numero de telephone</string>
+    <string name="edit_candidate_section_phone_hint">Telephone</string>
+    <string name="content_description_edit_icon_mail">L\'icone de la section e-mail</string>
+    <string name="edit_candidate_section_mail_title">Modifier l\'adresse e-mail</string>
+    <string name="edit_candidate_section_mail_hint">Email</string>
+    <string name="content_description_edit_icon_birthdate">L\'icone de la section date de naissance.</string>
+    <string name="edit_candidate_section_birthdate_title">Modifier la date de naissance</string>
+    <string name="edit_candidate_section_birthdate_hint">Date</string>
+    <string name="edit_candidate_section_birthdate_default">jj/mm/aaaa</string>
+    <string name="content_description_edit_icon_salary">L\'icone de la section salaire.</string>
+    <string name="edit_candidate_section_salary_title">Modifier la pretention salariale</string>
+    <string name="edit_candidate_section_salary_hint">Salaire</string>
+    <string name="content_description_edit_icon_notes">L\'icone de la section notes.</string>
+    <string name="edit_candidate_section_notes_title">Modifier les informations suplementaires</string>
+    <string name="edit_candidate_section_notes_hint">Notes</string>
+    <string name="edit_candidate_section_notes_helper">Taille limite</string>
+    <string name="edit_candidate_savebutton_title">Sauvegarder</string>
+
+
+    <!-- Delete Candidate dialog String resources -->
+
+    <string name="delete_candidate_dialog_positive_button">Confirmer</string>
+    <string name="delete_candidate_dialog_negative_button">Annuler</string>
+    <string name="delete_candidate_dialog_message">Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.</string>
+    <string name="delete_candidate_dialog_title">Suppression</string>
+
+    <!-- Snack bar String resources -->
+    <string name="snack_message_favorite_remove">Removed from favorites !</string>
+    <string name="snack_message_favorite_added">Added to favorites !</string>
+    <string name="snack_message_delete_candidate">Candidat supprimer !</string>
+    <string name="snack_message_edit_update">Candidate successfully edited !</string>
+
 
 </resources>

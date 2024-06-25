@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.favoritesList.FavoritesListFragment">
-
-
+    <!-- Loading Progress Indicator -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/favorites_loading_progressIndicator"
         android:visibility="visible"
@@ -19,20 +18,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
+    <!-- Empty List text -->
     <TextView
         android:id="@+id/favorites_emptyList_textview"
         android:visibility="gone"
         style="@style/TextAppearance.Material3.TitleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aucun Favories"
+        android:text="@string/favorites_list_empty_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
+    <!-- List of favorites -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorites_recyclerview"
         android:visibility="visible"
@@ -41,6 +39,4 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

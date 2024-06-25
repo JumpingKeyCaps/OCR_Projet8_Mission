@@ -1,12 +1,11 @@
 package com.ocrmission.vitesse.ui.detailsCandidate
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.repository.CurrencyRepository
 import com.ocrmission.vitesse.domain.Candidate
-import com.ocrmission.vitesse.ui.Utils.DataInputValidator
+import com.ocrmission.vitesse.ui.utils.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,10 +27,8 @@ class DetailsCandidateViewModel @Inject constructor(
     private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
     val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
 
-
     private val _currencyRate = MutableStateFlow<Double>(0.0)
     val currencyRate: StateFlow<Double> = _currencyRate.asStateFlow()
-
 
 
     /**
@@ -58,23 +55,15 @@ class DetailsCandidateViewModel @Inject constructor(
         }
     }
 
-
-
-
     /**
      * Method to update candidate favorite state
      * @param newFavoriteState the new favorite state
      * @return 1 if the update is successful, 0 if the update is failed
      */
     fun updateFavoriteState(newFavoriteState: Boolean) {
-
-        Log.d("favorites", "updateFavoriteState: call db ...")
-
         viewModelScope.launch(Dispatchers.IO) {
             candidate.value.isFavorite = newFavoriteState
-
             val updateResult = candidateRepository.updateCandidate(candidate.value.toDtoWithId())
-
             if (updateResult > 0) {
                 //update good, so update the candidate flow
                 _candidate.value.isFavorite = newFavoriteState
@@ -83,15 +72,11 @@ class DetailsCandidateViewModel @Inject constructor(
     }
 
 
-
-
 //CURRENCY CONVERTER METHODS -----------------------------------------------------------
-
 
     fun getCurrencyRate(fromCurrency: String, toCurrency: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val rate = currencyRepository.getConversionRateFor(fromCurrency, toCurrency)
-
             _currencyRate.value = rate
         }
     }
@@ -103,7 +88,6 @@ class DetailsCandidateViewModel @Inject constructor(
 //JOBBING METHODS -----------------------------------------------------------
 
 
-
     /**
      * Method to format the birthday details
      * @param birthDate the candidate birthday
@@ -113,9 +97,6 @@ class DetailsCandidateViewModel @Inject constructor(
     fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?, dynamicString:String): String{
         return DataInputValidator.birthdayDetailsStringBuilder(birthDate, dynamicString)
     }
-
-
-
 
 
 }

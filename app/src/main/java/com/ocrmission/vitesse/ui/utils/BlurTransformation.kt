@@ -1,4 +1,4 @@
-package com.ocrmission.vitesse.ui.Utils
+package com.ocrmission.vitesse.ui.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -17,8 +17,21 @@ import java.security.MessageDigest
 
 private const val DEFAULT_DOWN_SAMPLING = 1.0f
 
+/**
+ * Custom blur transformation to use with Glide
+ * @param context Context
+ * @return the Bitmap transformed with blur
+ */
 class BlurTransformation(private val context: Context) : BitmapTransformation() {
 
+    /**
+     * Method to transform the original bitmap
+     * @param pool BitmapPool
+     * @param toTransform Bitmap source tto transform
+     * @param outWidth  the width size of the output bitmap
+     * @param outHeight the height size of the output bitmap
+     * @return the Bitmap transformed.
+     */
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap? {
         val source: Bitmap = toTransform
         val scaledWidth = (source.width * DEFAULT_DOWN_SAMPLING).toInt()
@@ -27,10 +40,22 @@ class BlurTransformation(private val context: Context) : BitmapTransformation() 
         return BitmapResource.obtain(this.blurBitmap(context, source, bitmap, Color.argb(90, 255, 255, 255)), pool)?.get()
     }
 
+    /**
+     * Method to update the message digest with the transformation name
+     * @param messageDigest MessageDigest
+     */
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
         messageDigest.update("blur transformation".toByteArray())
     }
 
+    /**
+     * Method to blur the given bitmap
+     * @param context Context
+     * @param source Bitmap source to blur
+     * @param bitmap the output bitmap
+     * @param colorOverlay the color to overlay on the bitmap
+     * @return the Bitmap blurred
+     */
     @Synchronized
     fun blurBitmap(context: Context, source: Bitmap?, bitmap: Bitmap, @ColorInt colorOverlay: Int): Bitmap? {
         if (source == null) return bitmap
@@ -49,6 +74,13 @@ class BlurTransformation(private val context: Context) : BitmapTransformation() 
         }
     }
 
+    /**
+     * Method to blur a bitmap (RAW)
+     * @param context Context
+     * @param bitmap the bitmap to blur
+     * @return the Bitmap blurred
+     * @RException RSRuntimeException
+     */
     @Throws(RSRuntimeException::class)
     private fun blur(context: Context, bitmap: Bitmap): Bitmap {
         var rs: RenderScript? = null

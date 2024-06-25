@@ -4,5 +4,5 @@ package com.ocrmission.vitesse.di
  */
 object AppConfig {
     /** the currency converter API server URL */
-    const val baseCurrencyConverter_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/"
+    const val CURRENCY_CONVERTER_BASE_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/"
 }

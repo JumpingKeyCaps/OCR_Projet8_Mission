@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
-import com.ocrmission.vitesse.ui.Utils.DataInputValidator
+import com.ocrmission.vitesse.ui.utils.DataInputValidator
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingEmailException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingFirstNameException
@@ -49,6 +49,7 @@ class EditCandidateViewModel  @Inject constructor(
 
     /**
      * Method to update a candidate.
+     * @param candidate The candidate to update.
      */
     fun updateCandidate(candidate: Candidate) {
 

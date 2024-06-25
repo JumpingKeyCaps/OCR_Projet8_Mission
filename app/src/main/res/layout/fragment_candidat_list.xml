@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.home.candidatesList.CandidatesListFragment">
-
-
+    <!-- Loading Progress Indicator-->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/candidates_loading_progressIndicator"
         android:visibility="visible"
@@ -18,20 +17,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
+    <!-- Empty List text-->
     <TextView
         android:id="@+id/candidates_emptyList_textview"
         android:visibility="gone"
         style="@style/TextAppearance.Material3.TitleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aucun Candidat"
+        android:text="@string/candidates_list_empty_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
+    <!-- List of Candidates-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/candidates_recyclerview"
         android:visibility="visible"
@@ -40,5 +38,4 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,5 @@ interface RetrofitService {
      */
     @GET("currencies/{from}.json")
     suspend fun getConversionRate(@Path("from") from: String): CurrencyResponse
+
 }

@@ -24,7 +24,6 @@ class SharedHomeViewModel @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
 
-
     //FILTER STUFF
     private val _filter = MutableStateFlow("")
     val filter: StateFlow<String> = _filter.asStateFlow()
@@ -35,10 +34,8 @@ class SharedHomeViewModel @Inject constructor(
     private val _favCandidates = MutableStateFlow<List<Candidate>>(emptyList())
     val favCandidates: StateFlow<List<Candidate>> = _favCandidates.asStateFlow()
 
-
-
     init {
-        fetchFilteredCandidatesV3()
+        fetchFilteredCandidates()
     }
 
     /**
@@ -54,7 +51,7 @@ class SharedHomeViewModel @Inject constructor(
      * Fetches the list of candidates from the repository and apply the shared filter collected.
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    private fun fetchFilteredCandidatesV3() {
+    private fun fetchFilteredCandidates() {
         viewModelScope.launch(Dispatchers.IO) {
             filter.flatMapLatest { filter ->
                 candidateRepository.getAllCandidates().map { candidatesDtos ->
@@ -68,10 +65,10 @@ class SharedHomeViewModel @Inject constructor(
                         }
                 }
             }.collect { filteredList ->
+                //We have our search filtered list of candidates
                 _candidates.value = filteredList
 
-                //so we have our search filtered list of candidates
-                // we just nee to apply the favorite filter
+                // We just need to apply the favorite filter on it to get the favorites candidate list
                 val favoriteCandidates = filteredList.filter { candidate ->
                     candidate.isFavorite
                 }
@@ -79,7 +76,6 @@ class SharedHomeViewModel @Inject constructor(
             }
         }
     }
-
 
 
 }

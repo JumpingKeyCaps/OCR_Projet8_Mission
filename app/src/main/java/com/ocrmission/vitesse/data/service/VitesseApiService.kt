@@ -16,7 +16,7 @@ class VitesseApiService @Inject constructor(private val vitesseNetworkService: V
      */
     suspend fun getConversionRateFor(currencySource: String, currencyDestination: String): Double {
         val conversionRates =  vitesseNetworkService.getConversionRate(currencySource)
-        val rate = conversionRates[currencyDestination] ?: 0.0 // Handle potential missing value
+        val rate = conversionRates[currencyDestination] ?: 0.0 // Handle potential missing value with default value.
         return rate
     }
 

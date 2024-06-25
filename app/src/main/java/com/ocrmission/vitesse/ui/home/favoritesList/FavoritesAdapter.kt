@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -18,6 +17,7 @@ import com.ocrmission.vitesse.domain.Candidate
  */
 class FavoritesAdapter(private var favorites: List<Candidate>,private val onItemClickListener: OnItemFavoriteClickListener):
     RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
+
     /**
      * Create a new view holder for the favorites item
      * @param parent The parent view group
@@ -39,7 +39,6 @@ class FavoritesAdapter(private var favorites: List<Candidate>,private val onItem
         holder.tvFirstName.text = candidate.firstname
         holder.tvLastName.text = candidate.lastname
         holder.tvNote.text = candidate.note
-
         // Get the picture with Glide
         val photoUri = candidate.photoUri
         if (photoUri.isNotEmpty()) {
@@ -76,36 +75,24 @@ class FavoritesAdapter(private var favorites: List<Candidate>,private val onItem
      * @param itemView The view of the favorites item
      * @return A new view holder
      */
-    //ViewHolder
     inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvFirstName: TextView
         var tvLastName: TextView
         var tvNote: TextView
         var ivAvatar: ImageView
-
         init {
             tvFirstName = itemView.findViewById(R.id.favorite_first_names)
             tvLastName = itemView.findViewById(R.id.favorite_last_names)
             tvNote = itemView.findViewById(R.id.favorite_note)
             ivAvatar = itemView.findViewById(R.id.favorite_photo)
-
             // Set click listener on the entire item view
             itemView.setOnClickListener {
                 // Handle click event here
                 val candidate = favorites[bindingAdapterPosition]
-
                 //nav to details fragment with this candidate
                 onItemClickListener.onFavoriteClicked(candidate)
-
-
-
             }
-
-
         }
     }
-
-
-
 
 }

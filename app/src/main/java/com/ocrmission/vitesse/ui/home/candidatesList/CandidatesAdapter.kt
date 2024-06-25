@@ -17,6 +17,7 @@ import com.ocrmission.vitesse.domain.Candidate
  */
 class CandidatesAdapter(private var candidates: List<Candidate>,private val onItemClickListener: OnItemCandidateClickListener):
     RecyclerView.Adapter<CandidatesAdapter.CandidateViewHolder>() {
+
     /**
      * Create a new view holder for the candidate item
      * @param parent The parent view group
@@ -67,7 +68,6 @@ class CandidatesAdapter(private var candidates: List<Candidate>,private val onIt
     fun updateData(newCandidates: List<Candidate>) {
         //Reverse the list to show last candidate added first.
         this.candidates = newCandidates.reversed()
-
         notifyDataSetChanged()
     }
 
@@ -82,31 +82,20 @@ class CandidatesAdapter(private var candidates: List<Candidate>,private val onIt
         var tvLastName: TextView
         var tvNote: TextView
         var ivAvatar: ImageView
-
         init {
             tvFirstName = itemView.findViewById(R.id.candidate_first_names)
             tvLastName = itemView.findViewById(R.id.candidate_last_names)
             tvNote = itemView.findViewById(R.id.candidate_note)
             ivAvatar = itemView.findViewById(R.id.candidate_photo)
-
             // Set click listener on the entire item view
             itemView.setOnClickListener {
                 // Handle click event here
                 val candidate = candidates[bindingAdapterPosition]
-
-
                 //nav to details fragment with this candidate
                 onItemClickListener.onCandidateClicked(candidate)
-
-
-
-
             }
-
-
         }
     }
-
 
 
 }

@@ -25,15 +25,11 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
 
     private var _binding: FragmentCandidatListBinding? = null
     private val binding get() = _binding!!
-
     private val candidatesAdapter = CandidatesAdapter(emptyList(),this)
-
-
     private val sharedViewModel: SharedHomeViewModel by activityViewModels()
 
 
 //LIFE CYCLE --------------------------------------------------------------------------
-
 
     /**
      * Called when the fragment is first created.
@@ -57,15 +53,12 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //set layout manager to the recyclerview
         binding.candidatesRecyclerview.layoutManager = LinearLayoutManager(requireContext(),VERTICAL,false)
         //set the adapter to the recyclerview
         binding.candidatesRecyclerview.adapter = candidatesAdapter
-
         // setup the observer
         setupObservers()
-
     }
 
     /**
@@ -84,15 +77,12 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
      */
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
-
             sharedViewModel.candidates.collect { candidates ->
                 candidatesAdapter.updateData(candidates)
                 emptyCandidateListState(candidates.isEmpty())
             }
         }
     }
-
-
 
 
 
@@ -125,8 +115,6 @@ class CandidatesListFragment : Fragment(), OnItemCandidateClickListener {
             binding.candidatesLoadingProgressIndicator.visibility = View.GONE
         }
     }
-
-
 
 
 
