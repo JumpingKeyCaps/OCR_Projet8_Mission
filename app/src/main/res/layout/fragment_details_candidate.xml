@@ -5,50 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detailsCandidate.DetailsCandidateFragment">
-
+    <!-- Top Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:fitsSystemWindows="true"
         app:liftOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Candidate"
+            app:title=""
             app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
             app:layout_scrollEffect="compress"
             app:menu="@menu/menu_topbar_detailscandidate"
             app:navigationIcon="@drawable/baseline_arrow_back_24" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-
+    <!-- Layout Body -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <!-- Scrollable content -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-            <!-- Candidate bck  photo -->
+            <!-- Candidate background photo -->
             <ImageView
                 android:id="@+id/details_photo_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/content_description_details_minipic"
                 android:padding="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_pic_a"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck" />
 
             <!--Call button -->
             <ImageButton
@@ -57,7 +52,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/round_button_with_icon"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/content_description_details_callbutton"
                 android:elevation="2dp"
                 android:padding="0dp"
                 android:src="@drawable/phone"
@@ -69,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Appel"
+                android:text="@string/details_contact_button_call_title"
                 style="@style/TextAppearance.Material3.LabelMedium"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
@@ -82,7 +77,7 @@
                 android:id="@+id/sms_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/content_description_details_smsbutton"
                 android:padding="0dp"
                 android:elevation="2dp"
                 app:cornerRadius="28dp"
@@ -99,7 +94,7 @@
                 android:id="@+id/sms_button_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SMS"
+                android:text="@string/details_contact_button_sms_title"
                 style="@style/TextAppearance.Material3.LabelMedium"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
@@ -114,7 +109,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="32dp"
                 android:background="@drawable/round_button_with_icon"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/content_description_details_mailbutton"
                 android:elevation="2dp"
                 android:padding="0dp"
                 android:src="@drawable/mail"
@@ -126,15 +121,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="E-mail"
+                android:text="@string/details_contact_button_mail_title"
                 style="@style/TextAppearance.Material3.LabelMedium"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
                 app:layout_constraintEnd_toEndOf="@+id/mail_button"
                 app:layout_constraintStart_toStartOf="@+id/mail_button"
                 app:layout_constraintTop_toBottomOf="@+id/mail_button" />
-
-
 
             <!-- Birthday info -->
             <com.google.android.material.card.MaterialCardView
@@ -151,13 +144,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <!-- title -->
+                    <!-- Title -->
                     <TextView
                         android:id="@+id/birthday_section_title"
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A propos"
+                        android:text="@string/details_section_birthdate_main_title"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="26dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="46dp"
-                        android:text="dd/mm/yyyy (xx ans)"
+                        android:text="@string/details_section_birthdate_default"
                         app:layout_constraintStart_toStartOf="@+id/birthday_section_title"
                         app:layout_constraintTop_toBottomOf="@id/birthday_section_title" />
 
@@ -179,15 +172,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="26dp"
-                        android:text="Anniversaire"
+                        android:text="@string/details_section_birthdate_title"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/birthday_date_textView"
                         app:layout_constraintTop_toBottomOf="@id/birthday_date_textView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- salary info -->
@@ -211,7 +201,7 @@
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pretentions salariales"
+                        android:text="@string/details_section_salary_main_title"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="26dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -223,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="46dp"
-                        android:text="0000 €"
+                        android:text="@string/details_section_salary_default"
                         app:layout_constraintStart_toStartOf="@+id/salary_section_title"
                         app:layout_constraintTop_toBottomOf="@id/salary_section_title" />
                     <!-- convertion -->
@@ -234,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="46dp"
                         android:layout_marginBottom="26dp"
-                        android:text="soit 0000.0  "
+                        android:text="@string/details_section_salary_conversion_default"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/salary_textView"
                         app:layout_constraintTop_toBottomOf="@id/salary_textView" />
@@ -268,7 +258,7 @@
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Notes"
+                        android:text="@string/details_section_notes_main_title"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="26dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -286,16 +276,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/notes_section_title"
-                        app:layout_constraintTop_toBottomOf="@id/notes_section_title" />
+                        app:layout_constraintTop_toBottomOf="@id/notes_section_title"
+                        tools:ignore="VisualLintLongText" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
