@@ -39,7 +39,7 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFavoritesListBinding.inflate(inflater, container, false)
         return binding.root
@@ -58,22 +58,18 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
         binding.favoritesRecyclerview.adapter = favoritesAdapter
         // setup the observer
         setupObservers()
-
     }
 
     /**
      * Setup the observer
      */
     private fun setupObservers() {
-
         viewLifecycleOwner.lifecycleScope.launch {
-
             sharedViewModel.favCandidates.collect { favorites ->
                 favoritesAdapter.updateData(favorites)
                 emptyFavoriteListState(favorites.isEmpty())
             }
         }
-
     }
 
     /**
@@ -91,12 +87,10 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
      */
     private fun emptyFavoriteListState(isEmpty: Boolean){
         if(isEmpty){
-
             hideLoadingProgressIndicator()
             //hide recyclerview and show empty message
             binding.favoritesEmptyListTextview.visibility = View.VISIBLE
             binding.favoritesRecyclerview.alpha = 0f
-
         }else{
             //hide the loading progress indicator if visible
             hideLoadingProgressIndicator()
@@ -112,11 +106,9 @@ class FavoritesListFragment : Fragment(), OnItemFavoriteClickListener {
      * @param favorite The favorite candidate to transmit
      */
     override fun onFavoriteClicked(favorite: Candidate) {
-
         //Use the NavController to navigate to the details candidate profile
         val action = HomeFragmentDirections.actionNavigationHomeFragmentToDetailsCandidateFragment(favorite.id)
         Navigation.findNavController(requireParentFragment().requireView()).navigate(action)
-
     }
 
     /**
