@@ -1,14 +1,12 @@
 package com.ocrmission.vitesse.data.service.network
 
-import android.util.Log
 import com.ocrmission.vitesse.data.service.network.interfaces.RetrofitService
 import com.ocrmission.vitesse.data.service.network.interfaces.VitesseNetworkService
 import javax.inject.Inject
 
 /**
  * Vitesse Network Service implementation class.
- *
- * Redefine all the interface network methods to be use with the instance of retrofit.
+ *  - Redefine all the interface network methods to be use with the instance of retrofit.
  */
 
 class VitesseNetworkServiceImpl @Inject constructor(private val retrofitService: RetrofitService):
@@ -31,7 +29,6 @@ class VitesseNetworkServiceImpl @Inject constructor(private val retrofitService:
 
 
         } catch (e: Exception) {
-            Log.d("ConvertionRate", "getConversionRate: ${e.toString()}")
             throw Exception("Error $e")
         }
     }
