@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.addCandidate.AddCandidateFragment">
-
+    <!--AppBar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/addCandidate_app_bar"
         android:elevation="2dp"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
-            app:title="Ajouter un candidat"
+            app:title="@string/add_candidate_toolbar_title"
             app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             app:dividerInsetStart="0dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <!--Body-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/addCandidate_scrollview"
         android:layout_width="0dp"
@@ -47,16 +47,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addCandidate_app_bar">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <!--Photos blurp background -->
+            <!-- Photos background -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/candidate_imageView_background"
                 android:layout_width="match_parent"
                 android:layout_height="338dp"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/content_description_candidate_background_picture"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +66,8 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="32dp"
-                android:background="#ffffff"
-                android:contentDescription="TODO"
+                android:background="@color/white"
+                android:contentDescription="@string/content_description_candidate_mini_picture"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_pic_b"
@@ -78,8 +77,6 @@
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:strokeColor="@color/white"
                 app:strokeWidth="2dp" />
-
-
             <!-- Name section -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/name_cardview"
@@ -108,7 +105,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_name"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/people"
@@ -148,7 +145,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="0dp"
-                        android:hint="Prenom"
+                        android:hint="@string/add_candidate_hint_firstname"
                         app:boxStrokeColor="@color/primary"
                         app:endIconMode="clear_text"
                         app:errorEnabled="true"
@@ -176,7 +173,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="0dp"
-                        android:hint="Nom"
+                        android:hint="@string/add_candidate_hint_lastname"
                         app:boxStrokeColor="@color/primary"
                         app:endIconMode="clear_text"
                         app:errorEnabled="true"
@@ -196,10 +193,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-
-
-            <!-- phone -->
+            <!-- phone section-->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/phone_cardview"
                 android:layout_width="0dp"
@@ -224,7 +218,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_phone"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/phone"
@@ -263,7 +257,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Telephone"
+                        android:hint="@string/add_candidate_hint_phone"
                         app:boxStrokeColor="@color/primary"
                         app:endIconMode="clear_text"
                         app:errorEnabled="true"
@@ -280,10 +274,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-
-
-            <!-- mail -->
+            <!-- mail section-->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mail_cardview"
                 android:layout_width="0dp"
@@ -308,7 +299,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_mail"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/mail"
@@ -347,7 +338,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Email"
+                        android:hint="@string/add_candidate_hint_mail"
                         app:boxStrokeColor="@color/primary"
                         app:endIconMode="clear_text"
                         app:errorEnabled="true"
@@ -356,21 +347,14 @@
                         app:layout_constraintEnd_toEndOf="@+id/divider_mail"
                         app:layout_constraintStart_toStartOf="@+id/divider_mail"
                         app:layout_constraintTop_toBottomOf="@+id/divider_mail">
-
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/mail_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-
-
             <!-- Birthday-->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/birthday_cardview"
@@ -387,7 +371,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <!-- icon salary section -->
                     <ImageView
                         android:id="@+id/birthday_icon"
@@ -396,7 +379,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_birthday"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/cake"
@@ -435,7 +418,7 @@
                         android:layout_marginBottom="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Date"
+                        android:hint="@string/add_candidate_hint_birthdate"
                         app:boxStrokeColor="@color/primary"
                         app:hintTextColor="@color/primary"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -446,7 +429,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:clickable="false"
                             android:focusable="false"
-                            android:text="jj/mm/aaaa"
+                            android:text="@string/add_candidate_hint_default_birthdate"
                             android:id="@+id/birthday_input_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -455,22 +438,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-            <!-- icon birthday section -->
-            <ImageView
-                android:visibility="invisible"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/cake"
-                app:layout_constraintEnd_toStartOf="@+id/birthday_cardview"
-                app:layout_constraintTop_toTopOf="@+id/birthday_cardview"
-                app:tint="@color/material_on_background_emphasis_high_type" />
-
-
             <!-- Salary -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/salary_cardview"
@@ -496,7 +463,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_salary"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/attach_money_"
@@ -535,7 +502,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="@string/salary_hint"
+                        android:hint="@string/add_candidate_hint_salary"
                         app:boxStrokeColor="@color/primary"
                         app:endIconMode="clear_text"
                         app:errorEnabled="true"
@@ -544,21 +511,14 @@
                         app:layout_constraintEnd_toEndOf="@+id/divider_salary"
                         app:layout_constraintStart_toStartOf="@+id/divider_salary"
                         app:layout_constraintTop_toBottomOf="@+id/divider_salary">
-
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/salary_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-
-
             <!--Notes -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/notes_cardview"
@@ -583,7 +543,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/content_description_icon_note"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/edit"
@@ -612,7 +572,6 @@
                         app:layout_constraintTop_toBottomOf="@id/notes_textview_title"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/note_edit_text_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -622,12 +581,12 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Notes"
+                        android:hint="@string/add_candidate_hint_note"
                         android:minHeight="175dp"
                         app:boxStrokeColor="@color/primary"
                         app:errorEnabled="true"
                         app:helperTextEnabled="true"
-                        app:helperText="Taille limite"
+                        app:helperText="@string/add_candidate_note_helper_text"
                         app:counterEnabled="true"
                         app:counterMaxLength="350"
                         app:hintTextColor="@color/primary"
@@ -644,8 +603,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-
             <!-- save button  -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/candidate_save_button"
@@ -655,15 +612,11 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="35dp"
                 android:layout_marginBottom="35dp"
-                android:text="Sauvegarder"
+                android:text="@string/add_candidate_button_save_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/notes_cardview" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
