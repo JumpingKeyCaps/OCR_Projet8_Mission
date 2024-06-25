@@ -9,7 +9,6 @@ import androidx.navigation.Navigation.findNavController
 import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.navigation.fragment.NavHostFragment
 
 /**
  * Main activity of the application.
@@ -18,23 +17,19 @@ import androidx.navigation.fragment.NavHostFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     /**
      * Activity life cycle - Called when the activity is first created.
+     * @param savedInstanceState Bundle.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //get the view
+        //Get the view binding layout
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //init the navigation
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
-
-
-
-        //enable edge to edge (navigation feature)
+        //Enable edge to edge (navigation feature)
         enableEdgeToEdge()
         // Set up the system bars for the edge to edge feature
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -45,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Method to get the nav controller and navigate up
+     * @return boolean
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(findViewById(R.id.fragmentContainerView))
         return navController.navigateUp() || super.onSupportNavigateUp()
