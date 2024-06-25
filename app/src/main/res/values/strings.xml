@@ -136,4 +136,18 @@
     <string name="edit_candidate_savebutton_title">Sauvegarder</string>
 
 
+    <!-- Delete Candidate dialog String resources -->
+
+    <string name="delete_candidate_dialog_positive_button">Confirmer</string>
+    <string name="delete_candidate_dialog_negative_button">Annuler</string>
+    <string name="delete_candidate_dialog_message">Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.</string>
+    <string name="delete_candidate_dialog_title">Suppression</string>
+
+    <!-- Snack bar String resources -->
+    <string name="snack_message_favorite_remove">Removed from favorites !</string>
+    <string name="snack_message_favorite_added">Added to favorites !</string>
+    <string name="snack_message_delete_candidate">Candidat supprimer !</string>
+    <string name="snack_message_edit_update">Candidate successfully edited !</string>
+
+
 </resources>
