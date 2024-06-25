@@ -3,7 +3,6 @@ package com.ocrmission.vitesse.domain
 import android.os.Parcelable
 import com.ocrmission.vitesse.data.room.entity.CandidateDto
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
