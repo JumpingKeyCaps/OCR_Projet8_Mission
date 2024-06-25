@@ -28,7 +28,6 @@
                 app:argType="long"
                 app:nullable="false" />
         </action>
-
     </fragment>
 
     <!-- New candidate screen -->
@@ -63,15 +62,12 @@
             app:destination="@id/editCandidate_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
-
         <!--Argument to transmit -->
         <argument
             android:name="CandidateId"
             app:argType="long"
             app:nullable="false" />
-
     </fragment>
-
 
     <!-- Candidate edit screen -->
     <fragment
@@ -79,19 +75,17 @@
         android:name="com.ocrmission.vitesse.ui.editCandidate.EditCandidateFragment"
         android:label="Edit Candidate details screen"
         tools:layout="@layout/fragment_edit_candidate">
-        <!-- edit  to details -->
+        <!-- edit to details -->
         <action
             android:id="@+id/action_navigation_editCandidateFragment_to_detailsCandidateFragment"
             app:destination="@id/detailsCandidate_fragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
-        <!--Argument to transmit -->
+        <!-- Argument to transmit -->
         <argument
             android:name="CandidateId"
             app:argType="long"
             app:nullable="false" />
     </fragment>
-
-
 
 </navigation>
