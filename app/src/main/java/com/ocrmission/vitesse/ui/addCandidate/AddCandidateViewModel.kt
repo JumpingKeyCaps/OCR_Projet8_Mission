@@ -1,29 +1,19 @@
 package com.ocrmission.vitesse.ui.addCandidate
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
-import com.ocrmission.vitesse.ui.Utils.DataInputValidator
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmailFormatException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmptyTextException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.ForbidenCharException
+import com.ocrmission.vitesse.ui.utils.DataInputValidator
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingEmailException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingFirstNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingLastNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingPhoneException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
-import com.ocrmission.vitesse.ui.addCandidate.exceptions.PhoneLengthException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.Calendar
-import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -33,10 +23,6 @@ import javax.inject.Inject
 class AddCandidateViewModel  @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
-
-
-
-
 
     /**
      * Method to add a candidate in secure way to the database.
@@ -61,8 +47,6 @@ class AddCandidateViewModel  @Inject constructor(
         }
     }
 
-
-
     /**
      * Method to validate the text inputs of the user.
      * @param text The text to validate.
@@ -73,8 +57,6 @@ class AddCandidateViewModel  @Inject constructor(
     fun validateInput(text: String, typeInput: Int): Boolean {
         return DataInputValidator.validateInput(text, typeInput)
     }
-
-
 
 
     /**
