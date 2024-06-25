@@ -30,22 +30,27 @@ class HomeFragment : Fragment() {
 
     /**
      * Fragment LifeCycle - called when the fragment is create.
+     * @param inflater the layout inflater.
+     * @param container the view group.
+     * @param savedInstanceState the saved instance state.
+     * @return the view.
      */
     override fun onCreateView( inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        //Setup the UI
-        setupUI()
         return binding.root
     }
 
     /**
      * Fragment LifeCycle - called when the fragment was created.
+     * @param view the view.
+     * @param savedInstanceState the saved instance state.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //Setup the UI
+        setupUI()
     }
 
     /**
@@ -60,7 +65,6 @@ class HomeFragment : Fragment() {
         setupSearchBar()
         //init FAB
         setupFAB()
-
     }
 
     /**
@@ -70,7 +74,7 @@ class HomeFragment : Fragment() {
         // Create an instance of FragmentStateAdapter with 2 pages
         val adapter = object : FragmentStateAdapter(childFragmentManager,viewLifecycleOwner.lifecycle) {
             override fun getItemCount(): Int {
-                return 2 // Nombre de fragments à afficher
+                return 2
             }
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
@@ -102,36 +106,21 @@ class HomeFragment : Fragment() {
 
 
 
-
-
-
-
-
     /**
-     * initialize the searchbar
-     *
+     * Initialize the searchbar
      */
     @SuppressLint("ClickableViewAccessibility")
     private fun setupSearchBar(){
         binding.searchInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Code à exécuter pendant que le texte est modifié
-
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {  }
             override fun afterTextChanged(s: Editable?) {
-
                 //change the search icon to a cross to fast reset search.
                 if(s.toString().isEmpty()){
                     binding.searchIcon.setImageResource(R.drawable.baseline_search_a)
                 }else{
                     binding.searchIcon.setImageResource(R.drawable.erase_search_b)
                 }
-                // Code à exécuter après que le texte a été modifié
                 val searchQuery = s.toString()
                 sharedViewModel.updateFilter(searchQuery)
             }
@@ -170,14 +159,14 @@ class HomeFragment : Fragment() {
     /**
      * Initialize the FAB.
      */
-    fun setupFAB(){
+    private fun setupFAB(){
         binding.fab.setOnClickListener {
             navigateToDetailFragment()
         }
     }
 
     /**
-     * Navigate to the Create fragment, to create a new candidate.
+     * Navigate to the AddCandidate fragment, to create a new candidate.
      */
     private fun navigateToDetailFragment() {
         //Use the navController to navigate to the Create fragment.
