@@ -7,7 +7,6 @@ import com.ocrmission.vitesse.data.service.network.interfaces.VitesseNetworkServ
 import com.ocrmission.vitesse.data.service.network.VitesseNetworkServiceImpl
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.room.AppDatabase
-import com.ocrmission.vitesse.data.room.DatabasePrepopulateCallback
 import com.ocrmission.vitesse.data.room.dao.CandidateDtoDao
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -42,10 +41,6 @@ class AppModule {
         return Room.databaseBuilder(context, AppDatabase::class.java, "VitesseDB").build()
     }
 
-    @Provides
-    fun provideDatabasePrepopulateCallback(coroutineScope: CoroutineScope): DatabasePrepopulateCallback {
-        return DatabasePrepopulateCallback(coroutineScope)
-    }
 
 
     @Provides
