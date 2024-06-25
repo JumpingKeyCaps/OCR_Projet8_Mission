@@ -9,18 +9,19 @@
     android:paddingBottom="12dp"
     android:background="?attr/selectableItemBackground"
     style="@style/Theme.Material3.DayNight"
-
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- favorite candidate Photo -->
     <ImageView
         android:id="@+id/favorite_photo"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:contentDescription="@string/content_description_item_candidate_photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck"
         tools:src="@tools:sample/avatars" />
-
+    <!-- First name text-->
     <TextView
         android:id="@+id/favorite_first_names"
         style="@style/TextAppearance.Material3.TitleMedium"
@@ -29,8 +30,9 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@+id/favorite_photo"
         app:layout_constraintTop_toTopOf="@+id/favorite_photo"
+        tools:ignore="TextSizeCheck"
         tools:text="@tools:sample/first_names" />
-
+    <!-- Last name text-->
     <TextView
         android:id="@+id/favorite_last_names"
         style="@style/TextAppearance.Material3.TitleMedium"
@@ -41,8 +43,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/favorite_first_names"
         app:layout_constraintStart_toEndOf="@+id/favorite_first_names"
         app:layout_constraintTop_toTopOf="@+id/favorite_first_names"
+        tools:ignore="TextSizeCheck"
         tools:text="@tools:sample/last_names" />
-
+    <!-- Notes text-->
     <TextView
         android:id="@+id/favorite_note"
         style="@style/TextAppearance.Material3.BodyMedium"
@@ -52,11 +55,11 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="2"
-        android:textColor="#49454F"
+        android:textColor="@color/item_candidate_notes_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/favorite_photo"
         app:layout_constraintTop_toBottomOf="@+id/favorite_last_names"
-        tools:text="@tools:sample/lorem/random" />
-
+        tools:text="@tools:sample/lorem/random"
+        tools:ignore="VisualLintLongText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
