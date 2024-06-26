@@ -1,4 +1,4 @@
-package com.ocrmission.vitesse.ui.utils
+package com.ocrmission.vitesse.ui.utility
 
 import android.util.Patterns
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.EmailFormatException

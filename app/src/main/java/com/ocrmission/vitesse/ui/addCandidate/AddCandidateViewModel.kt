@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
-import com.ocrmission.vitesse.ui.utils.DataInputValidator
+
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingEmailException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingFirstNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingLastNameException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingPhoneException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
+import com.ocrmission.vitesse.ui.utility.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

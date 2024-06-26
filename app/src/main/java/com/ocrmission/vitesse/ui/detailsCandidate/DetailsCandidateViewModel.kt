@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.repository.CurrencyRepository
 import com.ocrmission.vitesse.domain.Candidate
-import com.ocrmission.vitesse.ui.utils.DataInputValidator
+import com.ocrmission.vitesse.ui.utility.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
