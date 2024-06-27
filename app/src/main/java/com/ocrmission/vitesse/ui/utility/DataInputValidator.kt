@@ -60,7 +60,7 @@ class DataInputValidator {
                 }
                 // Notes
                 6 -> {
-                    val notePattern = Regex("^[a-zA-Z0-9 .'-]+$") // Allow letters, digits, periods, spaces, and apostrophes
+                    val notePattern = Regex("^[a-zA-Z0-9 .'+\n-]+$") // Allow letters, digits, periods, spaces, and apostrophes
                     if (!notePattern.matches(text)) throw ForbidenCharException()
                 }
                 else -> return false
