@@ -166,6 +166,23 @@ class EditCandidateFragment : Fragment() {
             saveUpdatedCandidate()
         }
 
+
+        val cardTouchListeners = View.OnClickListener {
+            when(it.id){
+                R.id.editname_cardview -> {requestKeyboard(binding.editfirstnameEdittext) }
+                R.id.editphone_cardview -> { requestKeyboard(binding.editphoneEdittext)}
+                R.id.editmail_cardview -> { requestKeyboard(binding.editmailEdittext)  }
+                R.id.editsalary_cardview -> { requestKeyboard(binding.editsalaryEdittext)  }
+                R.id.editnotes_cardview -> {requestKeyboard(binding.editnoteEdittext)}
+            }
+        }
+        binding.editnameCardview.setOnClickListener(cardTouchListeners)
+        binding.editphoneCardview.setOnClickListener(cardTouchListeners)
+        binding.editmailCardview.setOnClickListener(cardTouchListeners)
+        binding.editsalaryCardview.setOnClickListener(cardTouchListeners)
+        binding.editnotesCardview.setOnClickListener(cardTouchListeners)
+
+
     }
 
 
@@ -189,6 +206,12 @@ class EditCandidateFragment : Fragment() {
     private fun setupBirthdayPicker(){
 
         val birthdayPickerClickListener = View.OnClickListener {
+
+            //clear all others focus, and scroll to the birthday picker section
+            requireView().clearFocus()
+            autoscrollAtFocusChange(binding.editbirthdayCardview,true)
+
+
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText(getString(R.string.birthday_picker_title))
                 .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
@@ -272,8 +295,6 @@ class EditCandidateFragment : Fragment() {
         textInputLayout.error = null
         textInputLayout.hintTextColor = ColorStateList.valueOf(resources.getColor(R.color.valid_text_color, null))
         textInputLayout.boxStrokeColor = resources.getColor(R.color.valid_text_color, null)
-
-
     }
 
 
@@ -412,20 +433,61 @@ class EditCandidateFragment : Fragment() {
 
 
 //EXPLORATION AND FUN -------------------------------------------------------------------
+
+
     /**
-     * Methode to set animation on section cards focus change.
+     * Methode to request the keyboard and give the focus to the good edittext
+     * (used on card section click)
+     */
+    private fun requestKeyboard(view: View) {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        view.requestFocus()
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+
+
+    /**
+     * Methode to autoscroll to the good section card when focus change
+     */
+    private fun autoscrollAtFocusChange(view: View, hasFocus: Boolean) {
+        if (hasFocus) {
+            val offset = (view.bottom - binding.editCandidateScrollview.height / 2 ) - (view.height/2)
+            binding.editCandidateScrollview.scrollTo(0,  offset)
+        }
+    }
+
+
+
+    /**
+     * Methode to set animation on section cards focus change and auto scroll to the section card.
      */
     private fun focusingAnimator(){
         val focusListener = View.OnFocusChangeListener { v, hasFocus ->
-            when (v.id) {
-                R.id.editfirstname_edittext -> { sectionCardSizer(binding.editnameCardview, !hasFocus) }
-                R.id.editlastname_edittext -> { sectionCardSizer(binding.editnameCardview, !hasFocus) }
-                R.id.editphone_edittext -> { sectionCardSizer(binding.editphoneCardview, !hasFocus) }
-                R.id.editmail_edittext -> { sectionCardSizer(binding.editmailCardview, !hasFocus) }
-                R.id.editbirthday_input_edittext -> { sectionCardSizer(binding.editbirthdayCardview, !hasFocus) }
-                R.id.editsalary_edittext -> { sectionCardSizer(binding.editsalaryCardview, !hasFocus) }
-                R.id.editnote_edittext -> { sectionCardSizer(binding.editnotesCardview, !hasFocus) }
+            val targetView: View? =
+                when (v.id) {
+                    //firstname
+                    R.id.editfirstname_edittext -> { binding.editnameCardview }
+                    //lastname
+                    R.id.editlastname_edittext -> { binding.editnameCardview }
+                    //phone
+                    R.id.editphone_edittext -> { binding.editphoneCardview }
+                    //mail
+                    R.id.editmail_edittext -> { binding.editmailCardview }
+                    //birthday
+                    R.id.editbirthday_input_edittext -> { binding.editbirthdayCardview }
+                    //salary
+                    R.id.editsalary_edittext -> { binding.editsalaryCardview }
+                    //notes
+                    R.id.editnote_edittext -> { binding.editnotesCardview }
+                    else -> {null}
+                }
+            // autoscroll to section card and zoom up card
+            if(targetView!=null){
+                sectionCardSizer((targetView as MaterialCardView), !hasFocus)
+                autoscrollAtFocusChange(targetView,hasFocus)
             }
+
         }
         //setup focuslistener on all edittext
         binding.editphoneEdittext.onFocusChangeListener = focusListener
