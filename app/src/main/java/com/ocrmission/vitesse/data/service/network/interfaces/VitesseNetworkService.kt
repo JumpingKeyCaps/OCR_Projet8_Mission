@@ -5,9 +5,9 @@ package com.ocrmission.vitesse.data.service.network.interfaces
  */
 interface VitesseNetworkService {
     /**
-     * Method to request the currency conversion rate on the network.
-     * @param currency The currency source.
-     * @return A map of currencies and their conversion rates for the source currency.
+     * Method to request the EURO currency conversion rate on the network.
+     * @param targetCurrency the target currency.
+     * @return the currency rate between EUR to the target currency.
      */
-    suspend fun getConversionRate(currency: String): Map<String, Double>
+    suspend fun getConversionRateEurTo(targetCurrency: String): Double?
 }
