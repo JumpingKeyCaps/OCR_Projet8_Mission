@@ -1,20 +1,28 @@
 package com.ocrmission.vitesse.ui.addCandidate
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -45,6 +53,12 @@ class AddCandidateFragment : Fragment() {
     private var candidatePhotoUri: String? = null
     private val addCandidateViewModel: AddCandidateViewModel by viewModels()
 
+    private var showButtonAnimation: ObjectAnimator? = null
+    private var hideButtonAnimation: ObjectAnimator? = null
+    private var isButtonVisible = false
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,14 +69,21 @@ class AddCandidateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setup all listeners
-        setupClickListeners()
+
         //setup text watchers
         setupTextWatchers()
         //setup top bar
         setupTopBar()
         //setup birthday picker
         setupBirthdayPicker()
+
+        //Initialisation click listeners
+        initClickListeners()
+        //Initialisation of the focus listeners
+        initFocusingListener()
+        //Initialisation of the scroll change listeners
+        initScrollChangeListener()
+
     }
 
 
@@ -74,7 +95,7 @@ class AddCandidateFragment : Fragment() {
      * Method to setup all listeners
      */
     @SuppressLint("ClickableViewAccessibility")
-    private fun setupClickListeners() {
+    private fun initClickListeners() {
 
         //listener on the Image Background of the new candidate
         binding.candidateImageViewBackground.setOnTouchListener{v, event ->
@@ -93,7 +114,6 @@ class AddCandidateFragment : Fragment() {
                     return@setOnTouchListener false }
             }
         }
-
         //listener on the Image of the new candidate
         binding.candidateMiniImageView.setOnTouchListener{v, event ->
             when(event.action){
@@ -117,6 +137,50 @@ class AddCandidateFragment : Fragment() {
             clearAllFocus()
             saveCandidate()
         }
+
+
+        //--- Listener on all section cards click
+        val cardTouchListeners = View.OnClickListener {
+            val touchedCard =
+                when(it.id){
+                    R.id.name_cardview -> {binding.firstnameEdittext}
+                    R.id.phone_cardview -> {binding.phoneEdittext}
+                    R.id.mail_cardview -> {binding.mailEdittext}
+                    R.id.salary_cardview -> {binding.salaryEdittext}
+                    R.id.notes_cardview -> {binding.noteEdittext}
+                    else -> {null}
+                }
+            requestKeyboard(touchedCard)
+        }
+        binding.nameCardview.setOnClickListener(cardTouchListeners)
+        binding.phoneCardview.setOnClickListener(cardTouchListeners)
+        binding.mailCardview.setOnClickListener(cardTouchListeners)
+        binding.salaryCardview.setOnClickListener(cardTouchListeners)
+        binding.notesCardview.setOnClickListener(cardTouchListeners)
+
+
+        //--- Listener on keyboard action button
+        val editorActionListener = object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // edition ok clean the focus
+                    v?.clearFocus() // Libérer le focus de l'EditText
+                    //hide the keyboard
+                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v?.windowToken, 0)
+                    return true
+                }
+                return false
+            }
+        }
+        binding.phoneEdittext.setOnEditorActionListener(editorActionListener)
+        binding.mailEdittext.setOnEditorActionListener(editorActionListener)
+        binding.firstnameEdittext.setOnEditorActionListener(editorActionListener)
+        binding.lastnameEdittext.setOnEditorActionListener(editorActionListener)
+        binding.birthdayInputEdittext.setOnEditorActionListener(editorActionListener)
+        binding.salaryEdittext.setOnEditorActionListener(editorActionListener)
+        binding.noteEdittext.setOnEditorActionListener(editorActionListener)
+
 
     }
 
@@ -181,6 +245,127 @@ class AddCandidateFragment : Fragment() {
 
 
 
+// [LISTENERS] --------------------------------------------------------------------
+
+
+    /**
+     * Method to setup the listener on the scroll view + the save button anchor view animations
+     */
+    private fun initScrollChangeListener() {
+        // Set initial button visibility (consider removing if using animation initially)
+        binding.candidateSaveButton.translationY = 300f
+
+        showButtonAnimation = ObjectAnimator.ofFloat(binding.candidateSaveButton, "translationY", 300f, 0f)
+        hideButtonAnimation = ObjectAnimator.ofFloat(binding.candidateSaveButton, "translationY", 0f, 300f)
+
+        // Set animation properties
+        showButtonAnimation?.duration = 200L // Adjust duration as needed
+        showButtonAnimation?.interpolator = DecelerateInterpolator() // Example interpolator
+        hideButtonAnimation?.duration = 100L
+        hideButtonAnimation?.interpolator = AccelerateDecelerateInterpolator()
+        //Set Scrolling listener
+        binding.addCandidateScrollview.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            //check if the anchor is visible on screen
+            isAnchorViewVisible()
+            //Background Picture translation effect (DECO)
+            binding.candidateImageViewBackground.translationY = scrollY/1f
+            // BackgroundPicture zoom scaling on scroll (DECO)
+            val newScale = (1f + scrollY / 2000f)
+            val currentScale = maxOf(1f, minOf(3f, newScale))
+            binding.candidateImageViewBackground.scaleX = currentScale
+            binding.candidateImageViewBackground.scaleY = currentScale
+
+        }
+    }
+
+
+    /**
+     * Methode to setup the focus listener on all edittext and call the autoscroll and card animation.
+     */
+    private fun initFocusingListener(){
+        val focusListener = View.OnFocusChangeListener { v, hasFocus ->
+            val targetView: View? =
+                when (v.id) {
+                    //firstname
+                    R.id.firstname_edittext -> { binding.nameCardview }
+                    //lastname
+                    R.id.lastname_edittext -> { binding.nameCardview }
+                    //phone
+                    R.id.phone_edittext -> { binding.phoneCardview }
+                    //mail
+                    R.id.mail_edittext -> { binding.mailCardview }
+                    //birthday
+                    R.id.birthday_input_edittext -> { binding.birthdayCardview }
+                    //salary
+                    R.id.salary_edittext -> { binding.salaryCardview }
+                    //notes
+                    R.id.note_edittext -> { binding.notesCardview }
+                    else -> {null}
+                }
+            // autoscroll to section card and zoom up card
+            if(targetView!=null){
+              //  sectionCardSizer((targetView as MaterialCardView), !hasFocus)
+                autoscrollAtFocusChange(targetView,hasFocus)
+            }
+        }
+        //setup focuslistener on all edittext
+        binding.phoneEdittext.onFocusChangeListener = focusListener
+        binding.mailEdittext.onFocusChangeListener = focusListener
+        binding.firstnameEdittext.onFocusChangeListener = focusListener
+        binding.lastnameEdittext.onFocusChangeListener = focusListener
+        binding.birthdayInputEdittext.onFocusChangeListener = focusListener
+        binding.salaryEdittext.onFocusChangeListener = focusListener
+        binding.noteEdittext.onFocusChangeListener = focusListener
+    }
+
+
+// [SCROLLER]  --------------------------------------------------------
+    /**
+     * Methode to autoscroll to the section card over the keyboard position when the card get the focus
+     * @param view the card view who get the focus
+     * @param hasFocus the focus state of the card view
+     */
+    private fun autoscrollAtFocusChange(view: View, hasFocus: Boolean) {
+        if (hasFocus) {
+            val offsetDyn =
+                when(view.id){
+                    //Name Offset - (layout is taller than other with 2 text input fields, we need to adapt the offset at + 3/4 of the card height )
+                    R.id.name_cardview -> {(3*(view.height/4))}
+                    //Mail Offset - (this card had the same size of phone card, but the keyboard had an over-bar, we need to adapt the offset at + 3/5 of the card height)
+                    R.id.mail_cardview -> {(3*(view.height/5))}
+                    //Notes Offset - ( + 4/5 of the card height)
+                    R.id.notes_cardview -> { (4*(view.height/5))}
+                    else -> {0} //Classic card case - (no over-bar on keyboard) - used by : phone / birthday / salary
+                }
+            //Autoscroll the section card to the good position just over the keyboard
+            binding.addCandidateScrollview.scrollTo(0,  (view.top - binding.addCandidateScrollview.height / 2) + offsetDyn)
+        }
+    }
+
+
+// [SAVE BUTTON ANCHOR]  --------------------------------------------------------
+
+    /**
+     * Method to check if the save button scrolling anchor is visible on screen
+     * @return true if the anchor is visible, false otherwise
+     */
+    private fun isAnchorViewVisible(): Boolean {
+        val rect = Rect()
+        binding.candidateSaveButtonAnchor.getGlobalVisibleRect(rect)
+        val isVisible = rect.bottom > 0 && rect.top < binding.addCandidateScrollview.height
+        // Check if anchor is visible and button is hidden
+        if (isVisible && !isButtonVisible) {
+            showButtonAnimation?.start()
+            isButtonVisible = true
+        } else if (!isVisible && isButtonVisible) {
+            // Check if anchor is hidden and button is shown
+            hideButtonAnimation?.start()
+            isButtonVisible = false
+        }
+        return isVisible
+    }
+
+
 //INPUT VALIDATION STUFF ---------------------------------------------------------------------
 
     /**
@@ -196,7 +381,9 @@ class AddCandidateFragment : Fragment() {
         }catch (e: Exception){
             when(e){
                 is EmptyTextException -> {
-                    showError(getEmptyTextErrorHintMessage(textInputLayout), textInputLayout)
+                    //filtering Notes and salary special case (empty field is allowed)
+                    if(filterType == 6 || filterType == 5)showSuccess(textInputLayout)
+                    else showError(getEmptyTextErrorHintMessage(textInputLayout), textInputLayout)
                 }
                 is ForbidenCharException -> {
                     showError(getTextCharErrorHintMessage(textInputLayout), textInputLayout)
@@ -310,8 +497,7 @@ class AddCandidateFragment : Fragment() {
                 isFavorite = false
 
             ))
-
-            Snackbar.make(this.requireView(),"Candidate successfully added !" , Snackbar.LENGTH_SHORT).show()
+            parentFragment?.let { Snackbar.make(it.requireView(),getString(R.string.snack_message_add_success) , Snackbar.LENGTH_SHORT).show() }
 
             // Find the NavController and navigate back
             findNavController().navigateUp()
@@ -356,7 +542,7 @@ class AddCandidateFragment : Fragment() {
         // photo picker.
         if (uri != null) {
             candidatePhotoUri = uri.toString()
-            Glide.with(this).load(uri).apply(bitmapTransform(jp.wasabeef.glide.transformations.BlurTransformation(15,3))).into(binding.candidateImageViewBackground)
+            Glide.with(this).load(uri).into(binding.candidateImageViewBackground)
             Glide.with(this).load(uri).into(binding.candidateMiniImageView)
         } else {
             //no media selected !
@@ -369,6 +555,19 @@ class AddCandidateFragment : Fragment() {
     private fun selectImage() {
         // Launch the photo picker and let the user choose only images.
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+
+//KEYBOARD -------------------------------------------------------------------------
+    /**
+     * Methode to request the keyboard and give the focus to the good edittext
+     * (used on card section click)
+     * @param view the view who request the keyboard
+     */
+    private fun requestKeyboard(view: View?) {
+        val  inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        view?.requestFocus()
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
 }
