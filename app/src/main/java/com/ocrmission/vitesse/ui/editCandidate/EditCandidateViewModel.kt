@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.domain.Candidate.Companion.createDefaultCandidate
 import com.ocrmission.vitesse.ui.utility.DataInputValidator
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingBirthException
 import com.ocrmission.vitesse.ui.addCandidate.exceptions.MissingEmailException
@@ -27,7 +28,7 @@ class EditCandidateViewModel  @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
 
-    private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
+    private val _candidate = MutableStateFlow(createDefaultCandidate())
     val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
 
 
