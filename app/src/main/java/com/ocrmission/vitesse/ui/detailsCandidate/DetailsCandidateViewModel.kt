@@ -2,9 +2,13 @@ package com.ocrmission.vitesse.ui.detailsCandidate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ocrmission.vitesse.R
 import com.ocrmission.vitesse.data.repository.CandidateRepository
 import com.ocrmission.vitesse.data.repository.CurrencyRepository
+import com.ocrmission.vitesse.data.service.network.NetworkException
 import com.ocrmission.vitesse.domain.Candidate
+import com.ocrmission.vitesse.domain.Candidate.Companion.createDefaultCandidate
+import com.ocrmission.vitesse.domain.NetworkState
 import com.ocrmission.vitesse.ui.utility.DataInputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +28,14 @@ class DetailsCandidateViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
-    private val _candidate = MutableStateFlow(Candidate(firstname = "", lastname = "", birthday = null, isFavorite = false,note = "", email = "", phone = "",salary = 0))
+    private val _candidate = MutableStateFlow(createDefaultCandidate())
     val candidate: StateFlow<Candidate> = _candidate.asStateFlow()
 
     private val _currencyRate = MutableStateFlow<Double>(0.0)
     val currencyRate: StateFlow<Double> = _currencyRate.asStateFlow()
 
+    private val _networkState = MutableStateFlow(NetworkState())
+    val networkState: StateFlow<NetworkState> = _networkState.asStateFlow()
 
     /**
      * Method to fetch candidate by his id
@@ -74,15 +80,41 @@ class DetailsCandidateViewModel @Inject constructor(
 
 //CURRENCY CONVERTER METHODS -----------------------------------------------------------
 
-    fun getCurrencyRate(fromCurrency: String, toCurrency: String) {
+    /**
+     * Method to fetch the currency rate from the API
+     */
+    fun fetchingCurrencyRate() {
         viewModelScope.launch(Dispatchers.IO) {
-            val rate = currencyRepository.getConversionRateFor(fromCurrency, toCurrency)
-            _currencyRate.value = rate
+            try {
+                //Update currency rate
+                val rate = currencyRepository.getConversionRateEurGbp()
+                _currencyRate.value = rate
+                //Update network state to "no problem"
+                _networkState.value = NetworkState()
+            }catch (e: Exception){
+                // Handle network errors, server errors, etc.
+                // (Expose the NetworkState flow with the error msg to the fragment)
+                when (e) {
+                    is NetworkException.ServerErrorException ->{ _networkState.value = NetworkState(true, R.string.server_error) }
+                    is NetworkException.NetworkConnectionException  ->{
+                        if(e.isSocketTimeout){_networkState.value = NetworkState(true,R.string.timeout_error)}
+                        else if(e.isConnectFail){_networkState.value = NetworkState(true,R.string.connection_fail_error)}
+                        else{ _networkState.value = NetworkState(true,R.string.network_generic_error)}
+                    }
+                    is NetworkException.UnknownNetworkException  ->{ _networkState.value = NetworkState(true,R.string.network_fail_error) }
+                    else -> { _networkState.value = NetworkState(true,R.string.network_generic_error)}
+                }
+            }
         }
     }
 
-
-
+    /**
+     * Method to get the candidate salary in pound
+     * @return the candidate salary in pound
+     */
+    fun getSalaryInPound(): Double {
+        return candidate.value.salary * currencyRate.value
+    }
 
 
 //JOBBING METHODS -----------------------------------------------------------
@@ -94,9 +126,17 @@ class DetailsCandidateViewModel @Inject constructor(
      * @param dynamicString the other words with translation support
      * @return the formatted birthday details
      */
-    fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?, dynamicString:String): String{
-        return DataInputValidator.birthdayDetailsStringBuilder(birthDate, dynamicString)
+    fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?): String{
+        return DataInputValidator.birthdayDetailsStringBuilder(birthDate)
     }
 
+    /**
+     * Method to calculate the birthday date into number of lived years
+     * @param birthDate the candidate birthday
+     * @return the birthday in number of lived years
+     */
+    fun birthdayNumberBuilder(birthDate: LocalDateTime?): Int{
+        return DataInputValidator.birthdayNumberBuilder(birthDate)
+    }
 
 }

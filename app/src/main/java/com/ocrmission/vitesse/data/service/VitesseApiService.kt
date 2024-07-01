@@ -9,15 +9,11 @@ import javax.inject.Inject
 class VitesseApiService @Inject constructor(private val vitesseNetworkService: VitesseNetworkService) {
 
     /**
-     * Method to get the currency conversion rate
-     * @param currencySource the base currency
-     * @param currencyDestination the target currency rate
+     * Method to get the currency conversion rate between euro and british pound.
      * @return the rate of conversion.
      */
-    suspend fun getConversionRateFor(currencySource: String, currencyDestination: String): Double {
-        val conversionRates =  vitesseNetworkService.getConversionRate(currencySource)
-        val rate = conversionRates[currencyDestination] ?: 0.0 // Handle potential missing value with default value.
-        return rate
+    suspend fun getConversionRateEurToGbp(): Double {
+        return vitesseNetworkService.getConversionRateEurTo("gbp") ?: 0.0
     }
 
 }

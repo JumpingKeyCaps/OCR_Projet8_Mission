@@ -8,13 +8,11 @@ import javax.inject.Inject
 class CurrencyRepository @Inject constructor(private val vitesseApiService: VitesseApiService){
 
     /**
-     *  method to get the currencies rate.
-     * @param baseCurrency base currency.
-     * @param targetCurrency target currency.
+     *  Method to get the currencies rate for  EUR to GBP.
      * @return the currency rate.
      */
-    suspend fun getConversionRateFor(baseCurrency: String, targetCurrency: String): Double {
-        return vitesseApiService.getConversionRateFor(baseCurrency, targetCurrency)
+    suspend fun getConversionRateEurGbp(): Double {
+        return vitesseApiService.getConversionRateEurToGbp()
     }
 
 }
