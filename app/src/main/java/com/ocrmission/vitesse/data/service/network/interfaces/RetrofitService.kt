@@ -1,6 +1,7 @@
 package com.ocrmission.vitesse.data.service.network.interfaces
 
 import com.ocrmission.vitesse.domain.CurrencyResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -15,6 +16,6 @@ interface RetrofitService {
      * @return a CurrencyResponse object.
      */
     @GET("currencies/{from}.json")
-    suspend fun getConversionRate(@Path("from") from: String): CurrencyResponse
+    suspend fun getConversionRate(@Path("from") from: String): Response<CurrencyResponse>
 
 }
