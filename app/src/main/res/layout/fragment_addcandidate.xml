@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,74 +9,74 @@
     <!--AppBar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/addCandidate_app_bar"
-        android:elevation="2dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:liftOnScroll="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:elevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.google.android.material.appbar.MaterialToolbar
-            android:visibility="visible"
             android:id="@+id/addCandidate_toolbar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:elevation="2dp"
-            style="@style/Widget.Material3.Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="@string/add_candidate_toolbar_title"
-            app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
-        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.5"
-            app:dividerInsetEnd="0dp"
-            app:dividerInsetStart="0dp"/>
-
+            android:elevation="2dp"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            app:layout_scrollEffect="compress"
+            app:navigationIcon="@drawable/baseline_arrow_back_24" />
     </com.google.android.material.appbar.AppBarLayout>
-    <!--Body-->
+    <!-- Layout Body-->
     <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/addCandidate_scrollview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCandidate_app_bar">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <!-- Photos background -->
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/candidate_imageView_background"
+            <!-- Photos background new-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/candidate_imageView_background_card"
                 android:layout_width="match_parent"
-                android:layout_height="338dp"
-                android:contentDescription="@string/content_description_candidate_background_picture"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <!-- Candidate photo -->
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/candidate_imageView_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="238dp"
+                    android:contentDescription="@string/content_description_edit_background_picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholdercustom_b"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck" />
+            </com.google.android.material.card.MaterialCardView>
+            <!-- Candidate photo new-->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/candidate_mini_imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="32dp"
-                android:background="@color/white"
-                android:contentDescription="@string/content_description_candidate_mini_picture"
-                android:padding="3dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_pic_b"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="140dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/mini_candidate_placeholder_color_background"
+                android:contentDescription="@string/content_description_edit_main_picture"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholdercustom_man"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                app:strokeColor="@color/white"
-                app:strokeWidth="2dp" />
+                app:strokeColor="@color/mini_candidate_placeholder_color_stroke"
+                app:strokeWidth="5dp"
+                tools:ignore="ImageContrastCheck" />
             <!-- Name section -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/name_cardview"
@@ -84,11 +84,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
-                android:layout_marginEnd="21dp"
                 android:layout_marginTop="26dp"
+                android:layout_marginEnd="21dp"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
+                android:maxWidth="340dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/candidate_mini_imageView">
@@ -100,15 +101,15 @@
                     <!-- icon name section -->
                     <ImageView
                         android:id="@+id/name_icon"
-                        android:visibility="visible"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
                         android:contentDescription="@string/content_description_icon_name"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/people"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/material_on_background_emphasis_high_type" />
@@ -123,7 +124,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/name_icon"
                         app:layout_constraintStart_toEndOf="@id/name_icon"
                         app:layout_constraintTop_toTopOf="@+id/name_icon" />
-
                     <!--divider -->
                     <com.google.android.material.divider.MaterialDivider
                         android:id="@+id/divider_name"
@@ -159,10 +159,10 @@
                             android:id="@+id/firstname_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
                     <!-- last name -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/lastname_edit_text_layout"
@@ -187,10 +187,11 @@
                             android:id="@+id/lastname_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:imeOptions="actionDone"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
             <!-- phone section-->
@@ -266,11 +267,14 @@
                         app:layout_constraintEnd_toEndOf="@+id/divider_phone"
                         app:layout_constraintStart_toStartOf="@+id/divider_phone"
                         app:layout_constraintTop_toBottomOf="@+id/divider_phone">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/phone_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:imeOptions="actionDone"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -294,18 +298,19 @@
                     <!-- icon mail section -->
                     <ImageView
                         android:id="@+id/mail_icon"
-                        android:visibility="visible"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="4dp"
                         android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
                         android:contentDescription="@string/content_description_icon_mail"
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/mail"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/material_on_background_emphasis_high_type" />
+                        app:tint="@color/material_on_background_emphasis_high_type"
+                        tools:ignore="ImageContrastCheck" />
                     <!--title card -->
                     <TextView
                         android:id="@+id/mail_textview_title"
@@ -316,7 +321,8 @@
                         android:text="@string/mail_card_title"
                         app:layout_constraintBottom_toBottomOf="@+id/mail_icon"
                         app:layout_constraintStart_toEndOf="@id/mail_icon"
-                        app:layout_constraintTop_toTopOf="@+id/mail_icon" />
+                        app:layout_constraintTop_toTopOf="@+id/mail_icon"
+                        tools:ignore="TextContrastCheck" />
                     <!--divider -->
                     <com.google.android.material.divider.MaterialDivider
                         android:id="@+id/divider_mail"
@@ -347,11 +353,14 @@
                         app:layout_constraintEnd_toEndOf="@+id/divider_mail"
                         app:layout_constraintStart_toStartOf="@+id/divider_mail"
                         app:layout_constraintTop_toBottomOf="@+id/divider_mail">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/mail_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -433,7 +442,8 @@
                             android:id="@+id/birthday_input_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="date" />
+                            android:inputType="date"
+                            tools:ignore="VisualLintTextFieldSize" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -511,15 +521,18 @@
                         app:layout_constraintEnd_toEndOf="@+id/divider_salary"
                         app:layout_constraintStart_toStartOf="@+id/divider_salary"
                         app:layout_constraintTop_toBottomOf="@+id/divider_salary">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/salary_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-            <!--Notes -->
+            <!-- Notes -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/notes_cardview"
                 android:layout_width="0dp"
@@ -535,7 +548,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="20dp">
                     <!-- icon note section -->
                     <ImageView
                         android:id="@+id/notes_icon"
@@ -584,39 +597,58 @@
                         android:hint="@string/add_candidate_hint_note"
                         android:minHeight="175dp"
                         app:boxStrokeColor="@color/primary"
-                        app:errorEnabled="true"
-                        app:helperTextEnabled="true"
-                        app:helperText="@string/add_candidate_note_helper_text"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="350"
+                        app:errorEnabled="false"
                         app:hintTextColor="@color/primary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/divider_notes">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/note_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="175dp"
                             android:gravity="top"
-                            android:inputType="textMultiLine"/>
+                            android:inputType="textMultiLine"
+                            android:minHeight="175dp"
+                            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-            <!-- save button  -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/candidate_save_button"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="35dp"
-                android:text="@string/add_candidate_button_save_title"
+            <!-- Save button anchor -->
+            <View
+                android:id="@+id/candidate_save_button_anchor"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notes_cardview"/>
+            <!-- Bottom keyboard spacer (for Over Scroll after Notes card, due of the manual input scroll on focus) -->
+            <View
+                android:id="@+id/candidate_bottom_BlowView"
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notes_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/candidate_save_button_anchor"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- save button  -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/candidate_save_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|center"
+        android:maxWidth="320dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="4dp"
+        android:text="@string/edit_candidate_savebutton_title"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textStyle="normal"
+        tools:ignore="VisualLintButtonSize,TextContrastCheck" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -60,8 +60,7 @@ class DataInputValidator {
                 }
                 // Notes
                 6 -> {
-                    val notePattern = Regex("^[a-zA-Z0-9 .'-]+$") // Allow letters, digits, periods, spaces, and apostrophes
-                    if (!notePattern.matches(text)) throw ForbidenCharException()
+                    // no filter needed, all type of characters is accepted for notes
                 }
                 else -> return false
             }
@@ -105,13 +104,21 @@ class DataInputValidator {
         /**
          * Method to format the birthday details
          * @param birthDate the candidate birthday
-         * @param dynamicString the other words with translation support
          * @return the formatted birthday details
          */
-        fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?, dynamicString:String): String{
+        fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?): String{
             val formattedBirthDate = formatDateBirthday(birthDate)
+            return formattedBirthDate
+        }
+
+        /**
+         * Method to calculate the birthday number of years
+         * @param birthDate the candidate birthday
+         * @return the birthday number of years
+         */
+        fun birthdayNumberBuilder(birthDate: LocalDateTime?): Int{
             val age = calculateAgeInYears(birthDate)
-            return "$formattedBirthDate  ($age ${dynamicString})"
+            return age
         }
 
 

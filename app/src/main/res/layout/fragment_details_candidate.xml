@@ -7,7 +7,7 @@
     tools:context=".ui.detailsCandidate.DetailsCandidateFragment">
     <!-- Top Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:liftOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
