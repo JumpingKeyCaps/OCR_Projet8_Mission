@@ -16,15 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title=""
+            android:paddingEnd="10dp"
+            tools:title="@tools:sample/first_names"
             app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
             app:layout_scrollEffect="compress"
             app:menu="@menu/menu_topbar_detailscandidate"
-            app:navigationIcon="@drawable/baseline_arrow_back_24" />
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            tools:ignore="RtlSymmetry" />
     </com.google.android.material.appbar.AppBarLayout>
-
     <!-- Layout Body -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/details_nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -32,252 +34,549 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <!-- Candidate background photo -->
-            <ImageView
-                android:id="@+id/details_photo_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:contentDescription="@string/content_description_details_minipic"
-                android:padding="0dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_pic_a"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ImageContrastCheck" />
-
-            <!--Call button -->
-            <ImageButton
-                android:id="@+id/call_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_button_with_icon"
-                android:contentDescription="@string/content_description_details_callbutton"
-                android:elevation="2dp"
-                android:padding="0dp"
-                android:src="@drawable/phone"
-                app:cornerRadius="28dp"
-                app:iconTint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/sms_button"
-                app:layout_constraintTop_toTopOf="@+id/sms_button"
-                app:tint="@color/black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_contact_button_call_title"
-                style="@style/TextAppearance.Material3.LabelMedium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                app:layout_constraintEnd_toEndOf="@+id/call_button"
-                app:layout_constraintStart_toStartOf="@+id/call_button"
-                app:layout_constraintTop_toBottomOf="@+id/call_button" />
-
-            <!--SMS button -->
-            <ImageButton
-                android:id="@+id/sms_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@string/content_description_details_smsbutton"
-                android:padding="0dp"
-                android:elevation="2dp"
-                app:cornerRadius="28dp"
-                app:iconTint="@color/white"
-                android:src="@drawable/outline_message_24"
-                app:tint="@color/black"
-                app:rippleColor="@color/primary"
-                android:background="@drawable/round_button_with_icon"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_photo_imageView"/>
-            <TextView
-                android:id="@+id/sms_button_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_contact_button_sms_title"
-                style="@style/TextAppearance.Material3.LabelMedium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                app:layout_constraintEnd_toEndOf="@+id/sms_button"
-                app:layout_constraintStart_toStartOf="@+id/sms_button"
-                app:layout_constraintTop_toBottomOf="@+id/sms_button" />
-
-            <!--Mail button -->
-            <ImageButton
-                android:id="@+id/mail_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="32dp"
-                android:background="@drawable/round_button_with_icon"
-                android:contentDescription="@string/content_description_details_mailbutton"
-                android:elevation="2dp"
-                android:padding="0dp"
-                android:src="@drawable/mail"
-                app:cornerRadius="28dp"
-                app:iconTint="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/sms_button"
-                app:layout_constraintTop_toTopOf="@+id/sms_button"
-                app:tint="@color/black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_contact_button_mail_title"
-                style="@style/TextAppearance.Material3.LabelMedium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                app:layout_constraintEnd_toEndOf="@+id/mail_button"
-                app:layout_constraintStart_toStartOf="@+id/mail_button"
-                app:layout_constraintTop_toBottomOf="@+id/mail_button" />
-
-            <!-- Birthday info -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/birthday_card"
-                android:layout_width="0dp"
+                android:id="@+id/details_photo_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                style="?attr/materialCardViewElevatedStyle"
-                app:layout_constraintTop_toBottomOf="@id/sms_button_title"
+                app:cardCornerRadius="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--Photos  -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/details_photo_imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:contentDescription="@string/content_description_edit_background_picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder_pic_a"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Salary card info -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/details_salaryexpectation_card"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="158dp"
+                android:layout_height="95dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/details_otherresume_card"
+                app:layout_constraintStart_toStartOf="@+id/details_otherresume_card"
+                app:layout_constraintTop_toBottomOf="@+id/details_otherresume_card"
+                tools:ignore="TextSizeCheck">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <!-- Title -->
+                    android:layout_height="match_parent">
+                    <!-- title salary -->
                     <TextView
-                        android:id="@+id/birthday_section_title"
-                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/salary_section_title"
+                        style="@style/TextAppearance.Material3.LabelSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_section_birthdate_main_title"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="26dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:backgroundTint="@color/primary"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/details_section_salary_main_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                    <!-- BirthDate -->
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+                    <!-- salary -->
                     <TextView
-                        android:id="@+id/birthday_date_textView"
-                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:id="@+id/salary_textView"
+                        style="@style/TextAppearance.Material3.TitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textColor="@color/text_black_light_color"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/details_salary_bottom_section_constraintLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/salary_section_title"
+                        tools:text="@string/details_section_salary_default" />
+
+
+                    <!-- salary convertion number info   -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/details_salary_bottom_section_constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <!-- convertion -->
+                        <TextView
+                            android:id="@+id/salary_convertion_textView"
+                            style="@style/TextAppearance.Material3.LabelLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingTop="3dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TextContrastCheck"
+                            tools:text="@string/details_section_salary_conversion_default" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Contact buttons card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/details_Contactpannel_card"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_salaryexpectation_card"
+                app:layout_constraintEnd_toStartOf="@+id/details_salaryexpectation_card"
+                app:layout_constraintStart_toStartOf="@+id/details_mainresume_card"
+                app:layout_constraintTop_toTopOf="@+id/details_salaryexpectation_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <!--Call button -->
+                    <ImageButton
+                        android:id="@+id/call_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:contentDescription="@string/content_description_details_callbutton"
+                        android:elevation="1dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/phone"
+                        app:cornerRadius="20dp"
+                        app:iconTint="@color/white"
+                        app:layout_constraintEnd_toStartOf="@+id/mail_button"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/sms_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/TextAppearance.Material3.LabelSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="46dp"
-                        android:text="@string/details_section_birthdate_default"
-                        app:layout_constraintStart_toStartOf="@+id/birthday_section_title"
-                        app:layout_constraintTop_toBottomOf="@id/birthday_section_title" />
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:elevation="2dp"
+                        android:text="@string/details_contact_button_call_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/call_button"
+                        app:layout_constraintStart_toStartOf="@+id/call_button"
+                        app:layout_constraintTop_toBottomOf="@id/call_button" />
+
+
+                    <!--sms button -->
+                    <ImageButton
+                        android:id="@+id/sms_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:contentDescription="@string/content_description_details_callbutton"
+                        android:elevation="1dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/outline_message_24"
+                        app:cornerRadius="20dp"
+                        app:iconTint="@color/white"
+                        app:layout_constraintEnd_toStartOf="@+id/call_button"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/black"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <TextView
+                        android:id="@+id/sms_button_title"
+                        style="@style/TextAppearance.Material3.LabelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:elevation="2dp"
+                        android:text="@string/details_contact_button_sms_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/sms_button"
+                        app:layout_constraintStart_toStartOf="@+id/sms_button"
+                        app:layout_constraintTop_toBottomOf="@+id/sms_button" />
+
+
+                    <!--mail button -->
+                    <ImageButton
+                        android:id="@+id/mail_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:contentDescription="@string/content_description_details_callbutton"
+                        android:elevation="1dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/mail"
+                        app:cornerRadius="20dp"
+                        app:iconTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/call_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/black" />
 
                     <TextView
                         style="@style/TextAppearance.Material3.LabelSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="26dp"
-                        android:text="@string/details_section_birthdate_title"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:elevation="2dp"
+                        android:text="@string/details_contact_button_mail_title"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/birthday_date_textView"
-                        app:layout_constraintTop_toBottomOf="@id/birthday_date_textView" />
+                        app:layout_constraintEnd_toEndOf="@+id/mail_button"
+                        app:layout_constraintStart_toStartOf="@+id/mail_button"
+                        app:layout_constraintTop_toBottomOf="@id/mail_button" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- salary info -->
+            <!-- Basic main info card -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/salary_card"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
+                android:id="@+id/details_mainresume_card"
                 style="?attr/materialCardViewElevatedStyle"
-                app:layout_constraintTop_toBottomOf="@id/birthday_card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/details_Contactpannel_card"
+                app:layout_constraintEnd_toStartOf="@+id/details_otherresume_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/details_otherresume_card">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <!-- title -->
+                    android:layout_height="match_parent">
+                    <!-- Main first NAmer info   -->
                     <TextView
-                        android:id="@+id/salary_section_title"
-                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/details_bigfirstname_txt_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_section_salary_main_title"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="26dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/abril_fatface"
+                        tools:text="@tools:sample/first_names"
+                        android:textColor="@color/details_candidate_name_highlight_color"
+                        android:textSize="22sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                    <!-- salary -->
+                    <!-- Main NAmer info-->
                     <TextView
-                        android:id="@+id/salary_textView"
+                        android:id="@+id/details_bigname_txt_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:fontFamily="@font/abril_fatface"
+                        android:shadowColor="@color/text_black_light_color"
+                        android:shadowDy="1.5"
+                        android:shadowRadius="2.0"
+                        tools:text="@tools:sample/last_names"
+                        android:textColor="@color/details_big_name_color"
+                        android:textSize="31sp"
+                        app:layout_constraintStart_toStartOf="@+id/details_bigfirstname_txt_view"
+                        app:layout_constraintTop_toTopOf="@+id/details_bigfirstname_txt_view" />
+
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/details_card_name_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:dividerInsetEnd="16dp"
+                        app:dividerInsetStart="16dp"
+                        app:dividerThickness="0.5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/details_bigname_txt_view" />
+
+
+                    <!-- phone -->
+                    <TextView
+                        android:id="@+id/details_phone_textView"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="46dp"
-                        android:text="@string/details_section_salary_default"
-                        app:layout_constraintStart_toStartOf="@+id/salary_section_title"
-                        app:layout_constraintTop_toBottomOf="@id/salary_section_title" />
-                    <!-- convertion -->
+                        android:layout_marginTop="10dp"
+                        tools:text="@tools:sample/us_phones"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/details_phone_color"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toTopOf="@+id/details_mail_textView"
+                        app:layout_constraintStart_toStartOf="@+id/details_bigname_txt_view"
+                        app:layout_constraintTop_toBottomOf="@+id/details_card_name_divider" />
+                    <!-- mail -->
                     <TextView
-                        android:id="@+id/salary_convertion_textView"
-                        style="@style/TextAppearance.Material3.LabelMedium"
+                        android:id="@+id/details_mail_textView"
+                        style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="46dp"
-                        android:layout_marginBottom="26dp"
-                        android:text="@string/details_section_salary_conversion_default"
+                        android:layout_marginBottom="14dp"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/details_email_color"
+                        android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/salary_textView"
-                        app:layout_constraintTop_toBottomOf="@id/salary_textView" />
+                        app:layout_constraintStart_toStartOf="@+id/details_phone_textView"
+                        app:layout_constraintTop_toBottomOf="@id/details_phone_textView"
+                        tools:ignore="TextContrastCheck"
+                        tools:text="demo@demo.demo" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- notes info -->
+            <!-- Age card-->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notes_card"
+                android:id="@+id/details_otherresume_card"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="158dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_photo_card"
+                tools:ignore="TextSizeCheck">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <!-- BirthDate section  title-->
+                    <TextView
+                        android:id="@+id/details_birthdate_title_card"
+                        style="@style/TextAppearance.Material3.LabelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:backgroundTint="@color/primary_variant"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/details_section_birthdate_main_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+                    <!-- Age (number) -->
+                    <TextView
+                        android:id="@+id/birthday_age_textView"
+                        style="@style/TextAppearance.Material3.TitleLarge"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoSizeMaxTextSize="52sp"
+                        android:autoSizeMinTextSize="22sp"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center"
+                        android:shadowColor="@color/black"
+                        android:shadowDy="3.5"
+                        android:shadowRadius="2.0"
+                        android:text="@string/empty_age"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textColor="@color/text_black_light_color"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/details_birthdate_bottom_card_constraintLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/details_birthdate_title_card" />
+                    <!-- Years word -->
+                    <TextView
+                        android:id="@+id/birthday_age_suite_textView"
+                        style="@style/TextAppearance.Material3.LabelLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:text="@string/year_word"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textColor="@color/under_text_black_light_color"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toTopOf="@+id/details_birthdate_bottom_card_constraintLayout"
+                        app:layout_constraintEnd_toEndOf="@+id/birthday_age_textView"
+                        app:layout_constraintStart_toStartOf="@+id/birthday_age_textView"
+                        tools:ignore="TextContrastCheck" />
+                    <!-- Bottom section -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/details_birthdate_bottom_card_constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primary_variant"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+                        <!-- Birth date -->
+                        <TextView
+                            android:id="@+id/birthday_date_textView"
+                            style="@style/TextAppearance.Material3.TitleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/add_candidate_hint_default_birthdate"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TextContrastCheck" />
+
+                        <TextView
+                            style="@style/TextAppearance.Material3.LabelSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/details_section_birthdate_title"
+                            android:textColor="@color/birthday_undertext_color"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/birthday_date_textView"
+                            app:layout_constraintStart_toStartOf="@+id/birthday_date_textView"
+                            app:layout_constraintTop_toBottomOf="@id/birthday_date_textView"
+                            tools:ignore="TextContrastCheck" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section divider -->
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/materialDividernoteoutsider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerInsetEnd="56dp"
+                app:dividerInsetStart="56dp"
+                app:dividerThickness="0.5dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_salaryexpectation_card" />
+
+            <!-- Notes card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/details_notes_card"
+                style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                style="?attr/materialCardViewElevatedStyle"
+                android:layout_marginBottom="56dp"
+                android:visibility="visible"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="70dp"
-                app:layout_constraintTop_toBottomOf="@id/salary_card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintEnd_toEndOf="@+id/details_otherresume_card"
+                app:layout_constraintStart_toStartOf="@+id/details_mainresume_card"
+                app:layout_constraintTop_toBottomOf="@+id/materialDividernoteoutsider">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <!-- title -->
                     <TextView
                         android:id="@+id/notes_section_title"
-                        style="@style/TextAppearance.Material3.TitleMedium"
+                        style="@style/TextAppearance.Material3.LabelMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/cube_rounded_button_background"
+                        android:backgroundTint="@color/note_title_card_color"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="2dp"
                         android:text="@string/details_section_notes_main_title"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="26dp"
+                        android:textColor="@color/white"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+
+                    <!-- top divider -->
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/notes_Divider"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        app:dividerInsetEnd="56dp"
+                        app:dividerInsetStart="56dp"
+                        app:dividerThickness="0.0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/notes_section_title" />
+
                     <!-- notes -->
                     <TextView
                         android:id="@+id/notes_textView"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="46dp"
-                        android:layout_marginBottom="46dp"
-                        android:layout_marginEnd="16dp"
-                        tools:text="@tools:sample/lorem/random"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="35dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="@color/text_black_light_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/notes_section_title"
-                        app:layout_constraintTop_toBottomOf="@id/notes_section_title"
-                        tools:ignore="VisualLintLongText" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/notes_Divider"
+                        tools:ignore="VisualLintLongText"
+                        tools:text="@tools:sample/lorem" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

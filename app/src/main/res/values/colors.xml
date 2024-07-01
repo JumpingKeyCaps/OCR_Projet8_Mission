@@ -20,7 +20,19 @@
     <!--Text fields input validator -->
     <color name="valid_text_color">#4DB57C</color>
     <color name="error_text_color">#FF0000</color>
+
+    <!-- others colors -->
     <color name="item_candidate_notes_text_color">#49454F</color>
+    <color name="mini_candidate_placeholder_color_background">#EADBEA</color>
+    <color name="mini_candidate_placeholder_color_stroke">#F6F1F9</color>
+    <color name="details_candidate_name_highlight_color">#FF4081</color>
+    <color name="text_black_light_color">#565759</color>
+    <color name="under_text_black_light_color">#787575</color>
+    <color name="note_title_card_color">#C5A2A2</color>
+    <color name="birthday_undertext_color">#DFDEDE</color>
+    <color name="details_email_color">#939398</color>
+    <color name="details_phone_color">#2C2C2E</color>
+    <color name="details_big_name_color">#2C2A2A</color>
 
 
 </resources>

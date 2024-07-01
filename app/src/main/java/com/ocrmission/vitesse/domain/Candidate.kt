@@ -86,6 +86,29 @@ data class Candidate(
             )
         }
 
+
+        /**
+         *  function to create an empty default Candidate object -
+         *
+         *  Used to declare the flow in viewmodel before his first initialization .
+         *  (because candidate object cant be null)
+         */
+        fun createDefaultCandidate() = Candidate(
+            firstname = "",
+            lastname = "",
+            email = "",
+            phone = "",
+            birthday = null,
+            salary = 0,
+            note = "",
+            photoUri = "",
+            isFavorite = false
+        )
+
+
+
+
     }
 
 }
+
