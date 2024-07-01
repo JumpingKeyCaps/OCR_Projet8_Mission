@@ -103,8 +103,8 @@
     <string name="details_section_birthdate_default">dd/mm/yyyy (xx ans)</string>
     <string name="details_section_birthdate_title">Anniversaire</string>
     <string name="details_section_salary_main_title">Pretentions salariales</string>
-    <string name="details_section_salary_default" translatable="false">0000 €</string>
-    <string name="details_section_salary_conversion_default">soit 0000.0</string>
+    <string name="details_section_salary_default">--</string>
+    <string name="details_section_salary_conversion_default">...</string>
     <string name="details_section_notes_main_title">Notes</string>
 
     <!-- Edit Candidate Fragment String resources -->
@@ -139,7 +139,7 @@
 
     <string name="delete_candidate_dialog_positive_button">Confirmer</string>
     <string name="delete_candidate_dialog_negative_button">Annuler</string>
-    <string name="delete_candidate_dialog_message">Etes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.</string>
+    <string name="delete_candidate_dialog_message">Etes-vous sûr de vouloir supprimer ce candidat ?\n Cette action est irréversible.</string>
     <string name="delete_candidate_dialog_title">Suppression</string>
 
     <!-- Snack bar String resources -->
@@ -148,6 +148,16 @@
     <string name="snack_message_delete_candidate">Candidat supprimer !</string>
     <string name="snack_message_edit_update">Candidate successfully edited !</string>
     <string name="details_toolbar_title_edit">Modifier</string>
+    <string name="no_notes_available">"Aucune notes n'a été ajoutée à ce candidat. "</string>
+    <string name="no_salary_available">-</string>
+    <string name="snack_message_add_success">Candidat ajouté avec succès !</string>
+    <string name="server_error">Le serveur du service de conversion de devises semble rencontrer des difficultés, veuillez réessayer plus tard.</string>
+    <string name="network_fail_error">Impossible de récupérer le taux de conversion des salaires !\nVérifiez votre connexion à internet et réessayez.</string>
+    <string name="timeout_error">Le service de conversion de devises semble prendre plus de temps que prévu, veuillez réessayer.</string>
+    <string name="connection_fail_error">Impossible de se connecter au service de conversion de devises.\nVeuillez réessayez plus tard.</string>
+    <string name="network_generic_error">Le service de conversion de devises semble rencontrer des difficultés.\nVeuillez réessayer plus tard.</string>
+    <string name="empty_age">--</string>
+    <string name="details_section_salary_conversion_no_internet">...</string>
 
 
 </resources>
