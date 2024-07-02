@@ -93,16 +93,26 @@ data class Candidate(
          *  Used to declare the flow in viewmodel before his first initialization .
          *  (because candidate object cant be null)
          */
-        fun createDefaultCandidate() = Candidate(
-            firstname = "",
-            lastname = "",
-            email = "",
-            phone = "",
-            birthday = null,
-            salary = 0,
-            note = "",
-            photoUri = "",
-            isFavorite = false
+        fun createDefaultCandidate(
+            firstname: String? = "",
+            lastname: String? = "",
+            email: String? = "",
+            phone: String? = "",
+            birthday: LocalDateTime? = LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
+            salary: Int? = 0,
+            note: String? = "",
+            photoUri: String? = "",
+            isFavorite: Boolean? = false) = Candidate(
+            firstname = firstname?:"",
+            lastname = lastname?:"",
+            email = email?:"",
+            phone = phone?:"",
+            birthday = birthday,
+            salary = salary?:0,
+            note = note?:"",
+            photoUri = photoUri?:"",
+            isFavorite = isFavorite?:false
+
         )
 
 
