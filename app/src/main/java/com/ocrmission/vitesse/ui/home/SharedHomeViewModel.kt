@@ -51,7 +51,7 @@ class SharedHomeViewModel @Inject constructor(
      * Fetches the list of candidates from the repository and apply the shared filter collected.
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    private fun fetchFilteredCandidates() {
+    fun fetchFilteredCandidates() {
         viewModelScope.launch(Dispatchers.IO) {
             filter.flatMapLatest { filter ->
                 candidateRepository.getAllCandidates().map { candidatesDtos ->
