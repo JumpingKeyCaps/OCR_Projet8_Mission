@@ -119,7 +119,7 @@ class HomeFragment : Fragment() {
                 if(s.toString().isEmpty()){
                     binding.searchIcon.setImageResource(R.drawable.baseline_search_a)
                 }else{
-                    binding.searchIcon.setImageResource(R.drawable.erase_search_b)
+                    binding.searchIcon.setImageResource(R.drawable.erase_search_a)
                 }
                 val searchQuery = s.toString()
                 sharedViewModel.updateFilter(searchQuery)
