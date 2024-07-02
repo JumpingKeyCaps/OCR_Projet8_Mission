@@ -123,7 +123,6 @@ class DetailsCandidateViewModel @Inject constructor(
     /**
      * Method to format the birthday details
      * @param birthDate the candidate birthday
-     * @param dynamicString the other words with translation support
      * @return the formatted birthday details
      */
     fun birthdayDetailsStringBuilder(birthDate: LocalDateTime?): String{
