@@ -69,8 +69,6 @@ class SharedHomeViewModelTest {
         // Act (trigger the fetch only once)
         viewModel.fetchFilteredCandidates() // call it once
 
-
-    //TODO ------------------------------- NOT FINISHED
         // Assert that the candidates flow emits the expected filtered list
         candidateFlow.collect { actualCandidates ->
             assertEquals(expectedCandidatesList.map { Candidate.fromDto(it) }, actualCandidates.map { Candidate.fromDto(it) })
