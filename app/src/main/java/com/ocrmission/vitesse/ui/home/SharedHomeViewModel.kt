@@ -24,20 +24,18 @@ class SharedHomeViewModel @Inject constructor(
     private val candidateRepository: CandidateRepository
 ) : ViewModel() {
 
-    //FILTER STUFF
+    //SEARCH FILTER
     private val _filter = MutableStateFlow("")
     val filter: StateFlow<String> = _filter.asStateFlow()
-    //CANDIDATES LIST STUFF
+    //CANDIDATES LIST
     private val _candidates = MutableStateFlow<List<Candidate>>(emptyList())
     val candidates: StateFlow<List<Candidate>> = _candidates.asStateFlow()
-    //FAVORITES LIST STUFF
+    //FAVORITES LIST
     private val _favCandidates = MutableStateFlow<List<Candidate>>(emptyList())
     val favCandidates: StateFlow<List<Candidate>> = _favCandidates.asStateFlow()
-
     init {
         fetchFilteredCandidates()
     }
-
     /**
      * Update the filter value.
      * @param newFilter the new filter value.
@@ -45,8 +43,6 @@ class SharedHomeViewModel @Inject constructor(
     fun updateFilter(newFilter: String) {
         _filter.value = newFilter
     }
-
-
     /**
      * Fetches the list of candidates from the repository and apply the shared filter collected.
      */
